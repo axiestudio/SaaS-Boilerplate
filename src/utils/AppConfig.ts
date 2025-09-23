@@ -6,7 +6,7 @@ const localePrefix: LocalePrefix = 'as-needed';
 
 // FIXME: Update this configuration file based on your project information
 export const AppConfig = {
-  name: 'Axie Studio',
+  name: 'Axie Studio Chat Interface Builder',
   locales: [
     {
       id: 'en',
@@ -35,15 +35,15 @@ export const PricingPlanList: Record<string, PricingPlan> = {
     devPriceId: '',
     prodPriceId: '',
     features: {
-      teamMember: 2,
-      website: 2,
+      teamMember: 1,
+      website: 1,
       storage: 2,
-      transfer: 2,
+      transfer: 1,
     },
   },
   [PLAN_ID.PREMIUM]: {
     id: PLAN_ID.PREMIUM,
-    price: 79,
+    price: 29,
     interval: BILLING_INTERVAL.MONTH,
     testPriceId: 'price_premium_test', // Use for testing
     // FIXME: Update the price ID, you can create it after running `npm run stripe:setup-price`
@@ -51,23 +51,23 @@ export const PricingPlanList: Record<string, PricingPlan> = {
     prodPriceId: '',
     features: {
       teamMember: 5,
-      website: 5,
+      website: 3,
       storage: 5,
-      transfer: 5,
+      transfer: 10,
     },
   },
   [PLAN_ID.ENTERPRISE]: {
     id: PLAN_ID.ENTERPRISE,
-    price: 199,
+    price: 99,
     interval: BILLING_INTERVAL.MONTH,
     testPriceId: 'price_enterprise_test', // Use for testing
     // FIXME: Update the price ID, you can create it after running `npm run stripe:setup-price`
     devPriceId: 'price_1PNksvKOp3DEwzQli9IvXzgb',
     prodPriceId: 'price_123',
     features: {
-      teamMember: 100,
-      website: 100,
-      storage: 100,
+      teamMember: 50,
+      website: 10,
+      storage: 50,
       transfer: 100,
     },
   },

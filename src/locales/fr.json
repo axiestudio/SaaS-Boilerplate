@@ -1,7 +1,7 @@
 {
   "Index": {
-    "meta_title": "Axie Studio - Studio de Développement Professionnel",
-    "meta_description": "Services de développement professionnel et solutions construites avec des technologies modernes."
+    "meta_title": "Axie Studio - Constructeur d'Interface de Chat",
+    "meta_description": "Créez et personnalisez des interfaces de chat qui se connectent aux flux Axie Studio. Construisez des expériences de support client alimentées par l'IA."
   },
   "Navbar": {
     "sign_in": "Se connecter",
@@ -14,10 +14,10 @@
   },
   "Hero": {
     "follow_twitter": "Suivez @Ixartz sur Twitter",
-    "title": "Bienvenue chez <important>Axie Studio</important> - Votre Partenaire de Développement",
-    "description": "Services de développement professionnel et solutions innovantes pour vos besoins d'entreprise.",
+    "title": "Construisez des <important>Interfaces de Chat</important> Personnalisées pour Axie Studio",
+    "description": "Créez des expériences de chat de marque qui se connectent parfaitement à vos flux Axie Studio. Personnalisez l'apparence, gérez les conversations et déployez instantanément.",
     "primary_button": "Démarrer",
-    "secondary_button": "En savoir plus"
+    "secondary_button": "Voir la Démo"
   },
   "Sponsors": {
     "title": "Sponsorisé par"

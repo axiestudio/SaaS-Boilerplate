@@ -11,25 +11,82 @@ export const metadata: Metadata = {
   icons: [
     {
       rel: 'apple-touch-icon',
-      url: '/apple-touch-icon.png',
+      url: '/Favicons - Axie Studio/apple-icon.png',
     },
     {
       rel: 'icon',
       type: 'image/png',
       sizes: '32x32',
-      url: '/favicon-32x32.png',
+      url: '/Favicons - Axie Studio/favicon-32x32.png',
     },
     {
       rel: 'icon',
       type: 'image/png',
       sizes: '16x16',
-      url: '/favicon-16x16.png',
+      url: '/Favicons - Axie Studio/favicon-16x16.png',
     },
     {
       rel: 'icon',
-      url: '/favicon.ico',
+      url: '/Favicons - Axie Studio/favicon.ico',
+    },
+    {
+      rel: 'icon',
+      type: 'image/png',
+      sizes: '96x96',
+      url: '/Favicons - Axie Studio/favicon-96x96.png',
+    },
+    {
+      rel: 'apple-touch-icon',
+      sizes: '57x57',
+      url: '/Favicons - Axie Studio/apple-icon-57x57.png',
+    },
+    {
+      rel: 'apple-touch-icon',
+      sizes: '60x60',
+      url: '/Favicons - Axie Studio/apple-icon-60x60.png',
+    },
+    {
+      rel: 'apple-touch-icon',
+      sizes: '72x72',
+      url: '/Favicons - Axie Studio/apple-icon-72x72.png',
+    },
+    {
+      rel: 'apple-touch-icon',
+      sizes: '76x76',
+      url: '/Favicons - Axie Studio/apple-icon-76x76.png',
+    },
+    {
+      rel: 'apple-touch-icon',
+      sizes: '114x114',
+      url: '/Favicons - Axie Studio/apple-icon-114x114.png',
+    },
+    {
+      rel: 'apple-touch-icon',
+      sizes: '120x120',
+      url: '/Favicons - Axie Studio/apple-icon-120x120.png',
+    },
+    {
+      rel: 'apple-touch-icon',
+      sizes: '144x144',
+      url: '/Favicons - Axie Studio/apple-icon-144x144.png',
+    },
+    {
+      rel: 'apple-touch-icon',
+      sizes: '152x152',
+      url: '/Favicons - Axie Studio/apple-icon-152x152.png',
+    },
+    {
+      rel: 'apple-touch-icon',
+      sizes: '180x180',
+      url: '/Favicons - Axie Studio/apple-icon-180x180.png',
     },
   ],
+  manifest: '/Favicons - Axie Studio/manifest.json',
+  other: {
+    'msapplication-TileColor': '#ffffff',
+    'msapplication-TileImage': '/Favicons - Axie Studio/ms-icon-144x144.png',
+    'msapplication-config': '/Favicons - Axie Studio/browserconfig.xml',
+  },
 };
 
 export function generateStaticParams() {
