@@ -45,10 +45,13 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
     scrollToBottom();
   }, [messages]);
 
+  // Real-time config updates
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        const response = await fetch(`/api/chat-interfaces/public/${slug}`);
+        const response = await fetch(`/api/chat-interfaces/public/${slug}`, {
+          cache: 'no-store', // Always fetch fresh data
+        });
         
         if (!response.ok) {
           const errorData = await response.json();
@@ -64,6 +67,7 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
         }
 
         setConfig(configData);
+        setError(null);
       } catch (error) {
         console.error('Error fetching config:', error);
         setError('Failed to load chat interface. Please try again later.');
@@ -71,6 +75,11 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
     };
 
     fetchConfig();
+
+    // Set up polling for real-time updates every 5 seconds
+    const interval = setInterval(fetchConfig, 5000);
+
+    return () => clearInterval(interval);
   }, [slug]);
 
   useEffect(() => {
@@ -82,7 +91,7 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
         timestamp: new Date(),
       }]);
     }
-  }, [config]);
+  }, [config?.welcomeMessage]); // Update when welcome message changes
 
   const sendMessage = async () => {
     if (!inputValue.trim() || !config || isLoading) return;
@@ -124,7 +133,7 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
 
       setMessages(prev => [...prev, botMessage]);
 
-      // TODO: Save messages to database
+      // Save messages to database
       if (config.id) {
         try {
           await fetch('/api/chat-messages', {
@@ -196,7 +205,7 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Header */}
       <div 
-        className="p-4 text-white shadow-lg relative"
+        className="p-4 text-white shadow-lg relative transition-colors duration-300"
         style={{ backgroundColor: config.primaryColor }}
       >
         <div className="flex items-center justify-between max-w-4xl mx-auto">
@@ -239,7 +248,7 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
                   className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl shadow-sm ${
+                    className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl shadow-sm transition-colors duration-300 ${
                       message.isUser
                         ? 'text-white rounded-br-sm'
                         : 'text-gray-800 border rounded-bl-sm bg-white'
@@ -295,7 +304,7 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
                   onClick={sendMessage}
                   disabled={isLoading || !inputValue.trim()}
                   size="lg"
-                  className="rounded-xl px-6"
+                  className="rounded-xl px-6 transition-colors duration-300"
                   style={{ backgroundColor: config.primaryColor }}
                 >
                   <Send className="h-4 w-4" />
