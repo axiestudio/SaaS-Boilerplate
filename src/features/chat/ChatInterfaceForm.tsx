@@ -2,10 +2,10 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@clerk/nextjs';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Save, Eye, TestTube, Wand2 } from 'lucide-react';
+import { Save, Eye, TestTube, Wand2, Globe, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -37,19 +37,21 @@ const chatInterfaceSchema = z.object({
   secondaryColor: z.string().regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
   welcomeMessage: z.string().min(1, 'Welcome message is required').max(200, 'Welcome message must be less than 200 characters'),
   placeholderText: z.string().min(1, 'Placeholder text is required').max(100, 'Placeholder text must be less than 100 characters'),
+  isActive: z.boolean().default(true),
 });
 
 type ChatInterfaceFormData = z.infer<typeof chatInterfaceSchema>;
 
 export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
-  initialData?: Partial<ChatInterfaceFormData>;
+  initialData?: Partial<ChatInterfaceFormData & { id?: number }>;
   isEditing?: boolean;
 }) => {
   const { userId } = useAuth();
   const router = useRouter();
-  const [showPreview, setShowPreview] = useState(false);
+  const [showPreview, setShowPreview] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
+  const [publicUrl, setPublicUrl] = useState('');
 
   const form = useForm<ChatInterfaceFormData>({
     resolver: zodResolver(chatInterfaceSchema),
@@ -64,8 +66,20 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
       secondaryColor: initialData?.secondaryColor || '#F3F4F6',
       welcomeMessage: initialData?.welcomeMessage || 'Hello! How can I help you today?',
       placeholderText: initialData?.placeholderText || 'Type your message...',
+      isActive: initialData?.isActive ?? true,
     },
   });
+
+  // Watch all form values for real-time preview updates
+  const watchedValues = form.watch();
+
+  // Update public URL when slug changes
+  useEffect(() => {
+    const slug = watchedValues.slug;
+    if (slug) {
+      setPublicUrl(`${window.location.origin}/chat/${slug}`);
+    }
+  }, [watchedValues.slug]);
 
   const generateSlug = () => {
     const name = form.getValues('name');
@@ -112,11 +126,43 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
     }
   };
 
+  const togglePublicAccess = async () => {
+    if (!isEditing || !initialData?.id) return;
+    
+    const newStatus = !form.getValues('isActive');
+    form.setValue('isActive', newStatus);
+    
+    try {
+      const response = await fetch(`/api/chat-interfaces/${initialData.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          isActive: newStatus,
+        }),
+      });
+
+      if (response.ok) {
+        alert(`✅ Chat interface is now ${newStatus ? 'public' : 'private'}`);
+      } else {
+        // Revert on error
+        form.setValue('isActive', !newStatus);
+        alert('❌ Failed to update public access status');
+      }
+    } catch (error) {
+      // Revert on error
+      form.setValue('isActive', !newStatus);
+      console.error('Error toggling public access:', error);
+      alert('❌ Failed to update public access status');
+    }
+  };
+
   const onSubmit = async (data: ChatInterfaceFormData) => {
     setIsSubmitting(true);
     try {
-      const url = isEditing 
-        ? `/api/chat-interfaces/${initialData?.slug}` 
+      const url = isEditing && initialData?.id
+        ? `/api/chat-interfaces/${initialData.id}` 
         : '/api/chat-interfaces';
       
       const method = isEditing ? 'PUT' : 'POST';
@@ -137,11 +183,12 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
         alert(`✅ Chat interface ${isEditing ? 'updated' : 'created'} successfully!`);
         
         if (!isEditing) {
-          router.push('/dashboard');
+          // Redirect to edit page after creation
+          router.push(`/dashboard/chat-interfaces/${result.id}/edit`);
         }
       } else {
         const error = await response.json();
-        alert(`❌ Error: ${error.message || 'Something went wrong'}`);
+        alert(`❌ Error: ${error.error || 'Something went wrong'}`);
       }
     } catch (error) {
       console.error('Error saving chat interface:', error);
@@ -151,7 +198,15 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
     }
   };
 
-  const watchedValues = form.watch();
+  const copyPublicUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(publicUrl);
+      alert('✅ Public URL copied to clipboard!');
+    } catch (error) {
+      console.error('Failed to copy URL:', error);
+      alert('❌ Failed to copy URL');
+    }
+  };
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
@@ -211,6 +266,26 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                 />
               </div>
 
+              {/* Public URL Display and Copy */}
+              {publicUrl && (
+                <div className="p-4 bg-muted rounded-lg">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label className="text-sm font-medium">Public Chat URL</Label>
+                      <p className="text-sm text-muted-foreground break-all">{publicUrl}</p>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={copyPublicUrl}
+                    >
+                      Copy URL
+                    </Button>
+                  </div>
+                </div>
+              )}
+
               <FormField
                 control={form.control}
                 name="apiEndpoint"
@@ -260,6 +335,50 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   </Button>
                 </div>
               </div>
+            </DashboardSection>
+
+            {/* Public Access Control */}
+            <DashboardSection
+              title="Public Access"
+              description="Control whether your chat interface is publicly accessible"
+            >
+              <FormField
+                control={form.control}
+                name="isActive"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        {field.value ? (
+                          <Globe className="h-5 w-5 text-green-600" />
+                        ) : (
+                          <Lock className="h-5 w-5 text-red-600" />
+                        )}
+                        <div>
+                          <FormLabel className="text-base font-medium">
+                            {field.value ? 'Public Access Enabled' : 'Public Access Disabled'}
+                          </FormLabel>
+                          <FormDescription>
+                            {field.value 
+                              ? 'Your chat interface is publicly accessible via the URL above'
+                              : 'Your chat interface is private and not accessible to the public'
+                            }
+                          </FormDescription>
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        variant={field.value ? "destructive" : "default"}
+                        onClick={togglePublicAccess}
+                        disabled={!isEditing}
+                      >
+                        {field.value ? 'Make Private' : 'Make Public'}
+                      </Button>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </DashboardSection>
 
             {/* Branding & Appearance */}
@@ -401,22 +520,36 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                 <Eye className="h-4 w-4 mr-2" />
                 {showPreview ? 'Hide Preview' : 'Show Preview'}
               </Button>
+
+              {publicUrl && watchedValues.isActive && (
+                <Button 
+                  type="button" 
+                  variant="secondary" 
+                  size="lg"
+                  onClick={() => window.open(publicUrl, '_blank')}
+                >
+                  <Globe className="h-4 w-4 mr-2" />
+                  Open Public Chat
+                </Button>
+              )}
             </div>
           </form>
         </Form>
       </div>
 
-      {/* Preview - Takes 1/3 width on xl screens, full width on smaller screens */}
-      <div className="xl:col-span-1">
-        <div className="sticky top-6">
-          <DashboardSection
-            title="Live Preview"
-            description="See how your chat interface will look"
-          >
-            <ChatPreview config={watchedValues} />
-          </DashboardSection>
+      {/* Live Preview - Takes 1/3 width on xl screens */}
+      {showPreview && (
+        <div className="xl:col-span-1">
+          <div className="sticky top-6">
+            <DashboardSection
+              title="Live Preview"
+              description="See how your chat interface will look"
+            >
+              <ChatPreview config={watchedValues} />
+            </DashboardSection>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

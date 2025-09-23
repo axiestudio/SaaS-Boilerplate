@@ -48,33 +48,25 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        // TODO: Replace with actual API call
-        // const response = await fetch(`/api/chat-interfaces/public/${slug}`);
+        const response = await fetch(`/api/chat-interfaces/public/${slug}`);
         
-        // Mock data for demonstration
-        const mockConfig: ChatConfig = {
-          id: 1,
-          name: 'Customer Support Chat',
-          brandName: 'TechCorp Support',
-          logoUrl: '/axie-logo.webp',
-          primaryColor: '#3B82F6',
-          secondaryColor: '#F3F4F6',
-          welcomeMessage: 'Hello! I\'m here to help you with any questions about our products and services. How can I assist you today?',
-          placeholderText: 'Type your message here...',
-          apiEndpoint: 'https://flow.axiestudio.se/api/v1/run/f367b850-4b93-47a2-9cc2-b6562a674ba4',
-          apiKey: 'your-api-key',
-          isActive: true,
-        };
-
-        if (!mockConfig.isActive) {
-          setError('This chat interface is currently unavailable.');
+        if (!response.ok) {
+          const errorData = await response.json();
+          setError(errorData.message || 'This chat interface is currently unavailable.');
           return;
         }
 
-        setConfig(mockConfig);
+        const configData = await response.json();
+        
+        if (!configData.isPublic) {
+          setError('This chat interface is currently not public. Please check back later.');
+          return;
+        }
+
+        setConfig(configData);
       } catch (error) {
         console.error('Error fetching config:', error);
-        setError('Failed to load chat interface.');
+        setError('Failed to load chat interface. Please try again later.');
       }
     };
 
@@ -133,15 +125,25 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
       setMessages(prev => [...prev, botMessage]);
 
       // TODO: Save messages to database
-      // await fetch('/api/chat-messages', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     chatInterfaceId: config.id,
-      //     sessionId,
-      //     messages: [userMessage, botMessage]
-      //   })
-      // });
+      if (config.id) {
+        try {
+          await fetch('/api/chat-messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chatInterfaceId: config.id,
+              sessionId,
+              messages: [
+                { text: userMessage.text, isUser: true },
+                { text: botMessage.text, isUser: false }
+              ]
+            })
+          });
+        } catch (saveError) {
+          console.error('Failed to save messages:', saveError);
+          // Don't show error to user for message saving failures
+        }
+      }
 
     } catch (error) {
       console.error('Error sending message:', error);
@@ -168,9 +170,12 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center p-8 bg-white rounded-lg shadow-lg max-w-md">
-          <div className="text-6xl mb-4">😔</div>
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">Chat Unavailable</h1>
-          <p className="text-gray-600">{error}</p>
+          <div className="text-6xl mb-4">🔒</div>
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">Chat Interface Not Available</h1>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <div className="text-sm text-gray-500">
+            If you believe this is an error, please contact the chat interface owner.
+          </div>
         </div>
       </div>
     );

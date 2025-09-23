@@ -17,9 +17,18 @@ type ChatConfig = {
 
 export const ChatPreview = ({ config }: { config: ChatConfig }) => {
   const [messages, setMessages] = useState([
-    { id: 1, text: config.welcomeMessage || 'Hello! How can I help you today?', isUser: false }
+    { id: 1, text: '', isUser: false }
   ]);
   const [inputValue, setInputValue] = useState('');
+
+  // Update welcome message when config changes
+  useEffect(() => {
+    setMessages([{
+      id: 1,
+      text: config.welcomeMessage || 'Hello! How can I help you today?',
+      isUser: false
+    }]);
+  }, [config.welcomeMessage]);
 
   const sendMessage = () => {
     if (!inputValue.trim()) return;
@@ -42,7 +51,7 @@ export const ChatPreview = ({ config }: { config: ChatConfig }) => {
   };
 
   return (
-    <div className="border rounded-lg overflow-hidden bg-white max-w-md mx-auto">
+    <div className="border rounded-lg overflow-hidden bg-white max-w-md mx-auto shadow-lg">
       {/* Header */}
       <div 
         className="p-4 text-white"
@@ -58,7 +67,10 @@ export const ChatPreview = ({ config }: { config: ChatConfig }) => {
           )}
           <div>
             <h3 className="font-semibold">{config.brandName || 'Your Brand'}</h3>
-            <p className="text-sm opacity-90">Online</p>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <p className="text-sm opacity-90">Online</p>
+            </div>
           </div>
         </div>
       </div>
@@ -97,14 +109,19 @@ export const ChatPreview = ({ config }: { config: ChatConfig }) => {
             placeholder={config.placeholderText || 'Type your message...'}
             onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
             className="flex-1"
+            disabled={!config.brandName} // Disable if no brand name (incomplete config)
           />
           <Button 
             onClick={sendMessage}
             size="sm"
             style={{ backgroundColor: config.primaryColor || '#3B82F6' }}
+            disabled={!inputValue.trim() || !config.brandName}
           >
             <Send className="h-4 w-4" />
           </Button>
+        </div>
+        <div className="text-xs text-gray-500 mt-2 text-center">
+          Live Preview - Changes update in real-time
         </div>
       </div>
     </div>

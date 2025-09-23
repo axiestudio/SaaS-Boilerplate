@@ -27,6 +27,11 @@ export default function middleware(
   request: NextRequest,
   event: NextFetchEvent,
 ) {
+  // Allow public chat interfaces to be accessed without authentication
+  if (request.nextUrl.pathname.startsWith('/chat/')) {
+    return intlMiddleware(request);
+  }
+
   if (
     request.nextUrl.pathname.includes('/sign-in')
     || request.nextUrl.pathname.includes('/sign-up')
@@ -69,5 +74,10 @@ export default function middleware(
 }
 
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next|monitoring).*)', '/', '/(api|trpc)(.*)'], // Also exclude tunnelRoute used in Sentry from the matcher
+  matcher: [
+    '/((?!.+\\.[\\w]+$|_next|monitoring).*)', 
+    '/', 
+    '/(api|trpc)(.*)',
+    '/chat/:path*' // Explicitly include chat routes
+  ], // Also exclude tunnelRoute used in Sentry from the matcher
 };
