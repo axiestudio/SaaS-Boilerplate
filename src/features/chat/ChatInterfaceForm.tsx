@@ -130,7 +130,6 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
     if (!isEditing || !initialData?.id) return;
     
     const newStatus = !form.getValues('isActive');
-    form.setValue('isActive', newStatus);
     
     try {
       const response = await fetch(`/api/chat-interfaces/${initialData.id}`, {
@@ -144,15 +143,12 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
       });
 
       if (response.ok) {
+        form.setValue('isActive', newStatus);
         alert(`✅ Chat interface is now ${newStatus ? 'public' : 'private'}`);
       } else {
-        // Revert on error
-        form.setValue('isActive', !newStatus);
         alert('❌ Failed to update public access status');
       }
     } catch (error) {
-      // Revert on error
-      form.setValue('isActive', !newStatus);
       console.error('Error toggling public access:', error);
       alert('❌ Failed to update public access status');
     }
@@ -180,11 +176,17 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
 
       if (response.ok) {
         const result = await response.json();
-        alert(`✅ Chat interface ${isEditing ? 'updated' : 'created'} successfully!`);
+        
+        // Show success message
+        const action = isEditing ? 'updated' : 'created';
+        alert(`✅ Chat interface ${action} successfully!`);
         
         if (!isEditing) {
           // Redirect to edit page after creation
           router.push(`/dashboard/chat-interfaces/${result.id}/edit`);
+        } else {
+          // Refresh the page to show updated data
+          window.location.reload();
         }
       } else {
         const error = await response.json();

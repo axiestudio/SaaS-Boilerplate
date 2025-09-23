@@ -8,8 +8,7 @@ async function getChatInterfaceMetadata(slug: string) {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
     const response = await fetch(`${baseUrl}/api/chat-interfaces/public/${slug}`, {
-      // Add cache control for better performance
-      next: { revalidate: 300 } // Revalidate every 5 minutes
+      cache: 'no-store', // Always fetch fresh data for real-time updates
     });
     
     if (!response.ok) {

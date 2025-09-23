@@ -33,44 +33,18 @@ export const ChatInterfaceList = () => {
   useEffect(() => {
     const fetchInterfaces = async () => {
       try {
-        // TODO: Replace with actual API call
-        // const response = await fetch('/api/chat-interfaces');
-        // const data = await response.json();
+        const response = await fetch('/api/chat-interfaces');
         
-        // Mock data for demonstration
-        const mockData: ChatInterface[] = [
-          {
-            id: 1,
-            slug: 'customer-support-bot',
-            name: 'Customer Support Chat',
-            brandName: 'TechCorp Support',
-            isActive: true,
-            createdAt: new Date().toISOString(),
-            messageCount: 156
-          },
-          {
-            id: 2,
-            slug: 'sales-assistant',
-            name: 'Sales Assistant',
-            brandName: 'TechCorp Sales',
-            isActive: true,
-            createdAt: new Date(Date.now() - 86400000).toISOString(),
-            messageCount: 89
-          },
-          {
-            id: 3,
-            slug: 'product-demo-chat',
-            name: 'Product Demo Chat',
-            brandName: 'TechCorp Demo',
-            isActive: false,
-            createdAt: new Date(Date.now() - 172800000).toISOString(),
-            messageCount: 23
-          }
-        ];
+        if (!response.ok) {
+          throw new Error('Failed to fetch chat interfaces');
+        }
         
-        setInterfaces(mockData);
+        const data = await response.json();
+        
+        setInterfaces(data);
       } catch (error) {
         console.error('Error fetching chat interfaces:', error);
+        setInterfaces([]);
       } finally {
         setLoading(false);
       }
@@ -94,7 +68,20 @@ export const ChatInterfaceList = () => {
 
   const toggleStatus = async (id: number, currentStatus: boolean) => {
     try {
-      // TODO: API call to toggle status
+      const response = await fetch(`/api/chat-interfaces/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          isActive: !currentStatus,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to toggle status');
+      }
+
       setInterfaces(prev => 
         prev.map(interface_ => 
           interface_.id === id 
@@ -104,6 +91,7 @@ export const ChatInterfaceList = () => {
       );
     } catch (error) {
       console.error('Error toggling status:', error);
+      alert('Failed to toggle status. Please try again.');
     }
   };
 
@@ -113,10 +101,21 @@ export const ChatInterfaceList = () => {
     }
 
     try {
-      // TODO: API call to delete
+      const response = await fetch(`/api/chat-interfaces/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete interface');
+      }
+
+      // Remove from local state
       setInterfaces(prev => prev.filter(interface_ => interface_.id !== id));
+      
+      alert('Chat interface deleted successfully!');
     } catch (error) {
       console.error('Error deleting interface:', error);
+      alert('Failed to delete interface. Please try again.');
     }
   };
 
