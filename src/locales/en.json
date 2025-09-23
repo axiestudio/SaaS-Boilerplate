@@ -1,7 +1,7 @@
 {
   "Index": {
-    "meta_title": "Axie Studio - Professional Development Studio",
-    "meta_description": "Professional development services and solutions built with modern technologies."
+    "meta_title": "Axie Studio - Chat Interface Builder",
+    "meta_description": "Create and customize chat interfaces that connect to Axie Studio flows. Build professional AI-powered customer support experiences."
   },
   "Navbar": {
     "sign_in": "Sign In",
@@ -24,34 +24,34 @@
   },
   "Features": {
     "section_subtitle": "Features",
-    "section_title": "Our Services",
-    "section_description": "Professional development services tailored to your business needs.",
-    "feature1_title": "Node.js",
-    "feature2_title": "React",
-    "feature3_title": "Tailwind CSS",
-    "feature4_title": "TypeScript",
-    "feature5_title": "Shadcn UI",
-    "feature6_title": "ESLint",
-    "feature_description": "Modern development technologies and best practices for your projects."
+    "section_title": "Powerful Chat Interface Features",
+    "section_description": "Everything you need to create professional chat experiences for your customers.",
+    "feature1_title": "Custom Branding",
+    "feature2_title": "Real-time Chat",
+    "feature3_title": "API Integration",
+    "feature4_title": "Analytics Dashboard",
+    "feature5_title": "Multi-language",
+    "feature6_title": "Mobile Responsive",
+    "feature_description": "Professional chat interfaces with full customization, real-time messaging, and seamless Axie Studio integration."
   },
   "Pricing": {
     "section_subtitle": "Pricing",
-    "section_title": "Choose Your Plan",
-    "section_description": "Select the perfect plan for your development needs.",
+    "section_title": "Choose Your Chat Plan",
+    "section_description": "Select the perfect plan for your chat interface needs.",
     "button_text": "Get Started"
   },
   "PricingPlan": {
     "free_plan_name": "Free",
     "premium_plan_name": "Premium",
     "enterprise_plan_name": "Enterprise",
-    "free_plan_description": "For individuals",
-    "premium_plan_description": "For small teams",
-    "enterprise_plan_description": "For industry leaders",
-    "feature_team_member": "{number} Team Members",
-    "feature_website": "{number} Websites",
-    "feature_storage": "{number} GB Storage",
-    "feature_transfer": "{number} TB Transfer",
-    "feature_email_support": "Email Support",
+    "free_plan_description": "For personal projects",
+    "premium_plan_description": "For growing businesses",
+    "enterprise_plan_description": "For large organizations",
+    "feature_team_member": "{number} Chat Interfaces",
+    "feature_website": "{number} Custom Domains",
+    "feature_storage": "{number} GB Message History",
+    "feature_transfer": "{number}K Messages/Month",
+    "feature_email_support": "Priority Support",
     "plan_interval_month": "month",
     "plan_interval_year": "year",
     "next_renew_date": "Your subscription renews on {date}"
@@ -94,16 +94,16 @@
     "organization": "Organization"
   },
   "Dashboard": {
-    "meta_title": "Axie Studio Dashboard",
-    "meta_description": "Your Axie Studio dashboard for managing projects and services."
+    "meta_title": "Axie Studio Chat Dashboard",
+    "meta_description": "Manage your chat interfaces, customize branding, and monitor conversations."
   },
   "DashboardIndex": {
-    "title_bar": "Dashboard",
-    "title_bar_description": "Welcome to Axie Studio",
-    "message_state_title": "Welcome to your workspace",
-    "message_state_description": "Your dashboard is ready. Start building amazing projects with Axie Studio.",
-    "message_state_button": "Get Started",
-    "message_state_alternative": "Ready to build something amazing?"
+    "title_bar": "Chat Interface Dashboard",
+    "title_bar_description": "Manage your chat interfaces and monitor performance",
+    "message_state_title": "Welcome to your chat workspace",
+    "message_state_description": "Create and manage custom chat interfaces that connect to your Axie Studio flows.",
+    "message_state_button": "Create First Chat Interface",
+    "message_state_alternative": "Ready to engage your customers?"
   },
   "UserProfile": {
     "title_bar": "User Profile",

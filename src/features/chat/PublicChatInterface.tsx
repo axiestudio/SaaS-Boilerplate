@@ -311,7 +311,14 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
                 </Button>
               </div>
               <div className="text-xs text-gray-500 mt-2 text-center">
-                Powered by Axie Studio
+                <a 
+                  href="https://axiestudio.se" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                >
+                  Powered by <span className="font-semibold">Axie Studio</span>
+                </a>
               </div>
             </div>
           </div>
