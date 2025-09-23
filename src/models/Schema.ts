@@ -73,6 +73,10 @@ export const chatInterfaceSchema = pgTable('chat_interface', {
   logoUrl: text('logo_url'),
   primaryColor: text('primary_color').default('#3B82F6').notNull(),
   secondaryColor: text('secondary_color').default('#F3F4F6').notNull(),
+  fontFamily: text('font_family').default('Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif').notNull(),
+  textColor: text('text_color').default('#1F2937').notNull(),
+  botMessageColor: text('bot_message_color').default('#F9FAFB').notNull(),
+  userMessageColor: text('user_message_color').default('#3B82F6').notNull(),
   welcomeMessage: text('welcome_message').default('Hello! How can I help you today?').notNull(),
   placeholderText: text('placeholder_text').default('Type your message...').notNull(),
   

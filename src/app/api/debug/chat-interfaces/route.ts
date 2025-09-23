@@ -32,7 +32,7 @@ export async function GET() {
       { 
         success: false,
         error: 'Failed to fetch chat interfaces',
-        message: error.message 
+        message: (error as Error).message
       },
       { status: 500 }
     );

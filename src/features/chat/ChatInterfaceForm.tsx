@@ -35,6 +35,10 @@ const chatInterfaceSchema = z.object({
   logoUrl: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   primaryColor: z.string().regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
   secondaryColor: z.string().regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
+  fontFamily: z.string().min(1, 'Font family is required'),
+  textColor: z.string().regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
+  botMessageColor: z.string().regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
+  userMessageColor: z.string().regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
   welcomeMessage: z.string().min(1, 'Welcome message is required').max(200, 'Welcome message must be less than 200 characters'),
   placeholderText: z.string().min(1, 'Placeholder text is required').max(100, 'Placeholder text must be less than 100 characters'),
   isActive: z.boolean().default(true),
@@ -64,6 +68,10 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
       logoUrl: initialData?.logoUrl || '',
       primaryColor: initialData?.primaryColor || '#3B82F6',
       secondaryColor: initialData?.secondaryColor || '#F3F4F6',
+      fontFamily: initialData?.fontFamily || 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      textColor: initialData?.textColor || '#1F2937',
+      botMessageColor: initialData?.botMessageColor || '#F9FAFB',
+      userMessageColor: initialData?.userMessageColor || '#3B82F6',
       welcomeMessage: initialData?.welcomeMessage || 'Hello! How can I help you today?',
       placeholderText: initialData?.placeholderText || 'Type your message...',
       isActive: initialData?.isActive ?? true,
@@ -464,6 +472,104 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     </FormItem>
                   )}
                 />
+              </div>
+
+              {/* Typography & Colors Section */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-gray-900">Typography & Advanced Colors</h3>
+
+                <FormField
+                  control={form.control}
+                  name="fontFamily"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Font Family *</FormLabel>
+                      <FormControl>
+                        <select
+                          {...field}
+                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                          <option value="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Inter (Modern)</option>
+                          <option value="'Helvetica Neue', Helvetica, Arial, sans-serif">Helvetica</option>
+                          <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                          <option value="Georgia, serif">Georgia</option>
+                          <option value="'Courier New', Courier, monospace">Courier New</option>
+                          <option value="'Arial Black', Arial, sans-serif">Arial Black</option>
+                          <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                          <option value="Verdana, sans-serif">Verdana</option>
+                          <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+                          <option value="Impact, sans-serif">Impact</option>
+                        </select>
+                      </FormControl>
+                      <FormDescription>
+                        Choose the font family for your chat interface
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="textColor"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Text Color *</FormLabel>
+                        <FormControl>
+                          <div className="flex gap-2">
+                            <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
+                            <Input placeholder="#1F2937" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormDescription>
+                          Main text color
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="botMessageColor"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Bot Message Color *</FormLabel>
+                        <FormControl>
+                          <div className="flex gap-2">
+                            <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
+                            <Input placeholder="#F9FAFB" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormDescription>
+                          Bot message background
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="userMessageColor"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>User Message Color *</FormLabel>
+                        <FormControl>
+                          <div className="flex gap-2">
+                            <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
+                            <Input placeholder="#3B82F6" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormDescription>
+                          User message background
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

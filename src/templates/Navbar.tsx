@@ -33,29 +33,14 @@ export const Navbar = () => {
           </>
         )}
       >
-        <li>
-          <Link href="#features" className="text-sm font-medium hover:text-primary">
-            Features
-          </Link>
-        </li>
+        <></>
 
-        <li>
-          <Link href="#pricing" className="text-sm font-medium hover:text-primary">
-            Pricing
-          </Link>
-        </li>
 
-        <li>
-          <Link href="/chat/demo" className="text-sm font-medium hover:text-primary">
-            Demo
-          </Link>
-        </li>
 
-        <li>
-          <Link href="https://axiestudio.se" target="_blank" className="text-sm font-medium hover:text-primary">
-            Axie Studio
-          </Link>
-        </li>
+
+
+
+
       </CenteredMenu>
     </Section>
   );

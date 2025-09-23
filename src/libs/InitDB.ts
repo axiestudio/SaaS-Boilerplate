@@ -52,7 +52,7 @@ export async function initializeDatabase() {
     isInitialized = true;
   } catch (error) {
     console.error('❌ Database initialization failed:', error);
-    console.error('Stack trace:', error.stack);
+    console.error('Stack trace:', (error as Error).stack);
     throw error;
   }
 }

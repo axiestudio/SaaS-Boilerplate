@@ -33,16 +33,8 @@ export default function DashboardLayout(props: { children: React.ReactNode }) {
                 label: t('create_chat'),
               },
               {
-                href: '/dashboard/settings',
-                label: t('settings'),
-              },
-              {
-                href: '/dashboard/organization-profile/organization-members',
-                label: t('members'),
-              },
-              {
-                href: '/dashboard/organization-profile',
-                label: t('organization'),
+                href: '/dashboard/account',
+                label: t('account'),
               },
             ]}
           />

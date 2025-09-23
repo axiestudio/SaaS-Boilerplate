@@ -1,22 +1,34 @@
 import { notFound } from 'next/navigation';
+import { auth } from '@clerk/nextjs/server';
+import { eq, and } from 'drizzle-orm';
 
 import { TitleBar } from '@/features/dashboard/TitleBar';
 import { ChatInterfaceForm } from '@/features/chat/ChatInterfaceForm';
+import { db } from '@/libs/DB';
+import { chatInterfaceSchema } from '@/models/Schema';
 
 async function getChatInterface(id: string) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/chat-interfaces/${id}`, {
-      next: { revalidate: 0 }, // Always fetch fresh data for editing
-      headers: {
-        'Cache-Control': 'no-cache',
-      },
-    });
-    
-    if (!response.ok) {
+    const { userId } = await auth();
+
+    if (!userId) {
       return null;
     }
-    
-    return await response.json();
+
+    const chatInterfaceId = parseInt(id);
+    if (isNaN(chatInterfaceId)) {
+      return null;
+    }
+
+    // Fetch directly from database with authentication
+    const chatInterface = await db.query.chatInterfaceSchema.findFirst({
+      where: and(
+        eq(chatInterfaceSchema.id, chatInterfaceId),
+        eq(chatInterfaceSchema.ownerId, userId)
+      ),
+    });
+
+    return chatInterface || null;
   } catch (error) {
     console.error('Error fetching chat interface:', error);
     return null;

@@ -89,9 +89,7 @@
   "DashboardLayout": {
     "home": "Accueil",
     "create_chat": "Créer Chat",
-    "members": "Membres",
-    "settings": "Paramètres",
-    "organization": "Organisation"
+    "account": "Compte"
   },
   "Dashboard": {
     "meta_title": "Tableau de bord du SaaS Template",

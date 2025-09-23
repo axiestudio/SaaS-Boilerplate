@@ -31,8 +31,8 @@ const IndexPage = (props: { params: { locale: string } }) => {
       <Features />
       <HowItWorks />
       <Benefits />
-      <Pricing />
-      <CTA />
+      {/* <Pricing /> */}
+      {/* 🎯 REMOVED CTA SECTION */}
       <Footer />
     </>
   );

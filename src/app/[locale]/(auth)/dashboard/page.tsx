@@ -12,12 +12,15 @@ const DashboardIndexPage = () => {
 
   return (
     <>
-      <TitleBar
-        title={t('title_bar')}
-        description={t('title_bar_description')}
-      />
+      {/* 🎯 CENTERED TITLE BAR */}
+      <div className="text-center mb-8">
+        <div className="text-2xl font-semibold">{t('title_bar')}</div>
+        <div className="text-sm font-medium text-muted-foreground">
+          {t('title_bar_description')}
+        </div>
+      </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 max-w-6xl mx-auto">
         {/* Quick Actions */}
         <DashboardSection
           title="Quick Actions"
@@ -30,10 +33,10 @@ const DashboardIndexPage = () => {
                 Create New Chat Interface
               </Button>
             </Link>
-            <Link href="/dashboard/settings">
+            <Link href="/dashboard/account">
               <Button variant="outline" className="flex items-center gap-2">
                 <Settings className="h-4 w-4" />
-                API Settings
+                Account Settings
               </Button>
             </Link>
           </div>

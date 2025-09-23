@@ -89,9 +89,7 @@
   "DashboardLayout": {
     "home": "Home",
     "create_chat": "Create Chat",
-    "members": "Members",
-    "settings": "Settings",
-    "organization": "Organization"
+    "account": "Account"
   },
   "Dashboard": {
     "meta_title": "Axie Studio Chat Dashboard",
@@ -112,6 +110,10 @@
   "OrganizationProfile": {
     "title_bar": "Organization Management",
     "title_bar_description": "Manage your organization"
+  },
+  "Account": {
+    "title_bar": "Account Management",
+    "title_bar_description": "Manage your account settings and preferences"
   },
   "Billing": {
     "title_bar": "Billing",

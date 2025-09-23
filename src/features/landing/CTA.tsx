@@ -21,12 +21,7 @@ export const CTA = () => {
             Start Free Trial
             <ArrowRight className="ml-2 h-4 w-4" />
           </a>
-          <a
-            className={buttonVariants({ variant: 'outline', size: 'lg', className: 'px-8' })}
-            href="/chat/demo"
-          >
-            View Live Demo
-          </a>
+
         </div>
         <p className="text-sm text-muted-foreground mt-4">
           No credit card required • Setup in under 5 minutes • Cancel anytime

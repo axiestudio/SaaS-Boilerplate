@@ -11,6 +11,10 @@ type ChatConfig = {
   logoUrl?: string;
   primaryColor: string;
   secondaryColor: string;
+  fontFamily?: string;
+  textColor?: string;
+  botMessageColor?: string;
+  userMessageColor?: string;
   welcomeMessage: string;
   placeholderText: string;
 };
@@ -20,6 +24,7 @@ export const ChatPreview = ({ config }: { config: ChatConfig }) => {
     { id: 1, text: '', isUser: false }
   ]);
   const [inputValue, setInputValue] = useState('');
+  const [isUpdating, setIsUpdating] = useState(false);
 
   // Update welcome message when config changes
   useEffect(() => {
@@ -29,6 +34,13 @@ export const ChatPreview = ({ config }: { config: ChatConfig }) => {
       isUser: false
     }]);
   }, [config.welcomeMessage]);
+
+  // Show visual feedback when config changes
+  useEffect(() => {
+    setIsUpdating(true);
+    const timer = setTimeout(() => setIsUpdating(false), 300);
+    return () => clearTimeout(timer);
+  }, [config]);
 
   const sendMessage = () => {
     if (!inputValue.trim()) return;
@@ -51,9 +63,17 @@ export const ChatPreview = ({ config }: { config: ChatConfig }) => {
   };
 
   return (
-    <div className="border rounded-lg overflow-hidden bg-white max-w-md mx-auto shadow-lg">
+    <div
+      className={`border rounded-lg overflow-hidden bg-white max-w-md mx-auto shadow-lg transition-all duration-300 ${
+        isUpdating ? 'ring-2 ring-blue-500 ring-opacity-50' : ''
+      }`}
+      style={{
+        fontFamily: config.fontFamily || 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        color: config.textColor || '#1F2937'
+      }}
+    >
       {/* Header */}
-      <div 
+      <div
         className="p-4 text-white"
         style={{ backgroundColor: config.primaryColor || '#3B82F6' }}
       >
@@ -83,15 +103,14 @@ export const ChatPreview = ({ config }: { config: ChatConfig }) => {
             className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
-                message.isUser
-                  ? 'text-white'
-                  : 'text-gray-800'
-              }`}
+              className="max-w-xs px-3 py-2 rounded-lg text-sm"
               style={{
-                backgroundColor: message.isUser 
-                  ? config.primaryColor || '#3B82F6'
-                  : config.secondaryColor || '#F3F4F6'
+                backgroundColor: message.isUser
+                  ? (config.userMessageColor || config.primaryColor || '#3B82F6')
+                  : (config.botMessageColor || '#F9FAFB'),
+                color: message.isUser
+                  ? 'white'
+                  : (config.textColor || '#1F2937')
               }}
             >
               {message.text}
@@ -120,8 +139,13 @@ export const ChatPreview = ({ config }: { config: ChatConfig }) => {
             <Send className="h-4 w-4" />
           </Button>
         </div>
-        <div className="text-xs text-gray-500 mt-2 text-center">
-          Live Preview - Changes update in real-time
+        <div className="text-xs text-gray-500 mt-2 text-center flex items-center justify-center gap-2">
+          <div className={`w-2 h-2 rounded-full ${
+            isUpdating ? 'bg-blue-500 animate-ping' : 'bg-green-500 animate-pulse'
+          }`}></div>
+          <span>
+            {isUpdating ? 'Updating...' : 'Live Preview - Changes update in real-time'}
+          </span>
         </div>
       </div>
     </div>
