@@ -88,10 +88,10 @@
   },
   "DashboardLayout": {
     "home": "Home",
-    "todos": "Todos",
+    "create_chat": "Create Chat",
     "members": "Members",
-    "billing": "Billing",
-    "settings": "Settings"
+    "settings": "Settings",
+    "organization": "Organization"
   },
   "Dashboard": {
     "meta_title": "Axie Studio Dashboard",

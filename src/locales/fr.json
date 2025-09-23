@@ -88,10 +88,10 @@
   },
   "DashboardLayout": {
     "home": "Accueil",
-    "todos": "Todos",
+    "create_chat": "Créer Chat",
     "members": "Membres",
-    "billing": "Facturation",
-    "settings": "Réglages"
+    "settings": "Paramètres",
+    "organization": "Organisation"
   },
   "Dashboard": {
     "meta_title": "Tableau de bord du SaaS Template",
