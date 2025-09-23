@@ -1,5 +1,7 @@
 import {
   bigint,
+  boolean,
+  integer,
   pgTable,
   serial,
   text,
