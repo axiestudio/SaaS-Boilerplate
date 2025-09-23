@@ -8,31 +8,38 @@ export const Hero = () => {
   const t = useTranslations('Hero');
 
   return (
-    <Section className="py-36">
+    <Section className="py-24">
       <CenteredHero
-        banner={<div></div>}
-        title={t.rich('title', {
-          important: chunks => (
-            <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              {chunks}
-            </span>
-          ),
-        })}
-        description={t('description')}
+        banner={
+          <div className="inline-flex items-center rounded-full border border-border bg-muted px-3 py-1 text-sm font-medium">
+            <span className="mr-2 h-2 w-2 rounded-full bg-green-500"></span>
+            Trusted by businesses worldwide
+          </div>
+        }
+        title={
+          <span>
+            Build Professional{' '}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              AI Chat Interfaces
+            </span>{' '}
+            for Your Business
+          </span>
+        }
+        description="Create custom-branded chat experiences that connect seamlessly to your Axie Studio AI flows. Deploy instantly, customize completely, and engage customers with intelligent conversations."
         buttons={(
           <>
             <a
-              className={buttonVariants({ size: 'lg' })}
+              className={buttonVariants({ size: 'lg', className: 'px-8' })}
               href="/sign-up"
             >
-              {t('primary_button')}
+              Start Building Free
             </a>
 
             <a
-              className={buttonVariants({ variant: 'outline', size: 'lg' })}
-              href="/sign-in"
+              className={buttonVariants({ variant: 'outline', size: 'lg', className: 'px-8' })}
+              href="/chat/demo"
             >
-              {t('secondary_button')}
+              View Live Demo
             </a>
           </>
         )}

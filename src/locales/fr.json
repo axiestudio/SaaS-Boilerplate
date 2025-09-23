@@ -14,30 +14,30 @@
   },
   "Hero": {
     "follow_twitter": "Suivez @Ixartz sur Twitter",
-    "title": "Construisez des <important>Interfaces de Chat</important> Personnalisées pour Axie Studio",
-    "description": "Créez des expériences de chat de marque qui se connectent parfaitement à vos flux Axie Studio. Personnalisez l'apparence, gérez les conversations et déployez instantanément.",
+    "title": "Construisez des <important>Interfaces de Chat IA</important> Professionnelles pour Votre Entreprise",
+    "description": "Créez des expériences de chat personnalisées qui se connectent parfaitement à vos flux Axie Studio IA. Déployez instantanément, personnalisez complètement et engagez les clients avec des conversations intelligentes.",
     "primary_button": "Démarrer",
-    "secondary_button": "Voir la Démo"
+    "secondary_button": "Voir la Démo en Direct"
   },
   "Sponsors": {
     "title": "Sponsorisé par"
   },
   "Features": {
     "section_subtitle": "Fonctionnalités",
-    "section_title": "Débloquer le plein potentiel du SaaS Template",
-    "section_description": "Un template gratuit et open-source de landing page pour votre entreprise SaaS, construit avec React, TypeScript, Shadcn UI et Tailwind CSS.",
-    "feature1_title": "Node.js",
-    "feature2_title": "React",
-    "feature3_title": "Tailwind CSS",
-    "feature4_title": "TypeScript",
-    "feature5_title": "Shadcn UI",
-    "feature6_title": "ESLint",
-    "feature_description": "Un template gratuit et open-source de landing page pour votre entreprise SaaS, construit avec React, TypeScript, Shadcn UI et Tailwind CSS."
+    "section_title": "Tout ce dont vous avez besoin pour des expériences de chat professionnelles",
+    "section_description": "Construisez, personnalisez et déployez des interfaces de chat alimentées par l'IA qui représentent votre marque et se connectent à vos flux Axie Studio.",
+    "feature1_title": "Image de Marque Personnalisée",
+    "feature2_title": "Conversations en Temps Réel",
+    "feature3_title": "Intégration Axie Studio",
+    "feature4_title": "Déploiement Instantané",
+    "feature5_title": "Analyses et Insights",
+    "feature6_title": "Sécurité Entreprise",
+    "feature_description": "Contrôle complet sur l'apparence de votre interface de chat avec des options de personnalisation pour les couleurs, logos et messages."
   },
   "Pricing": {
-    "section_subtitle": "Fonctionnalités",
-    "section_title": "Débloquer le plein potentiel du SaaS Template",
-    "section_description": "Un template gratuit et open-source de landing page pour votre entreprise SaaS, construit avec React, TypeScript, Shadcn UI et Tailwind CSS.",
+    "section_subtitle": "Tarification",
+    "section_title": "Tarification Simple et Transparente",
+    "section_description": "Choisissez le plan qui correspond aux besoins de votre entreprise. Tous les plans incluent les fonctionnalités principales sans frais cachés.",
     "button_text": "Démarrer"
   },
   "PricingPlan": {
