@@ -19,17 +19,29 @@ const isProtectedRoute = createRouteMatcher([
   '/:locale/dashboard(.*)',
   '/onboarding(.*)',
   '/:locale/onboarding(.*)',
-  '/api(.*)',
-  '/:locale/api(.*)',
 ]);
 
 export default function middleware(
   request: NextRequest,
   event: NextFetchEvent,
 ) {
-  // Allow public chat interfaces to be accessed without authentication
+  // Handle API routes separately - don't apply intl middleware to them
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    return clerkMiddleware(async (auth, req) => {
+      // Only protect API routes that need authentication
+      // Exclude public routes from authentication
+      if ((req.nextUrl.pathname.startsWith('/api/chat-interfaces') &&
+           !req.nextUrl.pathname.startsWith('/api/chat-interfaces/public/')) ||
+          req.nextUrl.pathname.startsWith('/api/chat-messages')) {
+        await auth.protect();
+      }
+      return NextResponse.next();
+    })(request, event);
+  }
+
+  // Allow public chat interfaces to be accessed without authentication or internationalization
   if (request.nextUrl.pathname.startsWith('/chat/')) {
-    return intlMiddleware(request);
+    return NextResponse.next();
   }
 
   if (

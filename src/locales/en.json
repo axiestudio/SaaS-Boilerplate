@@ -162,5 +162,15 @@
     "message_title": "Message",
     "message_description": "Enter a detailed message for your todo.",
     "submit_button": "Submit"
+  },
+  "Settings": {
+    "title_bar": "Settings",
+    "title_bar_description": "Manage your application settings"
+  },
+  "ChatInterface": {
+    "title_bar": "Chat Interface",
+    "title_bar_description": "Create and manage your chat interfaces",
+    "create_new": "Create New Chat Interface",
+    "edit": "Edit Chat Interface"
   }
 }

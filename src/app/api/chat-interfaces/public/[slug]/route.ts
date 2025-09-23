@@ -10,6 +10,7 @@ export async function GET(
 ) {
   try {
     const { slug } = params;
+    console.log('🔍 Looking for chat interface with slug:', slug);
 
     const chatInterface = await db.query.chatInterfaceSchema.findFirst({
       where: 
@@ -33,8 +34,9 @@ export async function GET(
     });
 
     if (!chatInterface) {
+      console.log('❌ Chat interface not found for slug:', slug);
       return NextResponse.json(
-        { 
+        {
           error: 'Chat interface not found or currently unavailable',
           message: 'This chat interface is currently not public. Please check back later or contact the owner.',
           isPublic: false
@@ -42,6 +44,8 @@ export async function GET(
         { status: 404 }
       );
     }
+
+    console.log('✅ Found chat interface:', chatInterface.name);
 
     return NextResponse.json({
       ...chatInterface,

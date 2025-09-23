@@ -11,6 +11,7 @@ import { Client } from 'pg';
 import * as schema from '@/models/Schema';
 
 import { Env } from './Env';
+import './InitDB'; // This will auto-initialize the database
 
 let client;
 let drizzle;
@@ -24,9 +25,12 @@ if (process.env.NEXT_PHASE !== PHASE_PRODUCTION_BUILD && Env.DATABASE_URL) {
   await client.connect();
 
   drizzle = drizzlePg(client, { schema });
+
+  console.log('🔄 Running automatic database migration...');
   await migratePg(drizzle, {
     migrationsFolder: path.join(process.cwd(), 'migrations'),
   });
+  console.log('✅ Database migration completed successfully!');
 } else {
   // Stores the db connection in the global scope to prevent multiple instances due to hot reloading with Next.js
   const global = globalThis as unknown as { client: PGlite; drizzle: PgliteDatabase<typeof schema> };
@@ -39,9 +43,12 @@ if (process.env.NEXT_PHASE !== PHASE_PRODUCTION_BUILD && Env.DATABASE_URL) {
   }
 
   drizzle = global.drizzle;
+
+  console.log('🔄 Running automatic PGlite migration...');
   await migratePglite(global.drizzle, {
     migrationsFolder: path.join(process.cwd(), 'migrations'),
   });
+  console.log('✅ PGlite migration completed successfully!');
 }
 
 export const db = drizzle;
