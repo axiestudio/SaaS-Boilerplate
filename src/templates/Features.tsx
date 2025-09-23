@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { MessageCircle, Palette, Zap, BarChart3, Globe, Shield } from 'lucide-react';
 
 import { Background } from '@/components/Background';
 import { FeatureCard } from '@/features/landing/FeatureCard';
@@ -10,123 +11,51 @@ export const Features = () => {
   return (
     <Background>
       <Section
-        subtitle={t('section_subtitle')}
-        title={t('section_title')}
-        description={t('section_description')}
+        subtitle="Platform Features"
+        title="Everything You Need for Professional Chat Experiences"
+        description="Build, customize, and deploy AI-powered chat interfaces that represent your brand and connect to your Axie Studio flows."
       >
-        <div className="grid grid-cols-1 gap-x-3 gap-y-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
           <FeatureCard
-            icon={(
-              <svg
-                className="stroke-primary-foreground stroke-2"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M0 0h24v24H0z" stroke="none" />
-                <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3M12 12l8-4.5M12 12v9M12 12L4 7.5" />
-              </svg>
-            )}
-            title={t('feature1_title')}
+            icon={<Palette className="h-6 w-6" />}
+            title="Custom Branding"
           >
-            {t('feature_description')}
+            Complete control over your chat interface appearance. Customize colors, logos, messages, and styling to match your brand identity perfectly.
           </FeatureCard>
 
           <FeatureCard
-            icon={(
-              <svg
-                className="stroke-primary-foreground stroke-2"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M0 0h24v24H0z" stroke="none" />
-                <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3M12 12l8-4.5M12 12v9M12 12L4 7.5" />
-              </svg>
-            )}
-            title={t('feature2_title')}
+            icon={<MessageCircle className="h-6 w-6" />}
+            title="Real-time Conversations"
           >
-            {t('feature_description')}
+            Instant messaging with your customers powered by Axie Studio AI flows. Provide immediate support and engagement 24/7.
           </FeatureCard>
 
           <FeatureCard
-            icon={(
-              <svg
-                className="stroke-primary-foreground stroke-2"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M0 0h24v24H0z" stroke="none" />
-                <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3M12 12l8-4.5M12 12v9M12 12L4 7.5" />
-              </svg>
-            )}
-            title={t('feature3_title')}
+            icon={<Zap className="h-6 w-6" />}
+            title="Axie Studio Integration"
           >
-            {t('feature_description')}
+            Seamlessly connect to your existing Axie Studio AI flows. No complex setup required - just enter your API endpoint and you're ready.
           </FeatureCard>
 
           <FeatureCard
-            icon={(
-              <svg
-                className="stroke-primary-foreground stroke-2"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M0 0h24v24H0z" stroke="none" />
-                <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3M12 12l8-4.5M12 12v9M12 12L4 7.5" />
-              </svg>
-            )}
-            title={t('feature4_title')}
+            icon={<Globe className="h-6 w-6" />}
+            title="Instant Deployment"
           >
-            {t('feature_description')}
+            Get a unique public URL for each chat interface. Share with customers immediately or embed on your website with zero configuration.
           </FeatureCard>
 
           <FeatureCard
-            icon={(
-              <svg
-                className="stroke-primary-foreground stroke-2"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M0 0h24v24H0z" stroke="none" />
-                <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3M12 12l8-4.5M12 12v9M12 12L4 7.5" />
-              </svg>
-            )}
-            title={t('feature5_title')}
+            icon={<BarChart3 className="h-6 w-6" />}
+            title="Analytics & Insights"
           >
-            {t('feature_description')}
+            Monitor conversation metrics, track customer engagement, and analyze chat performance with built-in analytics dashboard.
           </FeatureCard>
 
           <FeatureCard
-            icon={(
-              <svg
-                className="stroke-primary-foreground stroke-2"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M0 0h24v24H0z" stroke="none" />
-                <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3M12 12l8-4.5M12 12v9M12 12L4 7.5" />
-              </svg>
-            )}
-            title={t('feature6_title')}
+            icon={<Shield className="h-6 w-6" />}
+            title="Enterprise Security"
           >
-            {t('feature_description')}
+            Bank-level security with encrypted conversations, secure API connections, and compliance-ready data handling for enterprise use.
           </FeatureCard>
         </div>
       </Section>

@@ -17,39 +17,44 @@ export const Navbar = () => {
         logo={<Logo />}
         rightMenu={(
           <>
-            {/* PRO: Dark mode toggle button */}
             <li data-fade>
               <LocaleSwitcher />
             </li>
             <li className="ml-1 mr-2.5" data-fade>
-              <Link href="/sign-in">{t('sign_in')}</Link>
+              <Link href="/sign-in" className="text-sm font-medium hover:text-primary">
+                Sign In
+              </Link>
             </li>
             <li>
-              <Link className={buttonVariants()} href="/sign-up">
-                {t('sign_up')}
+              <Link className={buttonVariants({ size: 'sm' })} href="/sign-up">
+                Get Started
               </Link>
             </li>
           </>
         )}
       >
         <li>
-          <Link href="/sign-up">{t('product')}</Link>
+          <Link href="#features" className="text-sm font-medium hover:text-primary">
+            Features
+          </Link>
         </li>
 
         <li>
-          <Link href="/sign-up">{t('docs')}</Link>
+          <Link href="#pricing" className="text-sm font-medium hover:text-primary">
+            Pricing
+          </Link>
         </li>
 
         <li>
-          <Link href="/sign-up">{t('blog')}</Link>
+          <Link href="/chat/demo" className="text-sm font-medium hover:text-primary">
+            Demo
+          </Link>
         </li>
 
         <li>
-          <Link href="/sign-up">{t('community')}</Link>
-        </li>
-
-        <li>
-          <Link href="/sign-up">{t('company')}</Link>
+          <Link href="https://axiestudio.se" target="_blank" className="text-sm font-medium hover:text-primary">
+            Axie Studio
+          </Link>
         </li>
       </CenteredMenu>
     </Section>

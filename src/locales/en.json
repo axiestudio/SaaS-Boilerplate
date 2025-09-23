@@ -14,30 +14,30 @@
   },
   "Hero": {
     "follow_twitter": "Follow @Ixartz on Twitter",
-    "title": "Welcome to <important>Axie Studio</important> - Your Development Partner",
-    "description": "Professional development services and innovative solutions for your business needs.",
-    "primary_button": "Get Started",
-    "secondary_button": "Learn More"
+    "title": "Build Professional <important>AI Chat Interfaces</important> for Your Business",
+    "description": "Create custom-branded chat experiences that connect seamlessly to your Axie Studio AI flows. Deploy instantly, customize completely, and engage customers with intelligent conversations.",
+    "primary_button": "Start Building Free",
+    "secondary_button": "View Live Demo"
   },
   "Sponsors": {
     "title": "Sponsored by"
   },
   "Features": {
     "section_subtitle": "Features",
-    "section_title": "Powerful Chat Interface Features",
-    "section_description": "Everything you need to create professional chat experiences for your customers.",
+    "section_title": "Everything You Need for Professional Chat Experiences",
+    "section_description": "Build, customize, and deploy AI-powered chat interfaces that represent your brand and connect to your Axie Studio flows.",
     "feature1_title": "Custom Branding",
-    "feature2_title": "Real-time Chat",
-    "feature3_title": "API Integration",
-    "feature4_title": "Analytics Dashboard",
-    "feature5_title": "Multi-language",
-    "feature6_title": "Mobile Responsive",
-    "feature_description": "Professional chat interfaces with full customization, real-time messaging, and seamless Axie Studio integration."
+    "feature2_title": "Real-time Conversations", 
+    "feature3_title": "Axie Studio Integration",
+    "feature4_title": "Instant Deployment",
+    "feature5_title": "Analytics & Insights",
+    "feature6_title": "Enterprise Security",
+    "feature_description": "Complete control over your chat interface appearance with customization options for colors, logos, and messaging."
   },
   "Pricing": {
     "section_subtitle": "Pricing",
-    "section_title": "Choose Your Chat Plan",
-    "section_description": "Select the perfect plan for your chat interface needs.",
+    "section_title": "Simple, Transparent Pricing",
+    "section_description": "Choose the plan that fits your business needs. All plans include core features with no hidden fees.",
     "button_text": "Get Started"
   },
   "PricingPlan": {
