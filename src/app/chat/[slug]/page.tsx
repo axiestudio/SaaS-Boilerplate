@@ -6,17 +6,18 @@ import { PublicChatInterface } from '@/features/chat/PublicChatInterface';
 // This function will be used to fetch chat interface data for metadata
 async function getChatInterfaceMetadata(slug: string) {
   try {
-    // TODO: Replace with actual API call
-    // const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/chat-interfaces/public/${slug}`);
-    // if (!response.ok) return null;
-    // return await response.json();
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/chat-interfaces/public/${slug}`, {
+      // Add cache control for better performance
+      next: { revalidate: 300 } // Revalidate every 5 minutes
+    });
     
-    // Mock data for demonstration
-    return {
-      name: 'Customer Support Chat',
-      brandName: 'TechCorp Support',
-      isActive: true,
-    };
+    if (!response.ok) {
+      return null;
+    }
+    
+    const data = await response.json();
+    return data.isPublic ? data : null;
   } catch (error) {
     console.error('Error fetching chat interface metadata:', error);
     return null;
@@ -53,11 +54,14 @@ const PublicChatPage = async ({ params }: { params: { slug: string } }) => {
   // Verify the chat interface exists and is active
   const chatInterface = await getChatInterfaceMetadata(params.slug);
   
-  if (!chatInterface || !chatInterface.isActive) {
+  if (!chatInterface || !chatInterface.isPublic) {
     notFound();
   }
 
   return <PublicChatInterface slug={params.slug} />;
 };
+
+// Enable static generation for better performance
+export const dynamic = 'force-dynamic'; // Since we need to check real-time status
 
 export default PublicChatPage;
