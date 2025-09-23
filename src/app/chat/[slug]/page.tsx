@@ -34,12 +34,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   return {
-    title: `${chatInterface.brandName} - Live Chat Support`,
-    description: `Get instant help and support through our ${chatInterface.brandName} chat interface. We're here to assist you 24/7.`,
+    title: `${chatInterface.brandName} - AI Chat Support | Powered by Axie Studio`,
+    description: `Get instant AI-powered help and support through our ${chatInterface.brandName} chat interface. Available 24/7 with intelligent responses.`,
     openGraph: {
-      title: `${chatInterface.brandName} - Live Chat Support`,
-      description: `Get instant help and support through our ${chatInterface.brandName} chat interface.`,
+      title: `${chatInterface.brandName} - AI Chat Support | Powered by Axie Studio`,
+      description: `Get instant AI-powered help and support through our ${chatInterface.brandName} chat interface.`,
       type: 'website',
+      images: [
+        {
+          url: '/axie-logo.webp',
+          width: 1200,
+          height: 630,
+          alt: `${chatInterface.brandName} AI Chat Interface`,
+        },
+      ],
     },
     robots: {
       index: true,
