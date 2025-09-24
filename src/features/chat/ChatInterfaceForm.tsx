@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { z } from 'zod';
-import { Save, Eye, TestTube, Wand2, Globe, Lock } from 'lucide-react';
+import { Save, Eye, TestTube, Wand2, Globe, Lock, Sparkles, Palette, Settings, Link as LinkIcon, MessageSquare, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { DashboardSection } from '@/features/dashboard/DashboardSection';
 import { ChatPreview } from './ChatPreview';
 
 const createChatInterfaceSchema = (t: any) => z.object({
@@ -221,311 +220,283 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
   };
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-      {/* Form - Takes 2/3 width on xl screens */}
-      <div className="xl:col-span-2 space-y-6">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* Basic Configuration */}
-            <DashboardSection
-              title={t('basic_config')}
-              description={t('basic_config_description')}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('name')} *</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t('name_placeholder')} {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        {t('name_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
+      <div className="grid grid-cols-1 xl:grid-cols-5 gap-8 max-w-[1600px] mx-auto">
+        {/* Enhanced Form Section - Takes 3/5 width on xl screens */}
+        <div className="xl:col-span-3 space-y-8">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              {/* Hero Section */}
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border border-primary/20 p-8">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-pulse" />
+                <div className="relative">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center">
+                      <Sparkles className="h-6 w-6 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                        {isEditing ? 'Customize Your Chat Interface' : 'Create Your Chat Interface'}
+                      </h1>
+                      <p className="text-muted-foreground">
+                        {isEditing ? 'Update your chat interface settings and branding' : 'Build a professional chat experience for your customers'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                <FormField
-                  control={form.control}
-                  name="slug"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('slug')} *</FormLabel>
-                      <div className="flex gap-2">
+              {/* Basic Configuration Section */}
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8 space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                    <Settings className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold">{t('basic_config')}</h2>
+                    <p className="text-sm text-muted-foreground">{t('basic_config_description')}</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-base font-semibold flex items-center gap-2">
+                          <MessageSquare className="h-4 w-4 text-primary" />
+                          {t('name')} *
+                        </FormLabel>
                         <FormControl>
-                          <Input placeholder={t('slug_placeholder')} {...field} />
+                          <Input 
+                            placeholder={t('name_placeholder')} 
+                            {...field} 
+                            className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                          />
                         </FormControl>
+                        <FormDescription className="text-sm">
+                          {t('name_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="slug"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-base font-semibold flex items-center gap-2">
+                          <LinkIcon className="h-4 w-4 text-primary" />
+                          {t('slug')} *
+                        </FormLabel>
+                        <div className="flex gap-3">
+                          <FormControl>
+                            <Input 
+                              placeholder={t('slug_placeholder')} 
+                              {...field} 
+                              className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                            />
+                          </FormControl>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="lg"
+                            onClick={generateSlug}
+                            disabled={!form.getValues('name')}
+                            className="h-12 px-4 border-2 hover:border-primary/50 transition-all duration-200"
+                          >
+                            <Wand2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        <FormDescription className="text-sm">
+                          {t('slug_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* Enhanced Public URL Display */}
+                {publicUrl && (
+                  <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200/50 p-6">
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-emerald-500/5" />
+                    <div className="relative">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1 min-w-0">
+                          <Label className="text-base font-semibold text-green-800 flex items-center gap-2 mb-2">
+                            <Globe className="h-4 w-4" />
+                            {t('public_chat_url')}
+                          </Label>
+                          <p className="text-sm text-green-700 break-all font-mono bg-white/50 px-3 py-2 rounded-lg border border-green-200">
+                            {publicUrl}
+                          </p>
+                        </div>
                         <Button
                           type="button"
                           variant="outline"
-                          size="sm"
-                          onClick={generateSlug}
-                          disabled={!form.getValues('name')}
+                          size="lg"
+                          onClick={copyPublicUrl}
+                          className="ml-4 h-12 border-2 border-green-300 text-green-700 hover:bg-green-100 hover:border-green-400 transition-all duration-200"
                         >
-                          <Wand2 className="h-4 w-4" />
+                          {t('copy_url')}
                         </Button>
                       </div>
-                      <FormDescription>
-                        {t('slug_description')}
+                    </div>
+                  </div>
+                )}
+
+                <FormField
+                  control={form.control}
+                  name="apiEndpoint"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-base font-semibold">{t('api_endpoint')} *</FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder={t('api_endpoint_placeholder')} 
+                          {...field} 
+                          className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                        />
+                      </FormControl>
+                      <FormDescription className="text-sm">
+                        {t('api_endpoint_description')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </div>
 
-              {/* Public URL Display and Copy */}
-              {publicUrl && (
-                <div className="p-4 bg-muted rounded-lg">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <Label className="text-sm font-medium">{t('public_chat_url')}</Label>
-                      <p className="text-sm text-muted-foreground break-all">{publicUrl}</p>
-                    </div>
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                  <div className="lg:col-span-3">
+                    <FormField
+                      control={form.control}
+                      name="apiKey"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-base font-semibold">{t('api_key')} *</FormLabel>
+                          <FormControl>
+                            <Input 
+                              type="password" 
+                              placeholder={t('api_key_placeholder')} 
+                              {...field} 
+                              className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                            />
+                          </FormControl>
+                          <FormDescription className="text-sm">
+                            {t('api_key_description')}
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="flex items-end">
                     <Button
                       type="button"
                       variant="outline"
-                      size="sm"
-                      onClick={copyPublicUrl}
+                      onClick={testConnection}
+                      disabled={isTesting || !form.getValues('apiEndpoint') || !form.getValues('apiKey')}
+                      className="w-full h-12 border-2 hover:border-primary/50 transition-all duration-200"
                     >
-                      {t('copy_url')}
+                      <TestTube className="h-4 w-4 mr-2" />
+                      {isTesting ? 'Testing...' : t('test_connection')}
                     </Button>
                   </div>
                 </div>
-              )}
-
-              <FormField
-                control={form.control}
-                name="apiEndpoint"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('api_endpoint')} *</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t('api_endpoint_placeholder')} {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      {t('api_endpoint_description')}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="md:col-span-2">
-                  <FormField
-                    control={form.control}
-                    name="apiKey"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('api_key')} *</FormLabel>
-                        <FormControl>
-                          <Input type="password" placeholder={t('api_key_placeholder')} {...field} />
-                        </FormControl>
-                        <FormDescription>
-                          {t('api_key_description')}
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="flex items-end">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={testConnection}
-                    disabled={isTesting || !form.getValues('apiEndpoint') || !form.getValues('apiKey')}
-                    className="w-full"
-                  >
-                    <TestTube className="h-4 w-4 mr-2" />
-                    {isTesting ? 'Testing...' : t('test_connection')}
-                  </Button>
-                </div>
               </div>
-            </DashboardSection>
 
-            {/* Public Access Control */}
-            <DashboardSection
-              title={t('public_access')}
-              description={t('public_access_description')}
-            >
-              <FormField
-                control={form.control}
-                name="isActive"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        {field.value ? (
-                          <Globe className="h-5 w-5 text-green-600" />
-                        ) : (
-                          <Lock className="h-5 w-5 text-red-600" />
-                        )}
-                        <div>
-                          <FormLabel className="text-base font-medium">
-                            {field.value ? t('public_access_enabled') : t('public_access_disabled')}
-                          </FormLabel>
-                          <FormDescription>
-                            {field.value 
-                              ? t('public_access_enabled_description')
-                              : t('public_access_disabled_description')
-                            }
-                          </FormDescription>
+              {/* Public Access Control Section */}
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                    <Globe className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold">{t('public_access')}</h2>
+                    <p className="text-sm text-muted-foreground">{t('public_access_description')}</p>
+                  </div>
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="isActive"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="relative overflow-hidden rounded-2xl border-2 border-border/50 bg-gradient-to-r from-card to-card/80 p-6 hover:shadow-lg transition-all duration-300">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                              field.value 
+                                ? 'bg-gradient-to-br from-green-500 to-emerald-500 shadow-lg shadow-green-500/25' 
+                                : 'bg-gradient-to-br from-red-500 to-pink-500 shadow-lg shadow-red-500/25'
+                            }`}>
+                              {field.value ? (
+                                <Globe className="h-6 w-6 text-white" />
+                              ) : (
+                                <Lock className="h-6 w-6 text-white" />
+                              )}
+                            </div>
+                            <div>
+                              <FormLabel className="text-lg font-semibold">
+                                {field.value ? t('public_access_enabled') : t('public_access_disabled')}
+                              </FormLabel>
+                              <FormDescription className="text-sm mt-1">
+                                {field.value 
+                                  ? t('public_access_enabled_description')
+                                  : t('public_access_disabled_description')
+                                }
+                              </FormDescription>
+                            </div>
+                          </div>
+                          <Button
+                            type="button"
+                            variant={field.value ? "destructive" : "default"}
+                            onClick={togglePublicAccess}
+                            disabled={!isEditing}
+                            className="h-12 px-6 text-base font-semibold transition-all duration-200"
+                          >
+                            {field.value ? t('make_private') : 'Make Public'}
+                          </Button>
                         </div>
+                        <FormMessage />
                       </div>
-                      <Button
-                        type="button"
-                        variant={field.value ? "destructive" : "default"}
-                        onClick={togglePublicAccess}
-                        disabled={!isEditing}
-                      >
-                        {field.value ? t('make_private') : t('make_public')}
-                      </Button>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </DashboardSection>
-
-            {/* Branding & Appearance */}
-            <DashboardSection
-              title={t('branding')}
-              description={t('branding_description')}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="brandName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('brand_name')} *</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t('brand_name_placeholder')} {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        {t('brand_name_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="logoUrl"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('logo_url')} (Optional)</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t('logo_url_placeholder')} {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        {t('logo_url_description')}
-                      </FormDescription>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="primaryColor"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('primary_color')} *</FormLabel>
-                      <FormControl>
-                        <div className="flex gap-2">
-                          <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
-                          <Input placeholder={t('primary_color_placeholder')} {...field} />
-                        </div>
-                      </FormControl>
-                      <FormDescription>
-                        {t('primary_color_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              {/* Enhanced Branding Section */}
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8 space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+                    <Palette className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold">{t('branding')}</h2>
+                    <p className="text-sm text-muted-foreground">{t('branding_description')}</p>
+                  </div>
+                </div>
 
-                <FormField
-                  control={form.control}
-                  name="secondaryColor"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('secondary_color')} *</FormLabel>
-                      <FormControl>
-                        <div className="flex gap-2">
-                          <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
-                          <Input placeholder={t('secondary_color_placeholder')} {...field} />
-                        </div>
-                      </FormControl>
-                      <FormDescription>
-                        {t('secondary_color_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              {/* Typography & Colors Section */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">{t('typography_advanced_colors')}</h3>
-
-                <FormField
-                  control={form.control}
-                  name="fontFamily"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('font_family')} *</FormLabel>
-                      <FormControl>
-                        <select
-                          {...field}
-                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        >
-                          <option value="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Inter (Modern)</option>
-                          <option value="'Helvetica Neue', Helvetica, Arial, sans-serif">Helvetica</option>
-                          <option value="'Times New Roman', Times, serif">Times New Roman</option>
-                          <option value="Georgia, serif">Georgia</option>
-                          <option value="'Courier New', Courier, monospace">Courier New</option>
-                          <option value="'Arial Black', Arial, sans-serif">Arial Black</option>
-                          <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
-                          <option value="Verdana, sans-serif">Verdana</option>
-                          <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
-                          <option value="Impact, sans-serif">Impact</option>
-                        </select>
-                      </FormControl>
-                      <FormDescription>
-                        {t('font_family_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
-                    name="textColor"
+                    name="brandName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('text_color')} *</FormLabel>
+                        <FormLabel className="text-base font-semibold">{t('brand_name')} *</FormLabel>
                         <FormControl>
-                          <div className="flex gap-2">
-                            <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
-                            <Input placeholder={t('text_color_placeholder')} {...field} />
-                          </div>
+                          <Input 
+                            placeholder={t('brand_name_placeholder')} 
+                            {...field} 
+                            className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                          />
                         </FormControl>
-                        <FormDescription>
-                          {t('text_color_description')}
+                        <FormDescription className="text-sm">
+                          {t('brand_name_description')}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -534,18 +505,53 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
 
                   <FormField
                     control={form.control}
-                    name="botMessageColor"
+                    name="logoUrl"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('bot_message_color')} *</FormLabel>
+                        <FormLabel className="text-base font-semibold">{t('logo_url')} (Optional)</FormLabel>
                         <FormControl>
-                          <div className="flex gap-2">
-                            <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
-                            <Input placeholder={t('bot_message_color_placeholder')} {...field} />
+                          <Input 
+                            placeholder={t('logo_url_placeholder')} 
+                            {...field} 
+                            className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                          />
+                        </FormControl>
+                        <FormDescription className="text-sm">
+                          {t('logo_url_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* Enhanced Color Pickers */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="primaryColor"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-base font-semibold">{t('primary_color')} *</FormLabel>
+                        <FormControl>
+                          <div className="flex gap-3">
+                            <div className="relative">
+                              <Input 
+                                type="color" 
+                                className="w-16 h-12 p-1 rounded-xl border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
+                                {...field} 
+                              />
+                              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+                            </div>
+                            <Input 
+                              placeholder={t('primary_color_placeholder')} 
+                              {...field} 
+                              className="flex-1 h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                            />
                           </div>
                         </FormControl>
-                        <FormDescription>
-                          {t('bot_message_color_description')}
+                        <FormDescription className="text-sm">
+                          {t('primary_color_description')}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -554,18 +560,207 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
 
                   <FormField
                     control={form.control}
-                    name="userMessageColor"
+                    name="secondaryColor"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('user_message_color')} *</FormLabel>
+                        <FormLabel className="text-base font-semibold">{t('secondary_color')} *</FormLabel>
                         <FormControl>
-                          <div className="flex gap-2">
-                            <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
-                            <Input placeholder={t('user_message_color_placeholder')} {...field} />
+                          <div className="flex gap-3">
+                            <div className="relative">
+                              <Input 
+                                type="color" 
+                                className="w-16 h-12 p-1 rounded-xl border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
+                                {...field} 
+                              />
+                              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+                            </div>
+                            <Input 
+                              placeholder={t('secondary_color_placeholder')} 
+                              {...field} 
+                              className="flex-1 h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                            />
                           </div>
                         </FormControl>
-                        <FormDescription>
-                          {t('user_message_color_description')}
+                        <FormDescription className="text-sm">
+                          {t('secondary_color_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* Enhanced Typography Section */}
+                <div className="space-y-6 pt-6 border-t border-border/30">
+                  <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                    <Palette className="h-5 w-5 text-primary" />
+                    {t('typography_advanced_colors')}
+                  </h3>
+
+                  <FormField
+                    control={form.control}
+                    name="fontFamily"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-base font-semibold">{t('font_family')} *</FormLabel>
+                        <FormControl>
+                          <select
+                            {...field}
+                            className="flex h-12 w-full rounded-xl border-2 border-input bg-background px-4 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus:border-primary/50 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200"
+                          >
+                            <option value="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Inter (Modern)</option>
+                            <option value="'Helvetica Neue', Helvetica, Arial, sans-serif">Helvetica</option>
+                            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                            <option value="Georgia, serif">Georgia</option>
+                            <option value="'Courier New', Courier, monospace">Courier New</option>
+                            <option value="'Arial Black', Arial, sans-serif">Arial Black</option>
+                            <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                            <option value="Verdana, sans-serif">Verdana</option>
+                            <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+                            <option value="Impact, sans-serif">Impact</option>
+                          </select>
+                        </FormControl>
+                        <FormDescription className="text-sm">
+                          {t('font_family_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="textColor"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-base font-semibold">{t('text_color')} *</FormLabel>
+                          <FormControl>
+                            <div className="flex gap-3">
+                              <div className="relative">
+                                <Input 
+                                  type="color" 
+                                  className="w-16 h-12 p-1 rounded-xl border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
+                                  {...field} 
+                                />
+                                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+                              </div>
+                              <Input 
+                                placeholder={t('text_color_placeholder')} 
+                                {...field} 
+                                className="flex-1 h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                              />
+                            </div>
+                          </FormControl>
+                          <FormDescription className="text-sm">
+                            {t('text_color_description')}
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="botMessageColor"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-base font-semibold">{t('bot_message_color')} *</FormLabel>
+                          <FormControl>
+                            <div className="flex gap-3">
+                              <div className="relative">
+                                <Input 
+                                  type="color" 
+                                  className="w-16 h-12 p-1 rounded-xl border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
+                                  {...field} 
+                                />
+                                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+                              </div>
+                              <Input 
+                                placeholder={t('bot_message_color_placeholder')} 
+                                {...field} 
+                                className="flex-1 h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                              />
+                            </div>
+                          </FormControl>
+                          <FormDescription className="text-sm">
+                            {t('bot_message_color_description')}
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="userMessageColor"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-base font-semibold">{t('user_message_color')} *</FormLabel>
+                          <FormControl>
+                            <div className="flex gap-3">
+                              <div className="relative">
+                                <Input 
+                                  type="color" 
+                                  className="w-16 h-12 p-1 rounded-xl border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
+                                  {...field} 
+                                />
+                                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+                              </div>
+                              <Input 
+                                placeholder={t('user_message_color_placeholder')} 
+                                {...field} 
+                                className="flex-1 h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                              />
+                            </div>
+                          </FormControl>
+                          <FormDescription className="text-sm">
+                            {t('user_message_color_description')}
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="welcomeMessage"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-base font-semibold">{t('welcome_message')} *</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('welcome_message_placeholder')} 
+                            {...field} 
+                            className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                          />
+                        </FormControl>
+                        <FormDescription className="text-sm">
+                          {t('welcome_message_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="placeholderText"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-base font-semibold">{t('input_placeholder')} *</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('input_placeholder_placeholder')} 
+                            {...field} 
+                            className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                          />
+                        </FormControl>
+                        <FormDescription className="text-sm">
+                          {t('input_placeholder_description')}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -574,92 +769,84 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="welcomeMessage"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('welcome_message')} *</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t('welcome_message_placeholder')} {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        {t('welcome_message_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              {/* Enhanced Action Buttons */}
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8">
+                <div className="flex flex-wrap gap-4">
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting} 
+                    size="lg"
+                    className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <Save className="h-5 w-5 mr-2" />
+                    {isSubmitting 
+                      ? (isEditing ? 'Updating...' : 'Creating...') 
+                      : (isEditing ? t('update_interface') : t('create_interface'))
+                    }
+                  </Button>
+                  
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    size="lg"
+                    onClick={() => setShowPreview(!showPreview)}
+                    className="h-14 px-8 text-base font-semibold border-2 hover:border-primary/50 transition-all duration-300"
+                  >
+                    {showPreview ? <EyeOff className="h-5 w-5 mr-2" /> : <Eye className="h-5 w-5 mr-2" />}
+                    {showPreview ? t('hide_preview') : t('show_preview')}
+                  </Button>
 
-                <FormField
-                  control={form.control}
-                  name="placeholderText"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('input_placeholder')} *</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t('input_placeholder_placeholder')} {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        {t('input_placeholder_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
+                  {publicUrl && watchedValues.isActive && (
+                    <Button 
+                      type="button" 
+                      variant="secondary" 
+                      size="lg"
+                      onClick={() => window.open(publicUrl, '_blank')}
+                      className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600 shadow-lg hover:shadow-xl transition-all duration-300"
+                    >
+                      <Globe className="h-5 w-5 mr-2" />
+                      {t('open_public_chat')}
+                    </Button>
                   )}
-                />
+                </div>
               </div>
-            </DashboardSection>
-
-            {/* Actions */}
-            <div className="flex flex-wrap gap-4">
-              <Button type="submit" disabled={isSubmitting} size="lg">
-                <Save className="h-4 w-4 mr-2" />
-                {isSubmitting 
-                  ? (isEditing ? 'Updating...' : 'Creating...') 
-                  : (isEditing ? t('update_interface') : t('create_interface'))
-                }
-              </Button>
-              
-              <Button 
-                type="button" 
-                variant="outline" 
-                size="lg"
-                onClick={() => setShowPreview(!showPreview)}
-              >
-                <Eye className="h-4 w-4 mr-2" />
-                {showPreview ? t('hide_preview') : t('show_preview')}
-              </Button>
-
-              {publicUrl && watchedValues.isActive && (
-                <Button 
-                  type="button" 
-                  variant="secondary" 
-                  size="lg"
-                  onClick={() => window.open(publicUrl, '_blank')}
-                >
-                  <Globe className="h-4 w-4 mr-2" />
-                  {t('open_public_chat')}
-                </Button>
-              )}
-            </div>
-          </form>
-        </Form>
-      </div>
-
-      {/* Live Preview - Takes 1/3 width on xl screens */}
-      {showPreview && (
-        <div className="xl:col-span-1">
-          <div className="sticky top-6">
-            <DashboardSection
-              title={t('live_preview_title')}
-              description={t('live_preview_description')}
-            >
-              <ChatPreview config={watchedValues} />
-            </DashboardSection>
-          </div>
+            </form>
+          </Form>
         </div>
-      )}
+
+        {/* Enhanced Live Preview Section - Takes 2/5 width on xl screens */}
+        {showPreview && (
+          <div className="xl:col-span-2">
+            <div className="sticky top-8">
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8 space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
+                    <Eye className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold">{t('live_preview_title')}</h2>
+                    <p className="text-sm text-muted-foreground">{t('live_preview_description')}</p>
+                  </div>
+                </div>
+
+                {/* Preview Container with Enhanced Styling */}
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl" />
+                  <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 border-2 border-border/30">
+                    <ChatPreview config={watchedValues} />
+                  </div>
+                </div>
+
+                {/* Preview Status Indicator */}
+                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span>Live Preview - Updates in real-time</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
