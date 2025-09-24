@@ -389,13 +389,13 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                       <FormDescription className="text-sm space-y-2">
                         <div>Enter your API endpoint URL. Supports any REST API including:</div>
                         <div className="text-xs bg-gray-50 p-3 rounded-md space-y-1">
-                          <div><strong>🔥 Langflow/AstraDB:</strong> https://api.langflow.astra.datastax.com/lf/[FLOW_ID]/api/v1/run/[ENDPOINT_ID]</div>
-                          <div><strong>⚡ Axie Studio:</strong> https://se.axiestudio.se/api/v1/run/[FLOW_ID]</div>
-                          <div><strong>🤖 OpenAI:</strong> https://api.openai.com/v1/chat/completions</div>
-                          <div><strong>🔧 Custom APIs:</strong> Any REST endpoint that accepts JSON</div>
+                          <div><strong>Langflow/AstraDB:</strong> https://api.langflow.astra.datastax.com/lf/[FLOW_ID]/api/v1/run/[ENDPOINT_ID]</div>
+                          <div><strong>Axie Studio:</strong> https://se.axiestudio.se/api/v1/run/[FLOW_ID]</div>
+                          <div><strong>OpenAI:</strong> https://api.openai.com/v1/chat/completions</div>
+                          <div><strong>Custom APIs:</strong> Any REST endpoint that accepts JSON</div>
                         </div>
                         <div className="text-xs text-blue-600 mt-2">
-                          💡 <strong>Tip:</strong> The system automatically detects your API type and configures the request format!
+                          <strong>Tip:</strong> The system automatically detects your API type and configures the request format!
                         </div>
                       </FormDescription>
                       <FormMessage />
@@ -422,13 +422,13 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                           <FormDescription className="text-sm space-y-1">
                             <div>Enter your API key. Different formats supported:</div>
                             <div className="text-xs text-gray-600">
-                              • <strong>Langflow/AstraDB:</strong> AstraCS:... (Bearer token)
+                              <strong>Langflow/AstraDB:</strong> AstraCS:... (Bearer token)
                             </div>
                             <div className="text-xs text-gray-600">
-                              • <strong>Axie Studio:</strong> Your API key (x-api-key header)
+                              <strong>Axie Studio:</strong> Your API key (x-api-key header)
                             </div>
                             <div className="text-xs text-gray-600">
-                              • <strong>OpenAI:</strong> sk-... (Bearer token)
+                              <strong>OpenAI:</strong> sk-... (Bearer token)
                             </div>
                           </FormDescription>
                           <FormMessage />
