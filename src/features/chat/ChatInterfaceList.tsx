@@ -1,8 +1,9 @@
 'use client';
 
 import { useAuth } from '@clerk/nextjs';
-import { Plus, ExternalLink, Settings, MessageCircle, Copy, Eye, Trash2 } from 'lucide-react';
+import { Plus, ExternalLink, Settings, MessageCircle, Copy, Eye, Trash2, Activity, Users } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -24,11 +25,37 @@ type ChatInterface = {
   messageCount?: number;
 };
 
+type InterfaceStats = {
+  id: number;
+  slug: string;
+  name: string;
+  isActive: boolean;
+  messageCount: number;
+  sessionCount: number;
+  isLive: boolean;
+  lastActivity: string | null;
+};
+
 export const ChatInterfaceList = () => {
   const { userId } = useAuth();
+  const t = useTranslations('ChatInterfaceList');
   const [interfaces, setInterfaces] = useState<ChatInterface[]>([]);
+  const [stats, setStats] = useState<InterfaceStats[]>([]);
   const [loading, setLoading] = useState(true);
   const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
+
+  // Fetch realtime stats
+  const fetchStats = async () => {
+    try {
+      const response = await fetch('/api/chat-interfaces/stats');
+      if (response.ok) {
+        const data = await response.json();
+        setStats(data.stats);
+      }
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchInterfaces = async () => {
@@ -52,7 +79,16 @@ export const ChatInterfaceList = () => {
 
     if (userId) {
       fetchInterfaces();
+      fetchStats(); // Initial stats fetch
     }
+  }, [userId]);
+
+  // Set up realtime polling for stats every 10 seconds
+  useEffect(() => {
+    if (!userId) return;
+
+    const interval = setInterval(fetchStats, 10000); // Update every 10 seconds
+    return () => clearInterval(interval);
   }, [userId]);
 
   const copyToClipboard = async (slug: string) => {
@@ -82,13 +118,16 @@ export const ChatInterfaceList = () => {
         throw new Error('Failed to toggle status');
       }
 
-      setInterfaces(prev => 
-        prev.map(interface_ => 
-          interface_.id === id 
+      setInterfaces(prev =>
+        prev.map(interface_ =>
+          interface_.id === id
             ? { ...interface_, isActive: !currentStatus }
             : interface_
         )
       );
+
+      // Immediately refresh stats for real-time updates
+      fetchStats();
     } catch (error) {
       console.error('Error toggling status:', error);
       alert('Failed to toggle status. Please try again.');
@@ -111,7 +150,10 @@ export const ChatInterfaceList = () => {
 
       // Remove from local state
       setInterfaces(prev => prev.filter(interface_ => interface_.id !== id));
-      
+
+      // Immediately refresh stats for real-time updates
+      fetchStats();
+
       alert('Chat interface deleted successfully!');
     } catch (error) {
       console.error('Error deleting interface:', error);
@@ -131,14 +173,14 @@ export const ChatInterfaceList = () => {
     return (
       <div className="text-center py-12 bg-card rounded-lg border">
         <MessageCircle className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-        <h3 className="text-xl font-semibold mb-2">No chat interfaces yet</h3>
+        <h3 className="text-xl font-semibold mb-2">{t('no_interfaces')}</h3>
         <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-          Create your first chat interface to start engaging with your customers through personalized AI conversations.
+          {t('create_first')}
         </p>
         <Link href="/dashboard/chat-interfaces/new">
           <Button size="lg">
             <Plus className="h-5 w-5 mr-2" />
-            Create Your First Chat Interface
+            {t('create_first')}
           </Button>
         </Link>
       </div>
@@ -157,7 +199,7 @@ export const ChatInterfaceList = () => {
         <Link href="/dashboard/chat-interfaces/new">
           <Button>
             <Plus className="h-4 w-4 mr-2" />
-            New Interface
+            Create New Chat Interface
           </Button>
         </Link>
       </div>
@@ -179,10 +221,10 @@ export const ChatInterfaceList = () => {
                 
                 <div className="space-y-2 mb-4">
                   <p className="text-sm text-muted-foreground">
-                    <span className="font-medium">Brand:</span> {interface_.brandName}
+                    <span className="font-medium">{t('brand')}:</span> {interface_.brandName}
                   </p>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span className="font-medium">URL:</span>
+                    <span className="font-medium">{t('url')}:</span>
                     <code className="bg-muted px-2 py-1 rounded text-xs">
                       /chat/{interface_.slug}
                     </code>
@@ -199,7 +241,7 @@ export const ChatInterfaceList = () => {
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent>
-                          {copiedSlug === interface_.slug ? 'Copied!' : 'Copy URL'}
+                          {copiedSlug === interface_.slug ? t('copied') : t('copy_url')}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -207,7 +249,7 @@ export const ChatInterfaceList = () => {
                   <div className="flex items-center gap-4 text-xs text-muted-foreground">
                     <span>Created: {new Date(interface_.createdAt).toLocaleDateString()}</span>
                     {interface_.messageCount !== undefined && (
-                      <span>{interface_.messageCount} messages</span>
+                      <span>{interface_.messageCount} {t('messages')}</span>
                     )}
                   </div>
                 </div>
@@ -223,7 +265,7 @@ export const ChatInterfaceList = () => {
                         </Button>
                       </Link>
                     </TooltipTrigger>
-                    <TooltipContent>Preview Chat</TooltipContent>
+                    <TooltipContent>{t('preview_chat')}</TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
 
@@ -236,7 +278,7 @@ export const ChatInterfaceList = () => {
                         </Button>
                       </Link>
                     </TooltipTrigger>
-                    <TooltipContent>Edit Interface</TooltipContent>
+                    <TooltipContent>{t('edit_interface')}</TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
 
@@ -248,11 +290,11 @@ export const ChatInterfaceList = () => {
                         size="sm"
                         onClick={() => toggleStatus(interface_.id, interface_.isActive)}
                       >
-                        {interface_.isActive ? 'Disable' : 'Enable'}
+                        {interface_.isActive ? t('disable') : t('enable')}
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      {interface_.isActive ? 'Disable chat interface' : 'Enable chat interface'}
+                      {interface_.isActive ? t('disable_tooltip') : t('enable_tooltip')}
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -269,7 +311,7 @@ export const ChatInterfaceList = () => {
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent>Delete Interface</TooltipContent>
+                    <TooltipContent>Permanently delete interface (cannot be undone)</TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </div>
@@ -278,22 +320,39 @@ export const ChatInterfaceList = () => {
             {/* Quick Stats */}
             <div className="flex items-center gap-6 pt-4 border-t">
               <div className="text-center">
-                <div className="text-lg font-semibold text-primary">
-                  {interface_.messageCount || 0}
+                <div className="text-lg font-semibold text-primary flex items-center justify-center gap-1">
+                  <MessageCircle className="h-4 w-4" />
+                  {(() => {
+                    const interfaceStats = stats.find(stat => stat.id === interface_.id);
+                    return interfaceStats?.messageCount || interface_.messageCount || 0;
+                  })()}
                 </div>
-                <div className="text-xs text-muted-foreground">Messages</div>
+                <div className="text-xs text-muted-foreground">{t('messages')}</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-semibold text-green-600">
-                  {interface_.isActive ? 'Live' : 'Offline'}
+                <div className={`text-lg font-semibold flex items-center justify-center gap-1 ${
+                  (() => {
+                    const interfaceStats = stats.find(stat => stat.id === interface_.id);
+                    return interfaceStats?.isLive ? 'text-green-600' : 'text-gray-500';
+                  })()
+                }`}>
+                  <Activity className="h-4 w-4" />
+                  {(() => {
+                    const interfaceStats = stats.find(stat => stat.id === interface_.id);
+                    return interfaceStats?.isLive ? t('live') : (interface_.isActive ? t('online') : t('offline'));
+                  })()}
                 </div>
-                <div className="text-xs text-muted-foreground">Status</div>
+                <div className="text-xs text-muted-foreground">{t('status')}</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-semibold text-blue-600">
-                  {Math.floor(Math.random() * 50) + 10}
+                <div className="text-lg font-semibold text-blue-600 flex items-center justify-center gap-1">
+                  <Users className="h-4 w-4" />
+                  {(() => {
+                    const interfaceStats = stats.find(stat => stat.id === interface_.id);
+                    return interfaceStats?.sessionCount || 0;
+                  })()}
                 </div>
-                <div className="text-xs text-muted-foreground">Sessions</div>
+                <div className="text-xs text-muted-foreground">{t('sessions')}</div>
               </div>
             </div>
           </div>

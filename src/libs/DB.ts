@@ -22,15 +22,26 @@ if (process.env.NEXT_PHASE !== PHASE_PRODUCTION_BUILD && Env.DATABASE_URL) {
   client = new Client({
     connectionString: Env.DATABASE_URL,
   });
-  await client.connect();
 
-  drizzle = drizzlePg(client, { schema });
+  try {
+    await client.connect();
+    console.log('✅ Database connected successfully!');
 
-  console.log('🔄 Running automatic database migration...');
-  await migratePg(drizzle, {
-    migrationsFolder: path.join(process.cwd(), 'migrations'),
-  });
-  console.log('✅ Database migration completed successfully!');
+    drizzle = drizzlePg(client, { schema });
+
+    console.log('🔄 Running AUTOMATIC database migration...');
+    console.log('📁 Migrations folder:', path.join(process.cwd(), 'migrations'));
+
+    await migratePg(drizzle, {
+      migrationsFolder: path.join(process.cwd(), 'migrations'),
+    });
+
+    console.log('✅ AUTOMATIC database migration completed successfully!');
+  } catch (error) {
+    console.error('❌ Database migration failed:', error);
+    // Don't throw error to prevent build failure, but log it
+    console.error('⚠️  Continuing without migration - this may cause issues');
+  }
 } else {
   // Stores the db connection in the global scope to prevent multiple instances due to hot reloading with Next.js
   const global = globalThis as unknown as { client: PGlite; drizzle: PgliteDatabase<typeof schema> };

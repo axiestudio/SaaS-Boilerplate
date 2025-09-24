@@ -1,0 +1,417 @@
+{
+  "Index": {
+    "meta_title": "Axie Studio - Chattgränssnitt Builder",
+    "meta_description": "Skapa och anpassa chattgränssnitt som ansluter till Axie Studio-flöden. Bygg professionella AI-drivna kundtjänstupplevelser."
+  },
+  "Navbar": {
+    "sign_in": "Logga in",
+    "sign_up": "Registrera dig",
+    "product": "Produkt",
+    "docs": "Dokumentation",
+    "blog": "Blogg",
+    "community": "Gemenskap",
+    "company": "Företag"
+  },
+  "Hero": {
+    "follow_twitter": "Följ @Ixartz på Twitter",
+    "banner_text": "Betrodd av företag världen över",
+    "title": "Bygg professionella <span class=\"bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent\">AI-chattgränssnitt</span> för ditt företag",
+    "description": "Skapa anpassade varumärkesupplevelser som ansluter sömlöst till dina Axie Studio AI-flöden. Distribuera omedelbart, anpassa helt och engagera kunder med intelligenta konversationer.",
+    "primary_button": "Börja bygga gratis",
+    "secondary_button": "Se live-demo"
+  },
+  "Sponsors": {
+    "title": "Sponsrad av"
+  },
+  "Features": {
+    "section_subtitle": "Funktioner",
+    "section_title": "Allt du behöver för professionella chattupplevelser",
+    "section_description": "Bygg, anpassa och distribuera AI-drivna chattgränssnitt som representerar ditt varumärke och ansluter till dina Axie Studio-flöden.",
+    "feature1_title": "Anpassad varumärkning",
+    "feature2_title": "Realtidskonversationer", 
+    "feature3_title": "Axie Studio-integration",
+    "feature4_title": "Omedelbar distribution",
+    "feature5_title": "Analys och insikter",
+    "feature6_title": "Företagssäkerhet",
+    "feature_description": "Fullständig kontroll över ditt chattgränssnitts utseende med anpassningsalternativ för färger, logotyper och meddelanden."
+  },
+  "PricingPlan": {
+    "free_plan_name": "Gratis",
+    "premium_plan_name": "Premium",
+    "enterprise_plan_name": "Företag",
+    "free_plan_description": "För personliga projekt",
+    "premium_plan_description": "För växande företag",
+    "enterprise_plan_description": "För stora organisationer",
+    "feature_team_member": "{number} chattgränssnitt",
+    "feature_website": "{number} anpassade domäner",
+    "feature_storage": "{number} GB meddelandehistorik",
+    "feature_transfer": "{number}K meddelanden/månad",
+    "feature_email_support": "Prioriterad support",
+    "plan_interval_month": "månad",
+    "plan_interval_year": "år",
+    "next_renew_date": "Din prenumeration förnyas den {date}"
+  },
+  "FAQ": {
+    "question": "Hur skapar jag mitt första chattgränssnitt?",
+    "answer": "Att skapa ditt första chattgränssnitt är enkelt! Registrera ett konto, navigera till din instrumentpanel och klicka på 'Skapa nytt chattgränssnitt'. Anpassa din varumärkning, anslut din Axie Studio-flödesändpunkt och distribuera omedelbart.",
+    "question2": "Kan jag anpassa utseendet på mitt chattgränssnitt?",
+    "answer2": "Absolut! Du har fullständig kontroll över ditt chattgränssnitts utseende. Anpassa färger, logotyper, välkomstmeddelanden, platshållartext, typsnitt och mer.",
+    "question3": "Hur fungerar Axie Studio-integrationen?",
+    "answer3": "Ange helt enkelt din Axie Studio-flödes API-ändpunkt och API-nyckel i chattgränssnittsinställningarna. Ditt chattgränssnitt ansluter automatiskt till dina AI-flöden.",
+    "question4": "Finns det en gräns för meddelanden eller konversationer?",
+    "answer4": "Vår gratisplan inkluderar generösa gränser för personliga projekt. Premium- och företagsplaner erbjuder högre gränser och ytterligare funktioner.",
+    "question5": "Kan jag använda min egen domän?",
+    "answer5": "Ja! Premium- och företagsplaner stöder anpassade domäner. Du kan vara värd för dina chattgränssnitt på din egen domän."
+  },
+  "CTA": {
+    "title": "Redo att transformera din kundupplevelse?",
+    "description": "Gå med tusentals företag som använder Axie Studio chattgränssnitt för att skapa intelligenta, varumärkta kundkonversationer.",
+    "button_text": "Börja bygga gratis"
+  },
+  "Footer": {
+    "product": "Produkt",
+    "docs": "Dokumentation",
+    "blog": "Blogg",
+    "community": "Gemenskap",
+    "company": "Företag",
+    "terms_of_service": "Användarvillkor",
+    "privacy_policy": "Integritetspolicy",
+    "contact": "Kontakt",
+    "designed_by": "Designad av <author></author>."
+  },
+  "ProtectFallback": {
+    "not_enough_permission": "Du har inte behörighet att utföra denna åtgärd"
+  },
+  "SignIn": {
+    "meta_title": "Logga in",
+    "meta_description": "Logga in sömlöst på ditt konto med vår användarvänliga inloggningsprocess."
+  },
+  "SignUp": {
+    "meta_title": "Registrera dig",
+    "meta_description": "Skapa enkelt ett konto genom vår intuitiva registreringsprocess."
+  },
+  "DashboardLayout": {
+    "home": "Hem",
+    "create_chat": "Skapa chatt",
+    "account": "Konto"
+  },
+  "Dashboard": {
+    "meta_title": "Axie Studio chatt-instrumentpanel",
+    "meta_description": "Hantera dina chattgränssnitt, anpassa varumärkning och övervaka konversationer."
+  },
+  "DashboardIndex": {
+    "title_bar": "Chattgränssnitt-instrumentpanel",
+    "title_bar_description": "Hantera dina chattgränssnitt och övervaka prestanda",
+    "message_state_title": "Välkommen till din chattarbetsyta",
+    "message_state_description": "Skapa och hantera anpassade chattgränssnitt som ansluter till dina Axie Studio-flöden.",
+    "message_state_button": "Skapa första chattgränssnittet",
+    "message_state_alternative": "Redo att engagera dina kunder?"
+  },
+  "UserProfile": {
+    "title_bar": "Användarprofil",
+    "title_bar_description": "Visa och hantera din användarprofil"
+  },
+  "OrganizationProfile": {
+    "title_bar": "Organisationshantering",
+    "title_bar_description": "Hantera din organisation"
+  },
+  "Account": {
+    "title_bar": "Kontohantering",
+    "title_bar_description": "Hantera dina kontoinställningar och preferenser"
+  },
+  "Billing": {
+    "title_bar": "Fakturering",
+    "title_bar_description": "Hantera din fakturering och prenumeration",
+    "current_section_title": "Nuvarande plan",
+    "current_section_description": "Justera din betalningsplan för att bäst passa dina krav",
+    "manage_subscription_button": "Hantera prenumeration"
+  },
+  "BillingOptions": {
+    "current_plan": "Nuvarande plan",
+    "upgrade_plan": "Kom igång"
+  },
+  "CheckoutConfirmation": {
+    "title_bar": "Betalningsbekräftelse",
+    "message_state_title": "Betalning lyckades",
+    "message_state_description": "Din betalning har behandlats framgångsrikt. Tack för ditt köp!",
+    "message_state_button": "Gå tillbaka till fakturering"
+  },
+  "DataTable": {
+    "no_results": "Inga resultat."
+  },
+  "Todos": {
+    "title_bar": "Att göra-lista",
+    "title_bar_description": "Visa och hantera din att göra-lista",
+    "add_todo_button": "Ny att göra"
+  },
+  "TodoTableColumns": {
+    "open_menu": "Öppna meny",
+    "edit": "Redigera",
+    "delete": "Ta bort",
+    "title_header": "Titel",
+    "message_header": "Meddelande",
+    "created_at_header": "Skapad"
+  },
+  "AddTodo": {
+    "title_bar": "Lägg till att göra",
+    "add_todo_section_title": "Skapa en ny att göra",
+    "add_todo_section_description": "Fyll i formuläret nedan för att skapa en ny att göra"
+  },
+  "EditTodo": {
+    "title_bar": "Redigera att göra",
+    "edit_todo_section_title": "Ändra att göra",
+    "edit_todo_section_description": "Fyll i formuläret nedan för att redigera att göra"
+  },
+  "TodoForm": {
+    "title_label": "Titel",
+    "title_description": "Ange en beskrivande titel för din att göra.",
+    "message_title": "Meddelande",
+    "message_description": "Ange ett detaljerat meddelande för din att göra.",
+    "submit_button": "Skicka"
+  },
+  "Settings": {
+    "title_bar": "Inställningar",
+    "title_bar_description": "Hantera dina applikationsinställningar"
+  },
+  "ChatInterface": {
+    "title_bar": "Chattgränssnitt",
+    "title_bar_description": "Skapa och hantera dina chattgränssnitt",
+    "create_new": "Skapa nytt chattgränssnitt",
+    "create_new_description": "Konfigurera ett nytt chattgränssnitt för dina kunder",
+    "edit": "Redigera chattgränssnitt",
+    "edit_title": "Redigera: {name}",
+    "edit_description": "Uppdatera din chattgränssnittskonfiguration och varumärke"
+  },
+  "DashboardActions": {
+    "quick_actions": "Snabbåtgärder",
+    "quick_actions_description": "Kom igång med att skapa ditt första chattgränssnitt",
+    "create_new_interface": "Skapa nytt chattgränssnitt",
+    "account_settings": "Kontoinställningar",
+    "your_interfaces": "Dina chattgränssnitt",
+    "your_interfaces_description": "Hantera och anpassa dina chattgränssnitt"
+  },
+  "ChatForm": {
+    "welcome_message": "Välkomstmeddelande",
+    "welcome_message_placeholder": "Hej! Hur kan jag hjälpa dig idag?",
+    "welcome_message_description": "Första meddelandet som kunderna ser",
+    "input_placeholder": "Inmatningsplatshållare",
+    "input_placeholder_placeholder": "Skriv ditt meddelande...",
+    "input_placeholder_description": "Platshållare för meddelandeinmatning",
+    "title": "Chattgränssnittskonfiguration",
+    "description": "Konfigurera dina chattgränssnittsinställningar och utseende",
+    "name": "Gränssnittsnamn",
+    "name_placeholder": "Kundsupportchatt",
+    "name_description": "Internt namn för ditt chattgränssnitt",
+    "slug": "URL-slug",
+    "slug_placeholder": "kundsupport-chatt",
+    "slug_description": "Offentlig URL: /chat/din-slug",
+    "api_endpoint": "API-slutpunkt",
+    "api_endpoint_placeholder": "https://flow.axiestudio.se/api/v1/run/",
+    "api_endpoint_description": "Din Axie Studio flödes-slutpunkts-URL",
+    "api_key": "API-nyckel",
+    "api_key_placeholder": "Ange din API-nyckel",
+    "api_key_description": "Din Axie Studio API-nyckel för autentisering",
+    "brand_name": "Varumärkesnamn",
+    "brand_name_placeholder": "Ditt företag",
+    "brand_name_description": "Företags- eller varumärkesnamn som visas i chatten",
+    "logo_url": "Logo-URL",
+    "logo_url_placeholder": "https://exempel.com/logo.png",
+    "logo_url_description": "URL till din varumärkeslogga (valfritt)",
+    "typography_advanced_colors": "Typografi och avancerade färger",
+    "primary_color": "Primärfärg",
+    "primary_color_placeholder": "#3B82F6",
+    "primary_color_description": "Huvudvarumärkesfärg för knappar och accenter",
+    "secondary_color": "Sekundärfärg",
+    "secondary_color_placeholder": "#F3F4F6",
+    "secondary_color_description": "Bakgrund och sekundära elementfärg",
+    "font_family": "Typsnittsfamilj",
+    "font_family_description": "Typsnittsfamilj för chattgränssnittstext",
+    "text_color": "Textfärg",
+    "text_color_placeholder": "#1F2937",
+    "text_color_description": "Huvudtextfärg",
+    "bot_message_color": "Bot-meddelandefärg",
+    "bot_message_color_placeholder": "#F9FAFB",
+    "bot_message_color_description": "Bakgrundsfärg för bot-meddelanden",
+    "user_message_color": "Användarmeddelandefärg",
+    "user_message_color_placeholder": "#3B82F6",
+    "user_message_color_description": "Bakgrundsfärg för användarmeddelanden",
+    "placeholder_text": "Platshållartext",
+    "placeholder_text_placeholder": "Skriv ditt meddelande...",
+    "placeholder_text_description": "Platshållartext i inmatningsfältet",
+    "is_active": "Aktiv",
+    "is_active_description": "Aktivera eller inaktivera detta chattgränssnitt",
+    "test_connection": "Testa anslutning",
+    "save": "Spara chattgränssnitt",
+    "update": "Uppdatera chattgränssnitt",
+    "cancel": "Avbryt",
+    "preview": "Förhandsgranskning",
+    "hide_preview": "Dölj förhandsgranskning",
+    "show_preview": "Visa förhandsgranskning",
+    "create_interface": "Skapa gränssnitt",
+    "update_interface": "Uppdatera gränssnitt",
+    "open_public_chat": "Öppna offentlig chatt",
+    "public_chat_url": "Offentlig chatt-URL",
+    "copy_url": "Kopiera URL",
+    "public_access": "Offentlig åtkomst",
+    "public_access_description": "Kontrollera om ditt chattgränssnitt är offentligt tillgängligt",
+    "public_access_enabled": "Offentlig åtkomst aktiverad",
+    "public_access_disabled": "Offentlig åtkomst inaktiverad",
+    "public_access_enabled_description": "Ditt chattgränssnitt är offentligt tillgängligt via URL:en ovan",
+    "public_access_disabled_description": "Ditt chattgränssnitt är privat och inte tillgängligt för allmänheten",
+    "make_private": "Gör privat",
+    "generate_slug": "Generera",
+    "messages": "Meddelanden och innehåll",
+    "messages_description": "Konfigurera standardmeddelanden och innehåll",
+    "basic_settings": "Grundinställningar",
+    "api_configuration": "API-konfiguration",
+    "branding_customization": "Varumärkesanpassning",
+    "typography_colors": "Typografi och färger",
+    "basic_config": "Grundkonfiguration",
+    "basic_config_description": "Konfigurera dina chattgränssnittsinställningar och API-anslutning",
+    "branding": "Varumärke",
+    "branding_description": "Anpassa hur ditt chattgränssnitt ser ut och känns",
+    "live_preview_title": "Live-förhandsgranskning",
+    "live_preview_description": "Se hur ditt chattgränssnitt kommer att se ut",
+    "public_status": "offentlig",
+    "private_status": "privat",
+    "status_updated": "Chattgränssnittet är nu {status}",
+    "created": "skapad",
+    "updated": "uppdaterad",
+    "validation": {
+      "name_required": "Gränssnittsnamn krävs",
+      "name_min": "Namnet måste vara minst 3 tecken",
+      "name_max": "Namnet måste vara mindre än 50 tecken",
+      "slug_required": "URL-slug krävs",
+      "slug_min": "Slug måste vara minst 3 tecken",
+      "slug_max": "Slug måste vara mindre än 50 tecken",
+      "slug_format": "Slug kan endast innehålla små bokstäver, siffror och bindestreck",
+      "api_endpoint_url": "Måste vara en giltig URL",
+      "api_key_required": "API-nyckel krävs",
+      "brand_name_required": "Varumärkesnamn krävs",
+      "brand_name_max": "Varumärkesnamn måste vara mindre än 50 tecken",
+      "logo_url_format": "Måste vara en giltig URL",
+      "color_format": "Måste vara en giltig hex-färg",
+      "font_family_required": "Typsnittsfamilj krävs",
+      "welcome_message_required": "Välkomstmeddelande krävs",
+      "welcome_message_max": "Välkomstmeddelande måste vara mindre än 200 tecken",
+      "placeholder_text_required": "Platshållartext krävs",
+      "placeholder_text_max": "Platshållartext måste vara mindre än 100 tecken"
+    },
+    "alerts": {
+      "save_success": "✅ Chattgränssnitt sparat framgångsrikt!",
+      "save_error": "❌ Fel: {error}",
+      "save_error_generic": "❌ Fel vid sparande av chattgränssnitt. Försök igen.",
+      "url_copied": "✅ Offentlig URL kopierad till urklipp!",
+      "url_copy_failed": "❌ Misslyckades att kopiera URL",
+      "test_success": "✅ Anslutning lyckades! API:et fungerar korrekt.",
+      "test_error": "❌ Anslutning misslyckades: {error}",
+      "test_error_generic": "❌ Anslutningstest misslyckades. Kontrollera din API-endpoint och nyckel.",
+      "status_update_failed": "❌ Misslyckades att uppdatera offentlig åtkomststatus"
+    }
+  },
+  "GettingStarted": {
+    "title": "Komma igång",
+    "description": "Följ dessa steg för att konfigurera ditt första chattgränssnitt",
+    "step1_title": "Konfigurera API",
+    "step1_description": "Konfigurera din Axie Studio API-endpoint och nyckel",
+    "step2_title": "Anpassa gränssnitt",
+    "step2_description": "Anpassa ditt chattgränssnitt med färger, logotyp och meddelanden",
+    "step3_title": "Dela och distribuera",
+    "step3_description": "Få din unika chat-URL och dela den med dina kunder"
+  },
+  "ChatInterfaceList": {
+    "no_interfaces": "Inga chattgränssnitt hittades",
+    "create_first": "Skapa ditt första chattgränssnitt för att komma igång",
+    "brand": "Varumärke",
+    "url": "URL",
+    "created": "Skapad",
+    "messages": "Meddelanden",
+    "status": "Status",
+    "sessions": "Sessioner",
+    "live": "Live",
+    "offline": "Offline",
+    "online": "Online",
+    "preview_chat": "Förhandsgranska chat",
+    "edit_interface": "Redigera gränssnitt",
+    "disable_tooltip": "Inaktivera chattgränssnitt tillfälligt (kan återaktiveras)",
+    "enable_tooltip": "Aktivera chattgränssnitt för offentlig åtkomst",
+    "delete_tooltip": "Ta bort gränssnitt permanent (kan inte ångras)",
+    "disable": "Inaktivera",
+    "enable": "Aktivera",
+    "last_activity": "Senaste aktivitet",
+    "copy_url": "Kopiera URL",
+    "copied": "Kopierat!"
+  },
+  "FeaturesSection": {
+    "subtitle": "Plattformsfunktioner",
+    "title": "Allt du behöver för professionella chattupplevelser",
+    "description": "Bygg, anpassa och distribuera AI-drivna chattgränssnitt som representerar ditt varumärke och ansluter till dina Axie Studio-flöden.",
+    "custom_branding_title": "Anpassad varumärkesprofilering",
+    "custom_branding_description": "Fullständig kontroll över ditt chattgränssnitts utseende. Anpassa färger, logotyper, meddelanden och styling för att matcha din varumärkesidentitet perfekt.",
+    "realtime_conversations_title": "Realtidskonversationer",
+    "realtime_conversations_description": "Direktmeddelanden med dina kunder drivna av Axie Studio AI-flöden. Ge omedelbar support och engagemang 24/7.",
+    "axie_integration_title": "Axie Studio-integration",
+    "axie_integration_description": "Anslut sömlöst till dina befintliga Axie Studio AI-flöden. Ingen komplex installation krävs - ange bara din API-slutpunkt och du är redo.",
+    "instant_deployment_title": "Omedelbar distribution",
+    "instant_deployment_description": "Få en unik offentlig URL för varje chattgränssnitt. Dela med kunder omedelbart eller bädda in på din webbplats utan konfiguration.",
+    "analytics_insights_title": "Analys och insikter",
+    "analytics_insights_description": "Övervaka konversationsmått, spåra kundengagemang och analysera chattprestanda med inbyggd analysdashboard.",
+    "enterprise_security_title": "Företagssäkerhet",
+    "enterprise_security_description": "Säkerhet på banknivå med krypterade konversationer, säkra API-anslutningar och företagsredo datahantering."
+  },
+  "HowItWorksSection": {
+    "subtitle": "Så fungerar det",
+    "title": "Från installation till framgång på några minuter",
+    "description": "Få igång ditt professionella chattgränssnitt med vår enkla trestegsprocess.",
+    "step1_title": "1. Anslut ditt API",
+    "step1_description": "Ange din Axie Studio-flödesslutpunkt och API-nyckel. Testa anslutningen för att säkerställa att allt fungerar perfekt.",
+    "step2_title": "2. Anpassa ditt varumärke",
+    "step2_description": "Ladda upp din logotyp, ställ in varumärkesfärger, anpassa meddelanden och förhandsgranska ditt chattgränssnitt i realtid.",
+    "step3_title": "3. Distribuera och dela",
+    "step3_description": "Få din unika chatt-URL omedelbart. Dela med kunder, bädda in på din webbplats eller integrera i ditt arbetsflöde."
+  },
+  "BenefitsSection": {
+    "subtitle": "Varför välja Axie Studio Chat Builder",
+    "title": "Förvandla din kundupplevelse",
+    "description": "Gå med hundratals företag som redan använder vår plattform för att leverera exceptionell kundsupport.",
+    "reduce_costs_title": "Minska supportkostnader",
+    "reduce_costs_description": "Automatisera kundförfrågningar med AI-drivna svar, minska supportärende-volymen med upp till 70%.",
+    "improve_satisfaction_title": "Förbättra kundnöjdhet",
+    "improve_satisfaction_description": "Ge omedelbar 24/7-support med konsekventa, korrekta svar som bibehåller din varumärkesröst.",
+    "scale_business_title": "Skala ditt företag",
+    "scale_business_description": "Hantera obegränsade konversationer samtidigt utan att lägga till supportpersonal eller infrastruktur.",
+    "brand_consistency_title": "Bibehåll varumärkeskonsistens",
+    "brand_consistency_description": "Varje interaktion speglar ditt varumärke med anpassade färger, meddelanden och professionellt utseende.",
+    "quick_implementation_title": "Snabb implementering",
+    "quick_implementation_description": "Distribuera på några minuter, inte veckor. Ingen teknisk expertis krävs - bara anslut och anpassa.",
+    "enterprise_ready_title": "Företagsredo",
+    "enterprise_ready_description": "Byggd för företag av alla storlekar med säkerhet, analys och skalbarhetsfunktioner inkluderade."
+  },
+  "DemoBanner": {
+    "text": "Live-demo av SaaS Boilerplate -",
+    "link_text": "Utforska användardashboard"
+  },
+  "DemoBadge": {
+    "powered_by": "Drivs av",
+    "axie_studio": "Axie Studio"
+  },
+  "AccountPage": {
+    "title": "Kontohantering",
+    "description": "Hantera din användarprofil, organisation och kontoinställningar",
+    "user_profile_title": "Användarprofil",
+    "user_profile_description": "Hantera din personliga information och preferenser",
+    "manage_profile": "Hantera profil",
+    "organization_title": "Organisation",
+    "organization_description": "Hantera organisationsinställningar och fakturering",
+    "organization_settings": "Organisationsinställningar",
+    "team_members_title": "Teammedlemmar",
+    "team_members_description": "Bjud in och hantera teammedlemmar",
+    "manage_members": "Hantera medlemmar",
+    "account_management_title": "Kontohantering",
+    "account_management_description": "Använd snabbåtgärdsknapparna ovan för att komma åt olika kontohanteringsområden, eller använd navigationsmenyn för att komma åt specifika sektioner.",
+    "quick_access_title": "Snabbåtkomst",
+    "quick_access_description": "Klicka på knapparna ovan för att snabbt navigera till användarprofil, organisationsinställningar eller teammedlemshantering.",
+    "centralized_management_title": "Centraliserad hantering",
+    "centralized_management_description": "Alla dina kontoinställningar är nu organiserade på ett ställe för enklare åtkomst och hantering."
+  }
+}

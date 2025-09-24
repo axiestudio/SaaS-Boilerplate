@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@clerk/nextjs';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 import { Save, Eye, TestTube, Wand2, Globe, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -23,28 +24,28 @@ import {
 import { DashboardSection } from '@/features/dashboard/DashboardSection';
 import { ChatPreview } from './ChatPreview';
 
-const chatInterfaceSchema = z.object({
-  name: z.string().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
+const createChatInterfaceSchema = (t: any) => z.object({
+  name: z.string().min(1, t('validation.name_required')).max(100, t('validation.name_max')),
   slug: z.string()
-    .min(3, 'Slug must be at least 3 characters')
-    .max(50, 'Slug must be less than 50 characters')
-    .regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
-  apiEndpoint: z.string().url('Must be a valid URL'),
-  apiKey: z.string().min(1, 'API Key is required'),
-  brandName: z.string().min(1, 'Brand name is required').max(50, 'Brand name must be less than 50 characters'),
-  logoUrl: z.string().url('Must be a valid URL').optional().or(z.literal('')),
-  primaryColor: z.string().regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
-  secondaryColor: z.string().regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
-  fontFamily: z.string().min(1, 'Font family is required'),
-  textColor: z.string().regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
-  botMessageColor: z.string().regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
-  userMessageColor: z.string().regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
-  welcomeMessage: z.string().min(1, 'Welcome message is required').max(200, 'Welcome message must be less than 200 characters'),
-  placeholderText: z.string().min(1, 'Placeholder text is required').max(100, 'Placeholder text must be less than 100 characters'),
+    .min(3, t('validation.slug_min'))
+    .max(50, t('validation.slug_max'))
+    .regex(/^[a-z0-9-]+$/, t('validation.slug_format')),
+  apiEndpoint: z.string().url(t('validation.api_endpoint_url')),
+  apiKey: z.string().min(1, t('validation.api_key_required')),
+  brandName: z.string().min(1, t('validation.brand_name_required')).max(50, t('validation.brand_name_max')),
+  logoUrl: z.string().url(t('validation.logo_url_format')).optional().or(z.literal('')),
+  primaryColor: z.string().regex(/^#[0-9A-F]{6}$/i, t('validation.color_format')),
+  secondaryColor: z.string().regex(/^#[0-9A-F]{6}$/i, t('validation.color_format')),
+  fontFamily: z.string().min(1, t('validation.font_family_required')),
+  textColor: z.string().regex(/^#[0-9A-F]{6}$/i, t('validation.color_format')),
+  botMessageColor: z.string().regex(/^#[0-9A-F]{6}$/i, t('validation.color_format')),
+  userMessageColor: z.string().regex(/^#[0-9A-F]{6}$/i, t('validation.color_format')),
+  welcomeMessage: z.string().min(1, t('validation.welcome_message_required')).max(200, t('validation.welcome_message_max')),
+  placeholderText: z.string().min(1, t('validation.placeholder_text_required')).max(100, t('validation.placeholder_text_max')),
   isActive: z.boolean().default(true),
 });
 
-type ChatInterfaceFormData = z.infer<typeof chatInterfaceSchema>;
+type ChatInterfaceFormData = z.infer<ReturnType<typeof createChatInterfaceSchema>>;
 
 export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
   initialData?: Partial<ChatInterfaceFormData & { id?: number }>;
@@ -52,13 +53,14 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
 }) => {
   const { userId } = useAuth();
   const router = useRouter();
+  const t = useTranslations('ChatForm');
   const [showPreview, setShowPreview] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
   const [publicUrl, setPublicUrl] = useState('');
 
   const form = useForm<ChatInterfaceFormData>({
-    resolver: zodResolver(chatInterfaceSchema),
+    resolver: zodResolver(createChatInterfaceSchema(t)),
     defaultValues: {
       name: initialData?.name || '',
       slug: initialData?.slug || '',
@@ -122,13 +124,13 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
       });
 
       if (response.ok) {
-        alert('✅ Connection successful! Your API is working correctly.');
+        alert(t('alerts.test_success'));
       } else {
-        alert('❌ Connection failed. Please check your API endpoint and key.');
+        alert(t('alerts.test_error_generic'));
       }
     } catch (error) {
       console.error('Connection test failed:', error);
-      alert('❌ Connection failed. Please check your API endpoint and key.');
+      alert(t('alerts.test_error_generic'));
     } finally {
       setIsTesting(false);
     }
@@ -152,13 +154,14 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
 
       if (response.ok) {
         form.setValue('isActive', newStatus);
-        alert(`✅ Chat interface is now ${newStatus ? 'public' : 'private'}`);
+        const statusText = newStatus ? t('public_status') : t('private_status');
+        alert(`✅ ${t('status_updated', { status: statusText })}`);
       } else {
-        alert('❌ Failed to update public access status');
+        alert(t('alerts.status_update_failed'));
       }
     } catch (error) {
       console.error('Error toggling public access:', error);
-      alert('❌ Failed to update public access status');
+      alert(t('alerts.status_update_failed'));
     }
   };
 
@@ -186,9 +189,8 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
         const result = await response.json();
         
         // Show success message
-        const action = isEditing ? 'updated' : 'created';
-        alert(`✅ Chat interface ${action} successfully!`);
-        
+        alert(t('alerts.save_success'));
+
         if (!isEditing) {
           // Redirect to edit page after creation
           router.push(`/dashboard/chat-interfaces/${result.id}/edit`);
@@ -198,11 +200,11 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
         }
       } else {
         const error = await response.json();
-        alert(`❌ Error: ${error.error || 'Something went wrong'}`);
+        alert(t('alerts.save_error', { error: error.error || 'Something went wrong' }));
       }
     } catch (error) {
       console.error('Error saving chat interface:', error);
-      alert('❌ Error saving chat interface. Please try again.');
+      alert(t('alerts.save_error_generic'));
     } finally {
       setIsSubmitting(false);
     }
@@ -211,10 +213,10 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
   const copyPublicUrl = async () => {
     try {
       await navigator.clipboard.writeText(publicUrl);
-      alert('✅ Public URL copied to clipboard!');
+      alert(t('alerts.url_copied'));
     } catch (error) {
       console.error('Failed to copy URL:', error);
-      alert('❌ Failed to copy URL');
+      alert(t('alerts.url_copy_failed'));
     }
   };
 
@@ -226,8 +228,8 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Basic Configuration */}
             <DashboardSection
-              title="Basic Configuration"
-              description="Configure your chat interface settings and API connection"
+              title={t('basic_config')}
+              description={t('basic_config_description')}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
@@ -235,12 +237,12 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Interface Name *</FormLabel>
+                      <FormLabel>{t('name')} *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Customer Support Chat" {...field} />
+                        <Input placeholder={t('name_placeholder')} {...field} />
                       </FormControl>
                       <FormDescription>
-                        Internal name for your chat interface
+                        {t('name_description')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -252,10 +254,10 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   name="slug"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>URL Slug *</FormLabel>
+                      <FormLabel>{t('slug')} *</FormLabel>
                       <div className="flex gap-2">
                         <FormControl>
-                          <Input placeholder="customer-support-chat" {...field} />
+                          <Input placeholder={t('slug_placeholder')} {...field} />
                         </FormControl>
                         <Button
                           type="button"
@@ -268,7 +270,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                         </Button>
                       </div>
                       <FormDescription>
-                        Public URL: /chat/{field.value || 'your-slug'}
+                        {t('slug_description')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -281,7 +283,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                 <div className="p-4 bg-muted rounded-lg">
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label className="text-sm font-medium">Public Chat URL</Label>
+                      <Label className="text-sm font-medium">{t('public_chat_url')}</Label>
                       <p className="text-sm text-muted-foreground break-all">{publicUrl}</p>
                     </div>
                     <Button
@@ -290,7 +292,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                       size="sm"
                       onClick={copyPublicUrl}
                     >
-                      Copy URL
+                      {t('copy_url')}
                     </Button>
                   </div>
                 </div>
@@ -301,12 +303,12 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                 name="apiEndpoint"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Axie Studio API Endpoint *</FormLabel>
+                    <FormLabel>{t('api_endpoint')} *</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://flow.axiestudio.se/api/v1/run/your-flow-id" {...field} />
+                      <Input placeholder={t('api_endpoint_placeholder')} {...field} />
                     </FormControl>
                     <FormDescription>
-                      Your complete Axie Studio flow API endpoint URL
+                      {t('api_endpoint_description')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -320,12 +322,12 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     name="apiKey"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>API Key *</FormLabel>
+                        <FormLabel>{t('api_key')} *</FormLabel>
                         <FormControl>
-                          <Input type="password" placeholder="Your Axie Studio API key" {...field} />
+                          <Input type="password" placeholder={t('api_key_placeholder')} {...field} />
                         </FormControl>
                         <FormDescription>
-                          Your Axie Studio API authentication key
+                          {t('api_key_description')}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -341,7 +343,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     className="w-full"
                   >
                     <TestTube className="h-4 w-4 mr-2" />
-                    {isTesting ? 'Testing...' : 'Test API'}
+                    {isTesting ? 'Testing...' : t('test_connection')}
                   </Button>
                 </div>
               </div>
@@ -349,8 +351,8 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
 
             {/* Public Access Control */}
             <DashboardSection
-              title="Public Access"
-              description="Control whether your chat interface is publicly accessible"
+              title={t('public_access')}
+              description={t('public_access_description')}
             >
               <FormField
                 control={form.control}
@@ -366,12 +368,12 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                         )}
                         <div>
                           <FormLabel className="text-base font-medium">
-                            {field.value ? 'Public Access Enabled' : 'Public Access Disabled'}
+                            {field.value ? t('public_access_enabled') : t('public_access_disabled')}
                           </FormLabel>
                           <FormDescription>
                             {field.value 
-                              ? 'Your chat interface is publicly accessible via the URL above'
-                              : 'Your chat interface is private and not accessible to the public'
+                              ? t('public_access_enabled_description')
+                              : t('public_access_disabled_description')
                             }
                           </FormDescription>
                         </div>
@@ -382,7 +384,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                         onClick={togglePublicAccess}
                         disabled={!isEditing}
                       >
-                        {field.value ? 'Make Private' : 'Make Public'}
+                        {field.value ? t('make_private') : t('make_public')}
                       </Button>
                     </div>
                     <FormMessage />
@@ -393,8 +395,8 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
 
             {/* Branding & Appearance */}
             <DashboardSection
-              title="Branding & Appearance"
-              description="Customize how your chat interface looks and feels"
+              title={t('branding')}
+              description={t('branding_description')}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
@@ -402,12 +404,12 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   name="brandName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Brand Name *</FormLabel>
+                      <FormLabel>{t('brand_name')} *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your Company Support" {...field} />
+                        <Input placeholder={t('brand_name_placeholder')} {...field} />
                       </FormControl>
                       <FormDescription>
-                        Displayed in the chat header
+                        {t('brand_name_description')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -419,12 +421,12 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   name="logoUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Logo URL (Optional)</FormLabel>
+                      <FormLabel>{t('logo_url')} (Optional)</FormLabel>
                       <FormControl>
-                        <Input placeholder="https://example.com/logo.png" {...field} />
+                        <Input placeholder={t('logo_url_placeholder')} {...field} />
                       </FormControl>
                       <FormDescription>
-                        Company logo for chat header
+                        {t('logo_url_description')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -438,15 +440,15 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   name="primaryColor"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Primary Color *</FormLabel>
+                      <FormLabel>{t('primary_color')} *</FormLabel>
                       <FormControl>
                         <div className="flex gap-2">
                           <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
-                          <Input placeholder="#3B82F6" {...field} />
+                          <Input placeholder={t('primary_color_placeholder')} {...field} />
                         </div>
                       </FormControl>
                       <FormDescription>
-                        Header and user message color
+                        {t('primary_color_description')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -458,15 +460,15 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   name="secondaryColor"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Secondary Color *</FormLabel>
+                      <FormLabel>{t('secondary_color')} *</FormLabel>
                       <FormControl>
                         <div className="flex gap-2">
                           <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
-                          <Input placeholder="#F3F4F6" {...field} />
+                          <Input placeholder={t('secondary_color_placeholder')} {...field} />
                         </div>
                       </FormControl>
                       <FormDescription>
-                        Bot message background color
+                        {t('secondary_color_description')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -476,14 +478,14 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
 
               {/* Typography & Colors Section */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Typography & Advanced Colors</h3>
+                <h3 className="text-lg font-semibold text-gray-900">{t('typography_advanced_colors')}</h3>
 
                 <FormField
                   control={form.control}
                   name="fontFamily"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Font Family *</FormLabel>
+                      <FormLabel>{t('font_family')} *</FormLabel>
                       <FormControl>
                         <select
                           {...field}
@@ -502,7 +504,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                         </select>
                       </FormControl>
                       <FormDescription>
-                        Choose the font family for your chat interface
+                        {t('font_family_description')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -515,15 +517,15 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     name="textColor"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Text Color *</FormLabel>
+                        <FormLabel>{t('text_color')} *</FormLabel>
                         <FormControl>
                           <div className="flex gap-2">
                             <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
-                            <Input placeholder="#1F2937" {...field} />
+                            <Input placeholder={t('text_color_placeholder')} {...field} />
                           </div>
                         </FormControl>
                         <FormDescription>
-                          Main text color
+                          {t('text_color_description')}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -535,15 +537,15 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     name="botMessageColor"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Bot Message Color *</FormLabel>
+                        <FormLabel>{t('bot_message_color')} *</FormLabel>
                         <FormControl>
                           <div className="flex gap-2">
                             <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
-                            <Input placeholder="#F9FAFB" {...field} />
+                            <Input placeholder={t('bot_message_color_placeholder')} {...field} />
                           </div>
                         </FormControl>
                         <FormDescription>
-                          Bot message background
+                          {t('bot_message_color_description')}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -555,15 +557,15 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     name="userMessageColor"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>User Message Color *</FormLabel>
+                        <FormLabel>{t('user_message_color')} *</FormLabel>
                         <FormControl>
                           <div className="flex gap-2">
                             <Input type="color" className="w-16 h-10 p-1 rounded" {...field} />
-                            <Input placeholder="#3B82F6" {...field} />
+                            <Input placeholder={t('user_message_color_placeholder')} {...field} />
                           </div>
                         </FormControl>
                         <FormDescription>
-                          User message background
+                          {t('user_message_color_description')}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -578,12 +580,12 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   name="welcomeMessage"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Welcome Message *</FormLabel>
+                      <FormLabel>{t('welcome_message')} *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Hello! How can I help you today?" {...field} />
+                        <Input placeholder={t('welcome_message_placeholder')} {...field} />
                       </FormControl>
                       <FormDescription>
-                        First message customers see
+                        {t('welcome_message_description')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -595,12 +597,12 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   name="placeholderText"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Input Placeholder *</FormLabel>
+                      <FormLabel>{t('input_placeholder')} *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Type your message..." {...field} />
+                        <Input placeholder={t('input_placeholder_placeholder')} {...field} />
                       </FormControl>
                       <FormDescription>
-                        Placeholder for message input
+                        {t('input_placeholder_description')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -615,7 +617,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                 <Save className="h-4 w-4 mr-2" />
                 {isSubmitting 
                   ? (isEditing ? 'Updating...' : 'Creating...') 
-                  : (isEditing ? 'Update Interface' : 'Create Interface')
+                  : (isEditing ? t('update_interface') : t('create_interface'))
                 }
               </Button>
               
@@ -626,7 +628,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                 onClick={() => setShowPreview(!showPreview)}
               >
                 <Eye className="h-4 w-4 mr-2" />
-                {showPreview ? 'Hide Preview' : 'Show Preview'}
+                {showPreview ? t('hide_preview') : t('show_preview')}
               </Button>
 
               {publicUrl && watchedValues.isActive && (
@@ -637,7 +639,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   onClick={() => window.open(publicUrl, '_blank')}
                 >
                   <Globe className="h-4 w-4 mr-2" />
-                  Open Public Chat
+                  {t('open_public_chat')}
                 </Button>
               )}
             </div>
@@ -650,8 +652,8 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
         <div className="xl:col-span-1">
           <div className="sticky top-6">
             <DashboardSection
-              title="Live Preview"
-              description="See how your chat interface will look"
+              title={t('live_preview_title')}
+              description={t('live_preview_description')}
             >
               <ChatPreview config={watchedValues} />
             </DashboardSection>

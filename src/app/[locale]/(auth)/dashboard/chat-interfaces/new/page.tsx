@@ -9,8 +9,8 @@ const NewChatInterfacePage = () => {
   return (
     <>
       <TitleBar
-        title="Create New Chat Interface"
-        description="Set up a new chat interface for your customers"
+        title={t('create_new')}
+        description={t('create_new_description')}
       />
 
       <div className="max-w-4xl">

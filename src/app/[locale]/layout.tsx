@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-
+import { SmoothScroll } from '@/components/SmoothScroll';
 import { AllLocales } from '@/utils/AppConfig';
 
 export const metadata: Metadata = {
@@ -115,9 +115,8 @@ export default function RootLayout(props: {
           locale={props.params.locale}
           messages={messages}
         >
+          <SmoothScroll />
           {props.children}
-
-
         </NextIntlClientProvider>
       </body>
     </html>

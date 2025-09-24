@@ -5,8 +5,7 @@ import { Navbar } from '@/templates/Navbar';
 import { Features } from '@/templates/Features';
 import { HowItWorks } from '@/features/landing/HowItWorks';
 import { Benefits } from '@/features/landing/Benefits';
-import { Pricing } from '@/templates/Pricing';
-import { CTA } from '@/features/landing/CTA';
+import { FAQ } from '@/features/landing/FAQ';
 import { Footer } from '@/templates/Footer';
 
 export async function generateMetadata(props: { params: { locale: string } }) {
@@ -31,8 +30,7 @@ const IndexPage = (props: { params: { locale: string } }) => {
       <Features />
       <HowItWorks />
       <Benefits />
-      {/* <Pricing /> */}
-      {/* 🎯 REMOVED CTA SECTION */}
+      <FAQ />
       <Footer />
     </>
   );

@@ -8,13 +8,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 
 const AccountPage = async (props: { params: { locale: string } }) => {
-  const t = await getTranslations('Account');
+  const t = await getTranslations('AccountPage');
 
   return (
     <>
       <TitleBar
-        title="Account Management"
-        description="Manage your user profile, organization, and account settings"
+        title={t('title')}
+        description={t('description')}
       />
 
       <div className="space-y-8">
@@ -24,9 +24,9 @@ const AccountPage = async (props: { params: { locale: string } }) => {
             <CardHeader className="flex flex-row items-center space-y-0 pb-2">
               <User className="h-6 w-6 text-blue-600" />
               <div className="ml-3">
-                <CardTitle className="text-lg">User Profile</CardTitle>
+                <CardTitle className="text-lg">{t('user_profile_title')}</CardTitle>
                 <CardDescription>
-                  Manage your personal information and preferences
+                  {t('user_profile_description')}
                 </CardDescription>
               </div>
             </CardHeader>
@@ -34,7 +34,7 @@ const AccountPage = async (props: { params: { locale: string } }) => {
               <Link href="/dashboard/user-profile">
                 <Button variant="outline" className="w-full">
                   <User className="h-4 w-4 mr-2" />
-                  Manage Profile
+                  {t('manage_profile')}
                 </Button>
               </Link>
             </CardContent>
@@ -44,9 +44,9 @@ const AccountPage = async (props: { params: { locale: string } }) => {
             <CardHeader className="flex flex-row items-center space-y-0 pb-2">
               <Building2 className="h-6 w-6 text-green-600" />
               <div className="ml-3">
-                <CardTitle className="text-lg">Organization</CardTitle>
+                <CardTitle className="text-lg">{t('organization_title')}</CardTitle>
                 <CardDescription>
-                  Manage organization settings and billing
+                  {t('organization_description')}
                 </CardDescription>
               </div>
             </CardHeader>
@@ -54,7 +54,7 @@ const AccountPage = async (props: { params: { locale: string } }) => {
               <Link href="/dashboard/organization-profile">
                 <Button variant="outline" className="w-full">
                   <Building2 className="h-4 w-4 mr-2" />
-                  Organization Settings
+                  {t('organization_settings')}
                 </Button>
               </Link>
             </CardContent>
@@ -64,9 +64,9 @@ const AccountPage = async (props: { params: { locale: string } }) => {
             <CardHeader className="flex flex-row items-center space-y-0 pb-2">
               <Users className="h-6 w-6 text-purple-600" />
               <div className="ml-3">
-                <CardTitle className="text-lg">Team Members</CardTitle>
+                <CardTitle className="text-lg">{t('team_members_title')}</CardTitle>
                 <CardDescription>
-                  Invite and manage team members
+                  {t('team_members_description')}
                 </CardDescription>
               </div>
             </CardHeader>
@@ -74,7 +74,7 @@ const AccountPage = async (props: { params: { locale: string } }) => {
               <Link href="/dashboard/organization-profile/organization-members">
                 <Button variant="outline" className="w-full">
                   <Users className="h-4 w-4 mr-2" />
-                  Manage Members
+                  {t('manage_members')}
                 </Button>
               </Link>
             </CardContent>
@@ -86,25 +86,25 @@ const AccountPage = async (props: { params: { locale: string } }) => {
           <CardHeader>
             <CardTitle className="flex items-center">
               <Settings className="h-5 w-5 mr-2" />
-              Account Management
+              {t('account_management_title')}
             </CardTitle>
             <CardDescription>
-              Use the quick action buttons above to access different account management areas, or use the navigation menu to access specific sections.
+              {t('account_management_description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <h4 className="font-semibold text-blue-900 mb-2">Quick Access</h4>
+                <h4 className="font-semibold text-blue-900 mb-2">{t('quick_access_title')}</h4>
                 <p className="text-blue-800 text-sm">
-                  Click the buttons above to quickly navigate to User Profile, Organization Settings, or Team Members management.
+                  {t('quick_access_description')}
                 </p>
               </div>
 
               <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-                <h4 className="font-semibold text-green-900 mb-2">Centralized Management</h4>
+                <h4 className="font-semibold text-green-900 mb-2">{t('centralized_management_title')}</h4>
                 <p className="text-green-800 text-sm">
-                  All your account settings are now organized in one place for easier access and management.
+                  {t('centralized_management_description')}
                 </p>
               </div>
             </div>

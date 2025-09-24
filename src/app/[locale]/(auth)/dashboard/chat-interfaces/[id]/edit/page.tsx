@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { auth } from '@clerk/nextjs/server';
 import { eq, and } from 'drizzle-orm';
+import { getTranslations } from 'next-intl/server';
 
 import { TitleBar } from '@/features/dashboard/TitleBar';
 import { ChatInterfaceForm } from '@/features/chat/ChatInterfaceForm';
@@ -37,7 +38,8 @@ async function getChatInterface(id: string) {
 
 const EditChatInterfacePage = async ({ params }: { params: { id: string } }) => {
   const chatInterface = await getChatInterface(params.id);
-  
+  const t = await getTranslations('ChatInterface');
+
   if (!chatInterface) {
     notFound();
   }
@@ -45,8 +47,8 @@ const EditChatInterfacePage = async ({ params }: { params: { id: string } }) => 
   return (
     <>
       <TitleBar
-        title={`Edit: ${chatInterface.name}`}
-        description="Update your chat interface configuration and branding"
+        title={t('edit_title', { name: chatInterface.name })}
+        description={t('edit_description')}
       />
 
       <div className="max-w-7xl">
