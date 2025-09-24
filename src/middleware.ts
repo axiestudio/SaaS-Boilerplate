@@ -56,11 +56,13 @@ export default function middleware(
 
       const authObj = await auth();
 
+      // Redirect to organization selection only for first-time users
+      // Allow users to work with personal accounts (no orgId) after they've made a choice
       if (
         authObj.userId
         && !authObj.orgId
-        && req.nextUrl.pathname.includes('/dashboard')
-        && !req.nextUrl.pathname.endsWith('/organization-selection')
+        && req.nextUrl.pathname === '/dashboard'
+        && !req.nextUrl.searchParams.has('personal')
       ) {
         const orgSelection = new URL(
           '/onboarding/organization-selection',

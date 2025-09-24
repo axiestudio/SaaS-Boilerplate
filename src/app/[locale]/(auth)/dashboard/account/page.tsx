@@ -1,4 +1,5 @@
 
+import { auth } from '@clerk/nextjs/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { User, Users, Building2, Settings } from 'lucide-react';
@@ -9,6 +10,7 @@ import { Button } from '@/components/ui/button';
 
 const AccountPage = async (props: { params: { locale: string } }) => {
   const t = await getTranslations('AccountPage');
+  const { orgId } = await auth();
 
   return (
     <>
@@ -19,7 +21,7 @@ const AccountPage = async (props: { params: { locale: string } }) => {
 
       <div className="space-y-8">
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className={`grid grid-cols-1 ${orgId ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-6`}>
           <Card className="hover:shadow-md transition-shadow">
             <CardHeader className="flex flex-row items-center space-y-0 pb-2">
               <User className="h-6 w-6 text-blue-600" />
@@ -60,25 +62,28 @@ const AccountPage = async (props: { params: { locale: string } }) => {
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-md transition-shadow">
-            <CardHeader className="flex flex-row items-center space-y-0 pb-2">
-              <Users className="h-6 w-6 text-purple-600" />
-              <div className="ml-3">
-                <CardTitle className="text-lg">{t('team_members_title')}</CardTitle>
-                <CardDescription>
-                  {t('team_members_description')}
-                </CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Link href="/dashboard/organization-profile/organization-members">
-                <Button variant="outline" className="w-full">
-                  <Users className="h-4 w-4 mr-2" />
-                  {t('manage_members')}
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+          {/* Only show organization features if user is in an organization */}
+          {orgId && (
+            <Card className="hover:shadow-md transition-shadow">
+              <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+                <Users className="h-6 w-6 text-purple-600" />
+                <div className="ml-3">
+                  <CardTitle className="text-lg">{t('team_members_title')}</CardTitle>
+                  <CardDescription>
+                    {t('team_members_description')}
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Link href="/dashboard/organization-profile/organization-members">
+                  <Button variant="outline" className="w-full">
+                    <Users className="h-4 w-4 mr-2" />
+                    {t('manage_members')}
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* Account Management Instructions */}

@@ -18,7 +18,8 @@ const OrganizationSelectionPage = () => (
     <OrganizationList
       afterSelectOrganizationUrl="/dashboard"
       afterCreateOrganizationUrl="/dashboard"
-      hidePersonal
+      afterSelectPersonalUrl="/dashboard?personal=true"
+      hidePersonal={false}
       skipInvitationScreen
     />
   </div>

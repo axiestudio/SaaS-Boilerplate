@@ -70,6 +70,21 @@ export const DashboardHeader = (props: {
           </li>
 
           <li>
+            <OrganizationSwitcher
+              organizationProfileMode="navigation"
+              organizationProfileUrl="/dashboard/organization-profile"
+              createOrganizationMode="navigation"
+              createOrganizationUrl="/onboarding/organization-selection"
+              hidePersonal={false}
+              appearance={{
+                elements: {
+                  rootBox: 'px-2 py-1.5',
+                },
+              }}
+            />
+          </li>
+
+          <li>
             <Separator orientation="vertical" className="h-4" />
           </li>
 
