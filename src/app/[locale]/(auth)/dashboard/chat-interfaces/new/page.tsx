@@ -34,7 +34,7 @@ const NewChatInterfacePage = async () => {
               </div>
               <div>
                 <p className="font-semibold text-sm">Deploy in Minutes</p>
-                <p className="text-xs text-muted-foreground">Get your chat live instantly</p>
+                <p className="text-xs text-muted-foreground">{t('deploy_minutes')}</p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-4 bg-white/50 backdrop-blur-sm rounded-2xl border border-white/20">
@@ -43,7 +43,7 @@ const NewChatInterfacePage = async () => {
               </div>
               <div>
                 <p className="font-semibold text-sm">Full Customization</p>
-                <p className="text-xs text-muted-foreground">Match your brand perfectly</p>
+                <p className="text-xs text-muted-foreground">{t('full_customization')}</p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-4 bg-white/50 backdrop-blur-sm rounded-2xl border border-white/20">
@@ -52,7 +52,7 @@ const NewChatInterfacePage = async () => {
               </div>
               <div>
                 <p className="font-semibold text-sm">AI-Powered</p>
-                <p className="text-xs text-muted-foreground">Connect to Axie Studio flows</p>
+                <p className="text-xs text-muted-foreground">{t('ai_powered')}</p>
               </div>
             </div>
           </div>
