@@ -6,18 +6,40 @@ import { PublicChatInterface } from '@/features/chat/PublicChatInterface';
 // This function will be used to fetch chat interface data for metadata
 async function getChatInterfaceMetadata(slug: string) {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/chat-interfaces/public/${slug}`, {
-      cache: 'no-store', // Always fetch fresh data for real-time updates
+    // For server-side rendering, we can directly import and use the database
+    // This avoids the need for HTTP calls and environment URL issues
+    const { db } = await import('@/libs/DB');
+    const { chatInterfaceSchema } = await import('@/models/Schema');
+    const { eq, and } = await import('drizzle-orm');
+
+    const chatInterface = await db.query.chatInterfaceSchema.findFirst({
+      where: and(
+        eq(chatInterfaceSchema.slug, slug),
+        eq(chatInterfaceSchema.isActive, true)
+      ),
+      columns: {
+        id: true,
+        name: true,
+        brandName: true,
+        logoUrl: true,
+        primaryColor: true,
+        secondaryColor: true,
+        welcomeMessage: true,
+        placeholderText: true,
+        apiEndpoint: true,
+        apiKey: true,
+        isActive: true,
+      },
     });
-    
-    if (!response.ok) {
+
+    if (!chatInterface) {
       return null;
     }
-    
-    const data = await response.json();
-    // Return data if it exists and is public (active)
-    return data && data.isPublic ? data : null;
+
+    return {
+      ...chatInterface,
+      isPublic: chatInterface.isActive // Use isActive as isPublic since they represent the same concept
+    };
   } catch (error) {
     console.error('Error fetching chat interface metadata:', error);
     return null;
