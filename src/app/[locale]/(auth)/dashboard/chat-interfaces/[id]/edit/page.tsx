@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { auth } from '@clerk/nextjs/server';
 import { eq, and } from 'drizzle-orm';
 import { getTranslations } from 'next-intl/server';
@@ -13,15 +13,24 @@ async function getChatInterface(id: string) {
     const { userId } = await auth();
 
     if (!userId) {
-      return null;
+      return { error: 'unauthorized' };
     }
 
     const chatInterfaceId = parseInt(id);
     if (isNaN(chatInterfaceId)) {
-      return null;
+      return { error: 'invalid_id' };
     }
 
-    // Fetch directly from database with authentication
+    // First check if the chat interface exists at all
+    const chatInterfaceExists = await db.query.chatInterfaceSchema.findFirst({
+      where: eq(chatInterfaceSchema.id, chatInterfaceId),
+    });
+
+    if (!chatInterfaceExists) {
+      return { error: 'not_found' };
+    }
+
+    // Then check if it belongs to the current user
     const chatInterface = await db.query.chatInterfaceSchema.findFirst({
       where: and(
         eq(chatInterfaceSchema.id, chatInterfaceId),
@@ -29,20 +38,40 @@ async function getChatInterface(id: string) {
       ),
     });
 
-    return chatInterface || null;
+    if (!chatInterface) {
+      return { error: 'access_denied' };
+    }
+
+    return { data: chatInterface };
   } catch (error) {
     console.error('Error fetching chat interface:', error);
-    return null;
+    return { error: 'server_error' };
   }
 }
 
-const EditChatInterfacePage = async ({ params }: { params: { id: string } }) => {
-  const chatInterface = await getChatInterface(params.id);
+const EditChatInterfacePage = async ({ params }: { params: { id: string, locale: string } }) => {
+  const result = await getChatInterface(params.id);
   const t = await getTranslations('ChatInterface');
 
-  if (!chatInterface) {
-    notFound();
+  // Handle different error cases with appropriate redirects
+  if ('error' in result) {
+    const locale = params.locale || 'en';
+    const localePrefix = locale !== 'en' ? `/${locale}` : '';
+
+    switch (result.error) {
+      case 'unauthorized':
+        redirect(`${localePrefix}/sign-in`);
+      case 'access_denied':
+        redirect(`${localePrefix}/dashboard/chat-interfaces/access-denied`);
+      case 'not_found':
+      case 'invalid_id':
+        notFound();
+      default:
+        redirect(`${localePrefix}/dashboard/chat-interfaces`);
+    }
   }
+
+  const chatInterface = result.data;
 
   return (
     <>
@@ -128,7 +157,10 @@ const EditChatInterfacePage = async ({ params }: { params: { id: string } }) => 
 
       {/* Form Component */}
       <ChatInterfaceForm
-        initialData={chatInterface}
+        initialData={{
+          ...chatInterface,
+          logoUrl: chatInterface.logoUrl || undefined
+        }}
         isEditing={true}
       />
     </>

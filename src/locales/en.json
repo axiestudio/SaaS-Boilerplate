@@ -203,6 +203,10 @@
   "ChatForm": {
     "title": "Chat Interface Configuration",
     "description": "Configure your chat interface settings and appearance",
+    "hero_title_create": "Create Your Chat Interface",
+    "hero_title_edit": "Customize Your Chat Interface",
+    "hero_description_create": "Build a professional chat experience for your customers",
+    "hero_description_edit": "Update your chat interface settings and branding",
     "basic_config": "Basic Configuration",
     "basic_config_description": "Configure your chat interface settings and API connection",
     "branding": "Branding & Appearance",
@@ -321,6 +325,19 @@
     "step2_description": "Brand your chat interface with colors, logo, and messages",
     "step3_title": "Share & Deploy",
     "step3_description": "Get your unique chat URL and share it with your customers"
+  },
+  "AccessDenied": {
+    "title": "Access Denied",
+    "description": "You don't have permission to access this chat interface.",
+    "why_title": "Why am I seeing this?",
+    "reason_1": "This chat interface belongs to another user",
+    "reason_2": "You can only edit chat interfaces that you created",
+    "reason_3": "This helps protect user privacy and data security",
+    "view_your_interfaces": "View Your Interfaces",
+    "create_new_interface": "Create New Interface",
+    "back_to_dashboard": "Back to Dashboard",
+    "need_help": "Need help?",
+    "contact_support": "Contact Support"
   },
   "ChatInterfaceList": {
     "your_interfaces": "Your Chat Interfaces",

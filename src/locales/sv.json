@@ -195,6 +195,10 @@
     "your_interfaces_description": "Hantera och anpassa dina chattgränssnitt"
   },
   "ChatForm": {
+    "hero_title_create": "Skapa ditt chattgränssnitt",
+    "hero_title_edit": "Anpassa ditt chattgränssnitt",
+    "hero_description_create": "Bygg en professionell chattupplevelse för dina kunder",
+    "hero_description_edit": "Uppdatera dina chattgränssnittsinställningar och varumärke",
     "welcome_message": "Välkomstmeddelande",
     "welcome_message_placeholder": "Hej! Hur kan jag hjälpa dig idag?",
     "welcome_message_description": "Första meddelandet som kunderna ser",
@@ -322,6 +326,19 @@
     "step2_description": "Anpassa ditt chattgränssnitt med färger, logotyp och meddelanden",
     "step3_title": "Dela och distribuera",
     "step3_description": "Få din unika chat-URL och dela den med dina kunder"
+  },
+  "AccessDenied": {
+    "title": "Åtkomst nekad",
+    "description": "Du har inte behörighet att komma åt detta chattgränssnitt.",
+    "why_title": "Varför ser jag detta?",
+    "reason_1": "Detta chattgränssnitt tillhör en annan användare",
+    "reason_2": "Du kan bara redigera chattgränssnitt som du har skapat",
+    "reason_3": "Detta hjälper till att skydda användarnas integritet och datasäkerhet",
+    "view_your_interfaces": "Visa dina gränssnitt",
+    "create_new_interface": "Skapa nytt gränssnitt",
+    "back_to_dashboard": "Tillbaka till instrumentpanel",
+    "need_help": "Behöver du hjälp?",
+    "contact_support": "Kontakta support"
   },
   "ChatInterfaceList": {
     "your_interfaces": "Dina chattgränssnitt",

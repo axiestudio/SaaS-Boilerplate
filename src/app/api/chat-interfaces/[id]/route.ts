@@ -5,6 +5,7 @@ import { eq, and } from 'drizzle-orm';
 
 import { db } from '@/libs/DB';
 import { chatInterfaceSchema } from '@/models/Schema';
+import { createAccessDeniedResponse, createUnauthorizedResponse, createNotFoundResponse, extractLocaleFromRequest } from '@/utils/redirectHelpers';
 
 const updateChatInterfaceSchema = z.object({
   name: z.string().min(1).max(100).optional(),
@@ -34,9 +35,10 @@ export async function GET(
 ) {
   try {
     const { userId } = await auth();
-    
+    const locale = extractLocaleFromRequest(request);
+
     if (!userId) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return createUnauthorizedResponse(locale);
     }
 
     const id = parseInt(params.id);
@@ -44,6 +46,16 @@ export async function GET(
       return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
     }
 
+    // First check if the chat interface exists at all
+    const chatInterfaceExists = await db.query.chatInterfaceSchema.findFirst({
+      where: eq(chatInterfaceSchema.id, id),
+    });
+
+    if (!chatInterfaceExists) {
+      return createNotFoundResponse();
+    }
+
+    // Then check if it belongs to the current user
     const chatInterface = await db.query.chatInterfaceSchema.findFirst({
       where: and(
         eq(chatInterfaceSchema.id, id),
@@ -52,10 +64,7 @@ export async function GET(
     });
 
     if (!chatInterface) {
-      return NextResponse.json(
-        { error: 'Chat interface not found' },
-        { status: 404 }
-      );
+      return createAccessDeniedResponse(locale);
     }
 
     return NextResponse.json(chatInterface);

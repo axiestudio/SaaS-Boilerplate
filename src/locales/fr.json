@@ -201,6 +201,10 @@
     "your_interfaces_description": "Gérez et personnalisez vos interfaces de chat"
   },
   "ChatForm": {
+    "hero_title_create": "Créez votre interface de chat",
+    "hero_title_edit": "Personnalisez votre interface de chat",
+    "hero_description_create": "Construisez une expérience de chat professionnelle pour vos clients",
+    "hero_description_edit": "Mettez à jour les paramètres et l'image de marque de votre interface de chat",
     "welcome_message": "Message d'accueil",
     "welcome_message_placeholder": "Bonjour ! Comment puis-je vous aider aujourd'hui ?",
     "welcome_message_description": "Premier message que voient les clients",
@@ -328,6 +332,19 @@
     "step2_description": "Personnalisez votre interface de chat avec des couleurs, logo et messages",
     "step3_title": "Partager et déployer",
     "step3_description": "Obtenez votre URL de chat unique et partagez-la avec vos clients"
+  },
+  "AccessDenied": {
+    "title": "Accès refusé",
+    "description": "Vous n'avez pas la permission d'accéder à cette interface de chat.",
+    "why_title": "Pourquoi je vois ceci ?",
+    "reason_1": "Cette interface de chat appartient à un autre utilisateur",
+    "reason_2": "Vous ne pouvez modifier que les interfaces de chat que vous avez créées",
+    "reason_3": "Cela aide à protéger la confidentialité et la sécurité des données des utilisateurs",
+    "view_your_interfaces": "Voir vos interfaces",
+    "create_new_interface": "Créer une nouvelle interface",
+    "back_to_dashboard": "Retour au tableau de bord",
+    "need_help": "Besoin d'aide ?",
+    "contact_support": "Contacter le support"
   },
   "ChatInterfaceList": {
     "your_interfaces": "Vos interfaces de chat",
