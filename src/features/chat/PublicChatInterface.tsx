@@ -584,6 +584,34 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
         session_id: sessionId,
       });
 
+      // Handle demo chat interface with mock responses
+      if (config.apiKey === 'demo-api-key-12345') {
+        console.log('🎭 Using demo mode with mock responses');
+        
+        // Import mock API function
+        const { generateMockResponse } = await import('./DemoMockAPI');
+        const mockResponse = generateMockResponse(inputValue);
+        
+        // Simulate API delay for realistic experience
+        await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+        
+        const processedResponse = processAIResponse(mockResponse);
+        
+        const botMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: processedResponse.text,
+          isUser: false,
+          timestamp: new Date(),
+          hasHtml: processedResponse.hasHtml,
+          hasBookingUrl: processedResponse.hasBookingUrl,
+          bookingUrl: processedResponse.bookingUrl,
+        };
+        
+        setMessages(prev => [...prev, botMessage]);
+        setIsLoading(false);
+        return;
+      }
+
       // 🚀 OPTIMIZED API CALL FOR FASTER RESPONSES
       const response = await fetch(config.apiEndpoint, {
         method: 'POST',
