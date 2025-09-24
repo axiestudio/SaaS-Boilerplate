@@ -49,7 +49,7 @@ export async function GET(
 
     return NextResponse.json({
       ...chatInterface,
-      isPublic: true
+      isPublic: chatInterface.isActive // Use isActive as isPublic since they represent the same concept
     });
   } catch (error) {
     console.error('Error fetching public chat interface:', error);

@@ -16,7 +16,8 @@ async function getChatInterfaceMetadata(slug: string) {
     }
     
     const data = await response.json();
-    return data.isPublic ? data : null;
+    // Return data if it exists and is public (active)
+    return data && data.isPublic ? data : null;
   } catch (error) {
     console.error('Error fetching chat interface metadata:', error);
     return null;
