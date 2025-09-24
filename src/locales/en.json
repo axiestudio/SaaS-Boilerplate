@@ -186,7 +186,11 @@
     "create_new_description": "Set up a new chat interface for your customers",
     "edit": "Edit Chat Interface",
     "edit_title": "Edit: {name}",
-    "edit_description": "Update your chat interface configuration and branding"
+    "edit_description": "Update your chat interface configuration and branding",
+    "hero_title_create": "Create Your Chat Interface",
+    "hero_title_edit": "Customize Your Chat Interface",
+    "hero_description_create": "Build a professional chat experience for your customers",
+    "hero_description_edit": "Update your chat interface settings and branding"
   },
   "DashboardActions": {
     "quick_actions": "Quick Actions",

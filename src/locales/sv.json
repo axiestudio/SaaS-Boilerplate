@@ -180,7 +180,11 @@
     "create_new_description": "Konfigurera ett nytt chattgränssnitt för dina kunder",
     "edit": "Redigera chattgränssnitt",
     "edit_title": "Redigera: {name}",
-    "edit_description": "Uppdatera din chattgränssnittskonfiguration och varumärke"
+    "edit_description": "Uppdatera din chattgränssnittskonfiguration och varumärke",
+    "hero_title_create": "Skapa ditt chattgränssnitt",
+    "hero_title_edit": "Anpassa ditt chattgränssnitt",
+    "hero_description_create": "Bygg en professionell chattupplevelse för dina kunder",
+    "hero_description_edit": "Uppdatera dina chattgränssnittsinställningar och varumärke"
   },
   "DashboardActions": {
     "quick_actions": "Snabbåtgärder",

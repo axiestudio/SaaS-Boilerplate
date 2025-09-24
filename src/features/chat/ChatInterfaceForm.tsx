@@ -244,10 +244,10 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     </div>
                     <div>
                       <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                        {isEditing ? 'Customize Your Chat Interface' : 'Create Your Chat Interface'}
+                        {isEditing ? t('hero_title_edit') : t('hero_title_create')}
                       </h1>
                       <p className="text-muted-foreground">
-                        {isEditing ? 'Update your chat interface settings and branding' : 'Build a professional chat experience for your customers'}
+                        {isEditing ? t('hero_description_edit') : t('hero_description_create')}
                       </p>
                     </div>
                   </div>

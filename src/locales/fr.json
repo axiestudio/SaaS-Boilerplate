@@ -182,7 +182,11 @@
     "create_new_description": "Configurez une nouvelle interface de chat pour vos clients",
     "edit": "Modifier l'interface de chat",
     "edit_title": "Modifier : {name}",
-    "edit_description": "Mettez à jour la configuration et l'image de marque de votre interface de chat"
+    "edit_description": "Mettez à jour la configuration et l'image de marque de votre interface de chat",
+    "hero_title_create": "Créez votre interface de chat",
+    "hero_title_edit": "Personnalisez votre interface de chat",
+    "hero_description_create": "Construisez une expérience de chat professionnelle pour vos clients",
+    "hero_description_edit": "Mettez à jour les paramètres et l'image de marque de votre interface de chat"
   },
   "Account": {
     "title_bar": "Gestion du compte",
