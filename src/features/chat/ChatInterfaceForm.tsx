@@ -220,25 +220,25 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
-      <div className="grid grid-cols-1 xl:grid-cols-5 gap-8 max-w-[1600px] mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background p-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 h-full max-w-none mx-auto">
         {/* Enhanced Form Section - Takes 3/5 width on xl screens */}
-        <div className="xl:col-span-3 space-y-8">
+        <div className="space-y-6 overflow-y-auto max-h-screen">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               {/* Hero Section */}
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border border-primary/20 p-8">
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border border-primary/20 p-6">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-pulse" />
                 <div className="relative">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center">
-                      <Sparkles className="h-6 w-6 text-primary-foreground" />
+                    <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center">
+                      <Sparkles className="h-5 w-5 text-primary-foreground" />
                     </div>
                     <div>
-                      <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                      <h1 className="text-xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
                         {isEditing ? 'Customize Your Chat Interface' : 'Create Your Chat Interface'}
                       </h1>
-                      <p className="text-muted-foreground">
+                      <p className="text-sm text-muted-foreground">
                         {isEditing ? 'Update your chat interface settings and branding' : 'Build a professional chat experience for your customers'}
                       </p>
                     </div>
@@ -247,24 +247,24 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
               </div>
 
               {/* Basic Configuration Section */}
-              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8 space-y-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 space-y-4">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
                     <Settings className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold">{t('basic_config')}</h2>
+                    <h2 className="text-lg font-semibold">{t('basic_config')}</h2>
                     <p className="text-sm text-muted-foreground">{t('basic_config_description')}</p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-semibold flex items-center gap-2">
+                        <FormLabel className="text-sm font-semibold flex items-center gap-2">
                           <MessageSquare className="h-4 w-4 text-primary" />
                           {t('name')} *
                         </FormLabel>
@@ -272,10 +272,10 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                           <Input 
                             placeholder={t('name_placeholder')} 
                             {...field} 
-                            className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                            className="h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                           />
                         </FormControl>
-                        <FormDescription className="text-sm">
+                        <FormDescription className="text-xs">
                           {t('name_description')}
                         </FormDescription>
                         <FormMessage />
@@ -288,30 +288,30 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     name="slug"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-semibold flex items-center gap-2">
+                        <FormLabel className="text-sm font-semibold flex items-center gap-2">
                           <LinkIcon className="h-4 w-4 text-primary" />
                           {t('slug')} *
                         </FormLabel>
-                        <div className="flex gap-3">
+                        <div className="flex gap-2">
                           <FormControl>
                             <Input 
                               placeholder={t('slug_placeholder')} 
                               {...field} 
-                              className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                              className="h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                             />
                           </FormControl>
                           <Button
                             type="button"
                             variant="outline"
-                            size="lg"
+                            size="sm"
                             onClick={generateSlug}
                             disabled={!form.getValues('name')}
-                            className="h-12 px-4 border-2 hover:border-primary/50 transition-all duration-200"
+                            className="h-10 px-3 border-2 hover:border-primary/50 transition-all duration-200"
                           >
                             <Wand2 className="h-4 w-4" />
                           </Button>
                         </div>
-                        <FormDescription className="text-sm">
+                        <FormDescription className="text-xs">
                           {t('slug_description')}
                         </FormDescription>
                         <FormMessage />
@@ -322,25 +322,25 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
 
                 {/* Enhanced Public URL Display */}
                 {publicUrl && (
-                  <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200/50 p-6">
+                  <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200/50 p-4">
                     <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-emerald-500/5" />
                     <div className="relative">
                       <div className="flex items-center justify-between">
                         <div className="flex-1 min-w-0">
-                          <Label className="text-base font-semibold text-green-800 flex items-center gap-2 mb-2">
+                          <Label className="text-sm font-semibold text-green-800 flex items-center gap-2 mb-2">
                             <Globe className="h-4 w-4" />
                             {t('public_chat_url')}
                           </Label>
-                          <p className="text-sm text-green-700 break-all font-mono bg-white/50 px-3 py-2 rounded-lg border border-green-200">
+                          <p className="text-xs text-green-700 break-all font-mono bg-white/50 px-2 py-1 rounded border border-green-200">
                             {publicUrl}
                           </p>
                         </div>
                         <Button
                           type="button"
                           variant="outline"
-                          size="lg"
+                          size="sm"
                           onClick={copyPublicUrl}
-                          className="ml-4 h-12 border-2 border-green-300 text-green-700 hover:bg-green-100 hover:border-green-400 transition-all duration-200"
+                          className="ml-3 h-8 border-2 border-green-300 text-green-700 hover:bg-green-100 hover:border-green-400 transition-all duration-200"
                         >
                           {t('copy_url')}
                         </Button>
@@ -354,15 +354,15 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   name="apiEndpoint"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base font-semibold">{t('api_endpoint')} *</FormLabel>
+                      <FormLabel className="text-sm font-semibold">{t('api_endpoint')} *</FormLabel>
                       <FormControl>
                         <Input 
                           placeholder={t('api_endpoint_placeholder')} 
                           {...field} 
-                          className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                          className="h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                         />
                       </FormControl>
-                      <FormDescription className="text-sm">
+                      <FormDescription className="text-xs">
                         {t('api_endpoint_description')}
                       </FormDescription>
                       <FormMessage />
@@ -371,22 +371,22 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                 />
 
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-                  <div className="lg:col-span-3">
+                  <div className="lg:col-span-3 space-y-2">
                     <FormField
                       control={form.control}
                       name="apiKey"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-base font-semibold">{t('api_key')} *</FormLabel>
+                          <FormLabel className="text-sm font-semibold">{t('api_key')} *</FormLabel>
                           <FormControl>
                             <Input 
                               type="password" 
                               placeholder={t('api_key_placeholder')} 
                               {...field} 
-                              className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                              className="h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                             />
                           </FormControl>
-                          <FormDescription className="text-sm">
+                          <FormDescription className="text-xs">
                             {t('api_key_description')}
                           </FormDescription>
                           <FormMessage />
@@ -400,7 +400,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                       variant="outline"
                       onClick={testConnection}
                       disabled={isTesting || !form.getValues('apiEndpoint') || !form.getValues('apiKey')}
-                      className="w-full h-12 border-2 hover:border-primary/50 transition-all duration-200"
+                      className="w-full h-10 border-2 hover:border-primary/50 transition-all duration-200"
                     >
                       <TestTube className="h-4 w-4 mr-2" />
                       {isTesting ? 'Testing...' : t('test_connection')}
@@ -410,13 +410,13 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
               </div>
 
               {/* Public Access Control Section */}
-              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                     <Globe className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold">{t('public_access')}</h2>
+                    <h2 className="text-lg font-semibold">{t('public_access')}</h2>
                     <p className="text-sm text-muted-foreground">{t('public_access_description')}</p>
                   </div>
                 </div>
@@ -426,25 +426,25 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   name="isActive"
                   render={({ field }) => (
                     <FormItem>
-                      <div className="relative overflow-hidden rounded-2xl border-2 border-border/50 bg-gradient-to-r from-card to-card/80 p-6 hover:shadow-lg transition-all duration-300">
+                      <div className="relative overflow-hidden rounded-xl border-2 border-border/50 bg-gradient-to-r from-card to-card/80 p-4 hover:shadow-lg transition-all duration-300">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4">
-                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 ${
                               field.value 
                                 ? 'bg-gradient-to-br from-green-500 to-emerald-500 shadow-lg shadow-green-500/25' 
                                 : 'bg-gradient-to-br from-red-500 to-pink-500 shadow-lg shadow-red-500/25'
                             }`}>
                               {field.value ? (
-                                <Globe className="h-6 w-6 text-white" />
+                                <Globe className="h-5 w-5 text-white" />
                               ) : (
-                                <Lock className="h-6 w-6 text-white" />
+                                <Lock className="h-5 w-5 text-white" />
                               )}
                             </div>
                             <div>
-                              <FormLabel className="text-lg font-semibold">
+                              <FormLabel className="text-base font-semibold">
                                 {field.value ? t('public_access_enabled') : t('public_access_disabled')}
                               </FormLabel>
-                              <FormDescription className="text-sm mt-1">
+                              <FormDescription className="text-xs mt-1">
                                 {field.value 
                                   ? t('public_access_enabled_description')
                                   : t('public_access_disabled_description')
@@ -457,7 +457,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                             variant={field.value ? "destructive" : "default"}
                             onClick={togglePublicAccess}
                             disabled={!isEditing}
-                            className="h-12 px-6 text-base font-semibold transition-all duration-200"
+                            className="h-10 px-4 text-sm font-semibold transition-all duration-200"
                           >
                             {field.value ? t('make_private') : 'Make Public'}
                           </Button>
@@ -470,32 +470,32 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
               </div>
 
               {/* Enhanced Branding Section */}
-              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8 space-y-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 space-y-4">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
                     <Palette className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold">{t('branding')}</h2>
+                    <h2 className="text-lg font-semibold">{t('branding')}</h2>
                     <p className="text-sm text-muted-foreground">{t('branding_description')}</p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name="brandName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-semibold">{t('brand_name')} *</FormLabel>
+                        <FormLabel className="text-sm font-semibold">{t('brand_name')} *</FormLabel>
                         <FormControl>
                           <Input 
                             placeholder={t('brand_name_placeholder')} 
                             {...field} 
-                            className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                            className="h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                           />
                         </FormControl>
-                        <FormDescription className="text-sm">
+                        <FormDescription className="text-xs">
                           {t('brand_name_description')}
                         </FormDescription>
                         <FormMessage />
@@ -508,15 +508,15 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     name="logoUrl"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-semibold">{t('logo_url')} (Optional)</FormLabel>
+                        <FormLabel className="text-sm font-semibold">{t('logo_url')} (Optional)</FormLabel>
                         <FormControl>
                           <Input 
                             placeholder={t('logo_url_placeholder')} 
                             {...field} 
-                            className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                            className="h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                           />
                         </FormControl>
-                        <FormDescription className="text-sm">
+                        <FormDescription className="text-xs">
                           {t('logo_url_description')}
                         </FormDescription>
                         <FormMessage />
@@ -526,31 +526,31 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                 </div>
 
                 {/* Enhanced Color Pickers */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name="primaryColor"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-semibold">{t('primary_color')} *</FormLabel>
+                        <FormLabel className="text-sm font-semibold">{t('primary_color')} *</FormLabel>
                         <FormControl>
-                          <div className="flex gap-3">
+                          <div className="flex gap-2">
                             <div className="relative">
                               <Input 
                                 type="color" 
-                                className="w-16 h-12 p-1 rounded-xl border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
+                                className="w-12 h-10 p-1 rounded-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
                                 {...field} 
                               />
-                              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+                              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
                             </div>
                             <Input 
                               placeholder={t('primary_color_placeholder')} 
                               {...field} 
-                              className="flex-1 h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                              className="flex-1 h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                             />
                           </div>
                         </FormControl>
-                        <FormDescription className="text-sm">
+                        <FormDescription className="text-xs">
                           {t('primary_color_description')}
                         </FormDescription>
                         <FormMessage />
@@ -563,25 +563,25 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     name="secondaryColor"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-semibold">{t('secondary_color')} *</FormLabel>
+                        <FormLabel className="text-sm font-semibold">{t('secondary_color')} *</FormLabel>
                         <FormControl>
-                          <div className="flex gap-3">
+                          <div className="flex gap-2">
                             <div className="relative">
                               <Input 
                                 type="color" 
-                                className="w-16 h-12 p-1 rounded-xl border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
+                                className="w-12 h-10 p-1 rounded-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
                                 {...field} 
                               />
-                              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+                              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
                             </div>
                             <Input 
                               placeholder={t('secondary_color_placeholder')} 
                               {...field} 
-                              className="flex-1 h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                              className="flex-1 h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                             />
                           </div>
                         </FormControl>
-                        <FormDescription className="text-sm">
+                        <FormDescription className="text-xs">
                           {t('secondary_color_description')}
                         </FormDescription>
                         <FormMessage />
@@ -591,8 +591,8 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                 </div>
 
                 {/* Enhanced Typography Section */}
-                <div className="space-y-6 pt-6 border-t border-border/30">
-                  <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                <div className="space-y-4 pt-4 border-t border-border/30">
+                  <h3 className="text-base font-semibold text-foreground flex items-center gap-2">
                     <Palette className="h-5 w-5 text-primary" />
                     {t('typography_advanced_colors')}
                   </h3>
@@ -602,11 +602,11 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     name="fontFamily"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-semibold">{t('font_family')} *</FormLabel>
+                        <FormLabel className="text-sm font-semibold">{t('font_family')} *</FormLabel>
                         <FormControl>
                           <select
                             {...field}
-                            className="flex h-12 w-full rounded-xl border-2 border-input bg-background px-4 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus:border-primary/50 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200"
+                            className="flex h-10 w-full rounded-lg border-2 border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus:border-primary/50 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200"
                           >
                             <option value="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Inter (Modern)</option>
                             <option value="'Helvetica Neue', Helvetica, Arial, sans-serif">Helvetica</option>
@@ -620,7 +620,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                             <option value="Impact, sans-serif">Impact</option>
                           </select>
                         </FormControl>
-                        <FormDescription className="text-sm">
+                        <FormDescription className="text-xs">
                           {t('font_family_description')}
                         </FormDescription>
                         <FormMessage />
@@ -634,25 +634,25 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                       name="textColor"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-base font-semibold">{t('text_color')} *</FormLabel>
+                          <FormLabel className="text-sm font-semibold">{t('text_color')} *</FormLabel>
                           <FormControl>
-                            <div className="flex gap-3">
+                            <div className="flex gap-2">
                               <div className="relative">
                                 <Input 
                                   type="color" 
-                                  className="w-16 h-12 p-1 rounded-xl border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
+                                  className="w-10 h-10 p-1 rounded-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
                                   {...field} 
                                 />
-                                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+                                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
                               </div>
                               <Input 
                                 placeholder={t('text_color_placeholder')} 
                                 {...field} 
-                                className="flex-1 h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                                className="flex-1 h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                               />
                             </div>
                           </FormControl>
-                          <FormDescription className="text-sm">
+                          <FormDescription className="text-xs">
                             {t('text_color_description')}
                           </FormDescription>
                           <FormMessage />
@@ -665,25 +665,25 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                       name="botMessageColor"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-base font-semibold">{t('bot_message_color')} *</FormLabel>
+                          <FormLabel className="text-sm font-semibold">{t('bot_message_color')} *</FormLabel>
                           <FormControl>
-                            <div className="flex gap-3">
+                            <div className="flex gap-2">
                               <div className="relative">
                                 <Input 
                                   type="color" 
-                                  className="w-16 h-12 p-1 rounded-xl border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
+                                  className="w-10 h-10 p-1 rounded-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
                                   {...field} 
                                 />
-                                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+                                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
                               </div>
                               <Input 
                                 placeholder={t('bot_message_color_placeholder')} 
                                 {...field} 
-                                className="flex-1 h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                                className="flex-1 h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                               />
                             </div>
                           </FormControl>
-                          <FormDescription className="text-sm">
+                          <FormDescription className="text-xs">
                             {t('bot_message_color_description')}
                           </FormDescription>
                           <FormMessage />
@@ -696,25 +696,25 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                       name="userMessageColor"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-base font-semibold">{t('user_message_color')} *</FormLabel>
+                          <FormLabel className="text-sm font-semibold">{t('user_message_color')} *</FormLabel>
                           <FormControl>
-                            <div className="flex gap-3">
+                            <div className="flex gap-2">
                               <div className="relative">
                                 <Input 
                                   type="color" 
-                                  className="w-16 h-12 p-1 rounded-xl border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
+                                  className="w-10 h-10 p-1 rounded-lg border-2 cursor-pointer hover:scale-105 transition-transform duration-200" 
                                   {...field} 
                                 />
-                                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+                                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
                               </div>
                               <Input 
                                 placeholder={t('user_message_color_placeholder')} 
                                 {...field} 
-                                className="flex-1 h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                                className="flex-1 h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                               />
                             </div>
                           </FormControl>
-                          <FormDescription className="text-sm">
+                          <FormDescription className="text-xs">
                             {t('user_message_color_description')}
                           </FormDescription>
                           <FormMessage />
@@ -724,21 +724,21 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name="welcomeMessage"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-semibold">{t('welcome_message')} *</FormLabel>
+                        <FormLabel className="text-sm font-semibold">{t('welcome_message')} *</FormLabel>
                         <FormControl>
                           <Input 
                             placeholder={t('welcome_message_placeholder')} 
                             {...field} 
-                            className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                            className="h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                           />
                         </FormControl>
-                        <FormDescription className="text-sm">
+                        <FormDescription className="text-xs">
                           {t('welcome_message_description')}
                         </FormDescription>
                         <FormMessage />
@@ -751,15 +751,15 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     name="placeholderText"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-semibold">{t('placeholder_text')} *</FormLabel>
+                        <FormLabel className="text-sm font-semibold">{t('placeholder_text')} *</FormLabel>
                         <FormControl>
                           <Input
                             placeholder={t('placeholder_text_placeholder')}
                             {...field}
-                            className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
+                            className="h-10 text-sm border-2 focus:border-primary/50 transition-all duration-200"
                           />
                         </FormControl>
-                        <FormDescription className="text-sm">
+                        <FormDescription className="text-xs">
                           {t('placeholder_text_description')}
                         </FormDescription>
                         <FormMessage />
@@ -770,13 +770,12 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
               </div>
 
               {/* Enhanced Action Buttons */}
-              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8">
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6">
                 <div className="flex flex-wrap gap-4">
                   <Button 
                     type="submit" 
                     disabled={isSubmitting} 
-                    size="lg"
-                    className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="h-12 px-6 text-sm font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     <Save className="h-5 w-5 mr-2" />
                     {isSubmitting 
@@ -788,9 +787,8 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                   <Button 
                     type="button" 
                     variant="outline" 
-                    size="lg"
                     onClick={() => setShowPreview(!showPreview)}
-                    className="h-14 px-8 text-base font-semibold border-2 hover:border-primary/50 transition-all duration-300"
+                    className="h-12 px-6 text-sm font-semibold border-2 hover:border-primary/50 transition-all duration-300"
                   >
                     {showPreview ? <EyeOff className="h-5 w-5 mr-2" /> : <Eye className="h-5 w-5 mr-2" />}
                     {showPreview ? t('hide_preview') : t('show_preview')}
@@ -800,9 +798,8 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     <Button 
                       type="button" 
                       variant="secondary" 
-                      size="lg"
                       onClick={() => window.open(publicUrl, '_blank')}
-                      className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600 shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="h-12 px-6 text-sm font-semibold bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600 shadow-lg hover:shadow-xl transition-all duration-300"
                     >
                       <Globe className="h-5 w-5 mr-2" />
                       {t('open_public_chat')}
@@ -816,29 +813,29 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
 
         {/* Enhanced Live Preview Section - Takes 2/5 width on xl screens */}
         {showPreview && (
-          <div className="xl:col-span-2">
-            <div className="sticky top-8">
-              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8 space-y-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
+          <div className="h-full">
+            <div className="sticky top-4 h-[calc(100vh-2rem)]">
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 h-full flex flex-col">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center">
                     <Eye className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold">{t('live_preview_title')}</h2>
+                    <h2 className="text-lg font-semibold">{t('live_preview_title')}</h2>
                     <p className="text-sm text-muted-foreground">{t('live_preview_description')}</p>
                   </div>
                 </div>
 
                 {/* Preview Container with Enhanced Styling */}
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl" />
-                  <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 border-2 border-border/30">
+                <div className="relative flex-1 min-h-0">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-xl" />
+                  <div className="relative bg-white/80 backdrop-blur-sm rounded-xl p-4 border-2 border-border/30 h-full">
                     <ChatPreview config={watchedValues} />
                   </div>
                 </div>
 
                 {/* Preview Status Indicator */}
-                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground mt-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                   <span>Live Preview - Updates in real-time</span>
                 </div>
