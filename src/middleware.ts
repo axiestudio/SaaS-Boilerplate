@@ -58,14 +58,22 @@ export default function middleware(
 
       // Redirect to organization selection only for first-time users
       // Allow users to work with personal accounts (no orgId) after they've made a choice
+      // Handle both localized and non-localized dashboard paths
+      const isDashboardPath = req.nextUrl.pathname === '/dashboard' || req.nextUrl.pathname.match(/^\/[a-z]{2}\/dashboard$/);
+
       if (
         authObj.userId
         && !authObj.orgId
-        && req.nextUrl.pathname === '/dashboard'
+        && isDashboardPath
         && !req.nextUrl.searchParams.has('personal')
+        && !req.nextUrl.searchParams.has('org_selected')
       ) {
+        // Extract locale from path if present
+        const locale = req.nextUrl.pathname.match(/^\/([a-z]{2})\//)?.at(1) ?? '';
+        const localePrefix = locale ? `/${locale}` : '';
+
         const orgSelection = new URL(
-          '/onboarding/organization-selection',
+          `${localePrefix}/onboarding/organization-selection`,
           req.url,
         );
 

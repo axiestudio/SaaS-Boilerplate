@@ -18,9 +18,9 @@ const OrganizationSelectionPage = () => (
   <div className="flex min-h-screen items-center justify-center p-6">
     <div className="w-full max-w-2xl">
       <LimitedOrganizationList
-        afterSelectOrganizationUrl="/dashboard"
-        afterCreateOrganizationUrl="/dashboard"
-        afterSelectPersonalUrl="/dashboard?personal=true"
+        afterSelectOrganizationUrl="/dashboard?org_selected=true"
+        afterCreateOrganizationUrl="/dashboard?org_selected=true"
+        afterSelectPersonalUrl="/dashboard?personal=true&org_selected=true"
         hidePersonal={false}
         skipInvitationScreen
       />
