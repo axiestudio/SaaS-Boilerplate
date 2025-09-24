@@ -320,6 +320,8 @@
     "step3_description": "Få din unika chat-URL och dela den med dina kunder"
   },
   "ChatInterfaceList": {
+    "your_interfaces": "Dina chattgränssnitt",
+    "create_new": "Skapa nytt chattgränssnitt",
     "no_interfaces": "Inga chattgränssnitt hittades",
     "create_first": "Skapa ditt första chattgränssnitt för att komma igång",
     "brand": "Varumärke",

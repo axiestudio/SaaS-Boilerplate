@@ -751,16 +751,16 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     name="placeholderText"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-semibold">{t('input_placeholder')} *</FormLabel>
+                        <FormLabel className="text-base font-semibold">{t('placeholder_text')} *</FormLabel>
                         <FormControl>
-                          <Input 
-                            placeholder={t('input_placeholder_placeholder')} 
-                            {...field} 
+                          <Input
+                            placeholder={t('placeholder_text_placeholder')}
+                            {...field}
                             className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
                           />
                         </FormControl>
                         <FormDescription className="text-sm">
-                          {t('input_placeholder_description')}
+                          {t('placeholder_text_description')}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>

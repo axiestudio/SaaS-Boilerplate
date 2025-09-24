@@ -326,6 +326,8 @@
     "step3_description": "Obtenez votre URL de chat unique et partagez-la avec vos clients"
   },
   "ChatInterfaceList": {
+    "your_interfaces": "Vos interfaces de chat",
+    "create_new": "Créer une nouvelle interface de chat",
     "no_interfaces": "Aucune interface de chat trouvée",
     "create_first": "Créez votre première interface de chat pour commencer",
     "brand": "Marque",

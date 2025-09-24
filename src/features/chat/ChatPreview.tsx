@@ -1,6 +1,6 @@
 'use client';
 
-import { Send, Sparkles } from 'lucide-react';
+import { Send, Sparkles, MessageSquare } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';

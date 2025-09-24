@@ -319,6 +319,8 @@
     "step3_description": "Get your unique chat URL and share it with your customers"
   },
   "ChatInterfaceList": {
+    "your_interfaces": "Your Chat Interfaces",
+    "create_new": "Create New Chat Interface",
     "no_interfaces": "No chat interfaces found",
     "create_first": "Create your first chat interface to get started",
     "brand": "Brand",
