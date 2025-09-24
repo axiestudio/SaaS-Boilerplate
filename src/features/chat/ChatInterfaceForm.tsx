@@ -459,7 +459,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                             disabled={!isEditing}
                             className="h-12 px-6 text-base font-semibold transition-all duration-200"
                           >
-                            {field.value ? t('make_private') : 'Make Public'}
+                            {field.value ? t('make_private') : t('make_public')}
                           </Button>
                         </div>
                         <FormMessage />
