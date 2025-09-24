@@ -344,6 +344,18 @@
     "copy_url": "Kopiera URL",
     "copied": "Kopierat!"
   },
+  "Limits": {
+    "organization_limit_reached": "Organisationsgräns nådd ({count}/{max}). För att skapa en ny organisation, lämna först en befintlig organisation.",
+    "member_limit_reached": "Medlemsgräns nådd ({count}/{max}). För att bjuda in nya medlemmar, ta först bort befintliga medlemmar.",
+    "your_organizations": "Dina Organisationer",
+    "manage_memberships": "Hantera dina organisationsmedlemskap",
+    "team_management": "Teamhantering",
+    "limit_reached": "Gräns Nådd",
+    "organizations": "Organisationer",
+    "team_members": "Teammedlemmar",
+    "members": "medlemmar",
+    "member": "medlem"
+  },
   "FeaturesSection": {
     "subtitle": "Plattformsfunktioner",
     "title": "Allt du behöver för professionella chattupplevelser",

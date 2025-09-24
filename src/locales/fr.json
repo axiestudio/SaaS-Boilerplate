@@ -350,6 +350,18 @@
     "copy_url": "Copier l'URL",
     "copied": "Copié !"
   },
+  "Limits": {
+    "organization_limit_reached": "Limite d'organisation atteinte ({count}/{max}). Pour créer une nouvelle organisation, veuillez d'abord quitter une organisation existante.",
+    "member_limit_reached": "Limite de membres atteinte ({count}/{max}). Pour inviter de nouveaux membres, veuillez d'abord supprimer des membres existants.",
+    "your_organizations": "Vos Organisations",
+    "manage_memberships": "Gérer vos adhésions aux organisations",
+    "team_management": "Gestion d'Équipe",
+    "limit_reached": "Limite Atteinte",
+    "organizations": "Organisations",
+    "team_members": "Membres de l'Équipe",
+    "members": "membres",
+    "member": "membre"
+  },
   "FeaturesSection": {
     "subtitle": "Fonctionnalités de la plateforme",
     "title": "Tout ce dont vous avez besoin pour des expériences de chat professionnelles",

@@ -1,11 +1,12 @@
 'use client';
 
-import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
+import { UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 
 import { ActiveLink } from '@/components/ActiveLink';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
+import { LimitedOrganizationSwitcher } from '@/components/LimitedOrganizationSwitcher';
 import { ToggleMenuButton } from '@/components/ToggleMenuButton';
 import {
   DropdownMenu,
@@ -70,7 +71,7 @@ export const DashboardHeader = (props: {
           </li>
 
           <li>
-            <OrganizationSwitcher
+            <LimitedOrganizationSwitcher
               organizationProfileMode="navigation"
               organizationProfileUrl="/dashboard/organization-profile"
               createOrganizationMode="navigation"

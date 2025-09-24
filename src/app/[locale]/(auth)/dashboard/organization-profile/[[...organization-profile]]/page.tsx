@@ -1,7 +1,7 @@
-import { OrganizationProfile } from '@clerk/nextjs';
 import { useTranslations } from 'next-intl';
 
 import { TitleBar } from '@/features/dashboard/TitleBar';
+import { LimitedOrganizationProfile } from '@/components/LimitedOrganizationProfile';
 import { getI18nPath } from '@/utils/Helpers';
 
 const OrganizationProfilePage = (props: { params: { locale: string } }) => {
@@ -14,7 +14,7 @@ const OrganizationProfilePage = (props: { params: { locale: string } }) => {
         description={t('title_bar_description')}
       />
 
-      <OrganizationProfile
+      <LimitedOrganizationProfile
         routing="path"
         path={getI18nPath(
           '/dashboard/organization-profile',

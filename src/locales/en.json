@@ -343,6 +343,18 @@
     "copy_url": "Copy URL",
     "copied": "Copied!"
   },
+  "Limits": {
+    "organization_limit_reached": "Organization limit reached ({count}/{max}). To create a new organization, please leave an existing one first.",
+    "member_limit_reached": "Member limit reached ({count}/{max}). To invite new members, please remove existing members first.",
+    "your_organizations": "Your Organizations",
+    "manage_memberships": "Manage your organization memberships",
+    "team_management": "Team Management",
+    "limit_reached": "Limit Reached",
+    "organizations": "Organizations",
+    "team_members": "Team Members",
+    "members": "members",
+    "member": "member"
+  },
   "FeaturesSection": {
     "subtitle": "Platform Features",
     "title": "Everything You Need for Professional Chat Experiences",
