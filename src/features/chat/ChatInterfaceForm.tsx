@@ -63,7 +63,7 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
     defaultValues: {
       name: initialData?.name || '',
       slug: initialData?.slug || '',
-      apiEndpoint: initialData?.apiEndpoint || 'https://flow.axiestudio.se/api/v1/run/',
+      apiEndpoint: initialData?.apiEndpoint || '',
       apiKey: initialData?.apiKey || '',
       brandName: initialData?.brandName || '',
       logoUrl: initialData?.logoUrl || '',
@@ -107,29 +107,45 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
     setIsTesting(true);
     try {
       const { apiEndpoint, apiKey } = form.getValues();
-      
-      const response = await fetch(apiEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-        },
-        body: JSON.stringify({
-          output_type: 'chat',
-          input_type: 'chat',
-          input_value: 'Test connection',
-          session_id: 'test-session',
-        }),
+
+      if (!apiEndpoint || !apiKey) {
+        alert('Please enter both API endpoint and API key before testing.');
+        return;
+      }
+
+      // Import the flexible API adapter
+      const { makeApiCall, detectApiType } = await import('@/utils/apiAdapters');
+
+      // Detect API type and configure request with correct auth method
+      const apiType = detectApiType(apiEndpoint);
+
+      // Determine correct authentication method based on API type
+      let authMethod: 'header' | 'bearer' = 'header';
+      if (apiType === 'langflow' || apiType === 'openai' || apiType === 'cohere') {
+        authMethod = 'bearer';
+      }
+
+      const config = {
+        endpoint: apiEndpoint,
+        apiKey: apiKey,
+        authMethod: authMethod,
+        requestFormat: apiType as any,
+      };
+
+      const result = await makeApiCall({
+        message: 'Test connection - please respond with a simple greeting.',
+        sessionId: 'test-session-' + Date.now(),
+        config,
       });
 
-      if (response.ok) {
-        alert(t('alerts.test_success'));
+      if (result.success) {
+        alert(`${t('alerts.test_success')}\n\nAPI Response: ${result.message?.substring(0, 100)}...`);
       } else {
-        alert(t('alerts.test_error_generic'));
+        alert(`${t('alerts.test_error_generic')}\n\nError: ${result.error}`);
       }
     } catch (error) {
       console.error('Connection test failed:', error);
-      alert(t('alerts.test_error_generic'));
+      alert(`${t('alerts.test_error_generic')}\n\nError: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsTesting(false);
     }
@@ -364,14 +380,23 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     <FormItem>
                       <FormLabel className="text-base font-semibold">{t('api_endpoint')} *</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder={t('api_endpoint_placeholder')} 
-                          {...field} 
+                        <Input
+                          placeholder="https://api.example.com/chat or https://api.langflow.astra.datastax.com/..."
+                          {...field}
                           className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
                         />
                       </FormControl>
-                      <FormDescription className="text-sm">
-                        {t('api_endpoint_description')}
+                      <FormDescription className="text-sm space-y-2">
+                        <div>Enter your API endpoint URL. Supports any REST API including:</div>
+                        <div className="text-xs bg-gray-50 p-3 rounded-md space-y-1">
+                          <div><strong>🔥 Langflow/AstraDB:</strong> https://api.langflow.astra.datastax.com/lf/[FLOW_ID]/api/v1/run/[ENDPOINT_ID]</div>
+                          <div><strong>⚡ Axie Studio:</strong> https://se.axiestudio.se/api/v1/run/[FLOW_ID]</div>
+                          <div><strong>🤖 OpenAI:</strong> https://api.openai.com/v1/chat/completions</div>
+                          <div><strong>🔧 Custom APIs:</strong> Any REST endpoint that accepts JSON</div>
+                        </div>
+                        <div className="text-xs text-blue-600 mt-2">
+                          💡 <strong>Tip:</strong> The system automatically detects your API type and configures the request format!
+                        </div>
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -394,8 +419,17 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                               className="h-12 text-base border-2 focus:border-primary/50 transition-all duration-200"
                             />
                           </FormControl>
-                          <FormDescription className="text-sm">
-                            {t('api_key_description')}
+                          <FormDescription className="text-sm space-y-1">
+                            <div>Enter your API key. Different formats supported:</div>
+                            <div className="text-xs text-gray-600">
+                              • <strong>Langflow/AstraDB:</strong> AstraCS:... (Bearer token)
+                            </div>
+                            <div className="text-xs text-gray-600">
+                              • <strong>Axie Studio:</strong> Your API key (x-api-key header)
+                            </div>
+                            <div className="text-xs text-gray-600">
+                              • <strong>OpenAI:</strong> sk-... (Bearer token)
+                            </div>
                           </FormDescription>
                           <FormMessage />
                         </FormItem>

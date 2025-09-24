@@ -612,82 +612,59 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
         return;
       }
 
-      // 🚀 OPTIMIZED API CALL FOR FASTER RESPONSES
-      const response = await fetch(config.apiEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': config.apiKey,
-          'Accept': 'application/json',
-          'Cache-Control': 'no-cache', // Prevent caching delays
-          'Connection': 'keep-alive', // Reuse connections
-        },
-        body: JSON.stringify({
-          output_type: 'chat',
-          input_type: 'chat',
-          input_value: inputValue,
-          session_id: sessionId,
-        }),
-        // Add timeout and performance optimizations
-        signal: AbortSignal.timeout(30000), // 30 second timeout
+      // 🚀 FLEXIBLE API CALL SYSTEM - WORKS WITH ANY API
+      const { makeApiCall, detectApiType } = await import('@/utils/apiAdapters');
+
+      // Auto-detect API type and configure request with correct auth method
+      const apiType = detectApiType(config.apiEndpoint);
+
+      // Determine correct authentication method based on API type
+      let authMethod: 'header' | 'bearer' = 'header';
+      if (apiType === 'langflow' || apiType === 'openai' || apiType === 'cohere') {
+        authMethod = 'bearer';
+      }
+
+      const apiConfig = {
+        endpoint: config.apiEndpoint,
+        apiKey: config.apiKey,
+        authMethod: authMethod,
+        requestFormat: apiType as any,
+      };
+
+      console.log('🔧 Detected API type:', apiType);
+      console.log('🔑 Using auth method:', authMethod);
+      console.log('🚀 Making flexible API call...');
+
+      const apiResult = await makeApiCall({
+        message: inputValue,
+        sessionId: sessionId,
+        config: apiConfig,
       });
 
-      console.log('📡 Response status:', response.status);
-      console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()));
+      if (!apiResult.success) {
+        console.error('❌ API Error:', apiResult.error);
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const botMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: `Sorry, I'm having trouble connecting to the AI service right now. Please try again in a moment. (Error: ${apiResult.error})`,
+          isUser: false,
+          timestamp: new Date(),
+        };
+
+        setMessages(prev => [...prev, botMessage]);
+        setIsLoading(false);
+        return;
       }
 
-      const data = await response.json();
-      console.log('🔍 API Response:', data);
+      console.log('✅ API Response received:', apiResult.message);
 
-      // Handle the specific API response structure from Axie Studio
-      let botResponseText = '';
+      // 🚀 OPTIMIZED: Process response immediately for faster UX
+      const aiResponseText = apiResult.message || 'I received your message but had trouble processing it. Could you please try rephrasing?';
 
-      try {
-        // The response structure is: data.outputs[0].outputs[0].results.message.text
-        if (data.outputs &&
-            data.outputs[0] &&
-            data.outputs[0].outputs &&
-            data.outputs[0].outputs[0] &&
-            data.outputs[0].outputs[0].results &&
-            data.outputs[0].outputs[0].results.message &&
-            data.outputs[0].outputs[0].results.message.text) {
-          botResponseText = data.outputs[0].outputs[0].results.message.text;
-        }
-        // Fallback: try alternative paths
-        else if (data.outputs &&
-                 data.outputs[0] &&
-                 data.outputs[0].outputs &&
-                 data.outputs[0].outputs[0] &&
-                 data.outputs[0].outputs[0].messages &&
-                 data.outputs[0].outputs[0].messages[0] &&
-                 data.outputs[0].outputs[0].messages[0].message) {
-          botResponseText = data.outputs[0].outputs[0].messages[0].message;
-        }
-        // More fallbacks for different response structures
-        else if (data.output) {
-          botResponseText = data.output;
-        } else if (data.response) {
-          botResponseText = data.response;
-        } else if (data.message) {
-          botResponseText = data.message;
-        } else if (data.text) {
-          botResponseText = data.text;
-        } else if (typeof data === 'string') {
-          botResponseText = data;
-        } else {
-          console.error('❌ Unknown API response structure:', data);
-          botResponseText = 'I apologize, but I encountered an error processing your request. Please try again.';
-        }
-      } catch (parseError) {
-        console.error('❌ Error parsing API response:', parseError);
-        botResponseText = 'I apologize, but I encountered an error processing your request. Please try again.';
-      }
+      console.log('📝 Processed AI response:', aiResponseText);
 
-      // 🚀 OPTIMIZED: Process and show response immediately
-      const processedResponse = processAIResponse(botResponseText);
+      // Process the AI response for HTML content and booking URLs
+      const processedResponse = processAIResponse(aiResponseText);
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
