@@ -221,9 +221,17 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
-      <div className="grid grid-cols-1 xl:grid-cols-5 gap-8 max-w-[1600px] mx-auto">
-        {/* Enhanced Form Section - Takes 3/5 width on xl screens */}
-        <div className="xl:col-span-3 space-y-8">
+      <div className={`grid gap-8 px-4 sm:px-6 lg:px-8 ${
+        showPreview
+          ? 'grid-cols-1 xl:grid-cols-12 max-w-none'
+          : 'grid-cols-1 max-w-5xl mx-auto'
+      }`}>
+        {/* Enhanced Form Section - Responsive width based on preview visibility */}
+        <div className={`space-y-8 ${
+          showPreview
+            ? 'xl:col-span-7'
+            : 'col-span-1'
+        }`}>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {/* Hero Section */}
@@ -814,9 +822,9 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
           </Form>
         </div>
 
-        {/* Enhanced Live Preview Section - Takes 2/5 width on xl screens */}
+        {/* Enhanced Live Preview Section - Takes 5/12 width on xl screens */}
         {showPreview && (
-          <div className="xl:col-span-2">
+          <div className="xl:col-span-5">
             <div className="sticky top-8">
               <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8 space-y-6">
                 <div className="flex items-center gap-3 mb-6">

@@ -13,7 +13,8 @@ const NewChatInterfacePage = () => {
         description={t('create_new_description')}
       />
 
-      <div className="max-w-4xl">
+      {/* Remove max-width constraint to allow full-width layout */}
+      <div className="w-full">
         <ChatInterfaceForm />
       </div>
     </>

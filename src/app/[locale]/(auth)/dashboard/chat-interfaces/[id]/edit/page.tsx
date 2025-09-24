@@ -45,7 +45,7 @@ const EditChatInterfacePage = async ({ params }: { params: { id: string } }) => 
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
+    <>
       {/* Enhanced Header for Edit Page */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 p-8 mb-8">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-pulse" />
@@ -127,11 +127,11 @@ const EditChatInterfacePage = async ({ params }: { params: { id: string } }) => 
       </div>
 
       {/* Form Component */}
-      <ChatInterfaceForm 
-        initialData={chatInterface} 
+      <ChatInterfaceForm
+        initialData={chatInterface}
         isEditing={true}
       />
-    </div>
+    </>
   );
 };
 
