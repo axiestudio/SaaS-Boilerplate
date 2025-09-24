@@ -1,11 +1,9 @@
 import Link from 'next/link';
 import { Plus, Settings, MessageCircle, Zap, BarChart3, Users } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
 
 import { ChatInterfaceList } from '@/features/chat/ChatInterfaceList';
 
-const DashboardIndexPage = async (props: { params: { locale: string } }) => {
-  const t = await getTranslations('DashboardIndex');
+const DashboardIndexPage = () => {
 
   return (
     <>
@@ -17,10 +15,10 @@ const DashboardIndexPage = async (props: { params: { locale: string } }) => {
           </div>
           <div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-              {t('title_bar')}
+              Chat Interface Dashboard
             </h1>
             <p className="text-muted-foreground mt-1">
-              {t('title_bar_description')}
+              Manage your chat interfaces and monitor performance
             </p>
           </div>
         </div>
@@ -35,9 +33,9 @@ const DashboardIndexPage = async (props: { params: { locale: string } }) => {
                 <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Plus className="h-5 w-5 text-primary" />
                 </div>
-                <h3 className="font-semibold text-foreground">{t('create_new_interface')}</h3>
+                <h3 className="font-semibold text-foreground">Create New Chat Interface</h3>
               </div>
-              <p className="text-sm text-muted-foreground">{t('create_new_description')}</p>
+              <p className="text-sm text-muted-foreground">Get started with creating your first chat interface</p>
             </div>
           </Link>
 
@@ -47,9 +45,9 @@ const DashboardIndexPage = async (props: { params: { locale: string } }) => {
                 <div className="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
                   <Settings className="h-5 w-5 text-blue-600" />
                 </div>
-                <h3 className="font-semibold text-foreground">{t('account_settings')}</h3>
+                <h3 className="font-semibold text-foreground">Account Settings</h3>
               </div>
-              <p className="text-sm text-muted-foreground">{t('account_settings_description')}</p>
+              <p className="text-sm text-muted-foreground">Manage your account preferences and settings</p>
             </div>
           </Link>
 
@@ -58,9 +56,9 @@ const DashboardIndexPage = async (props: { params: { locale: string } }) => {
               <div className="w-10 h-10 bg-green-500/10 rounded-xl flex items-center justify-center">
                 <BarChart3 className="h-5 w-5 text-green-600" />
               </div>
-              <h3 className="font-semibold text-foreground">{t('analytics')}</h3>
+              <h3 className="font-semibold text-foreground">Analytics</h3>
             </div>
-            <p className="text-sm text-muted-foreground">{t('analytics_description')}</p>
+            <p className="text-sm text-muted-foreground">View detailed performance metrics</p>
           </div>
 
           <div className="p-6 bg-gradient-to-br from-purple-500/5 to-purple-500/10 border border-purple-500/20 rounded-2xl">
@@ -68,9 +66,9 @@ const DashboardIndexPage = async (props: { params: { locale: string } }) => {
               <div className="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center">
                 <Users className="h-5 w-5 text-purple-600" />
               </div>
-              <h3 className="font-semibold text-foreground">{t('user_management')}</h3>
+              <h3 className="font-semibold text-foreground">User Management</h3>
             </div>
-            <p className="text-sm text-muted-foreground">{t('user_management_description')}</p>
+            <p className="text-sm text-muted-foreground">Manage users and permissions</p>
           </div>
         </div>
 
@@ -81,8 +79,8 @@ const DashboardIndexPage = async (props: { params: { locale: string } }) => {
               <MessageCircle className="h-4 w-4 text-primary" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold">{t('your_interfaces')}</h2>
-              <p className="text-sm text-muted-foreground">{t('your_interfaces_description')}</p>
+              <h2 className="text-xl font-semibold">Your Chat Interfaces</h2>
+              <p className="text-sm text-muted-foreground">Manage and customize your chat interfaces</p>
             </div>
           </div>
           <ChatInterfaceList />
@@ -93,9 +91,9 @@ const DashboardIndexPage = async (props: { params: { locale: string } }) => {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 mb-3">
               <Zap className="h-5 w-5 text-primary" />
-              <h2 className="text-xl font-semibold">{t('getting_started')}</h2>
+              <h2 className="text-xl font-semibold">Getting Started</h2>
             </div>
-            <p className="text-muted-foreground">{t('getting_started_description')}</p>
+            <p className="text-muted-foreground">Follow these steps to set up your first chat interface</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -104,9 +102,9 @@ const DashboardIndexPage = async (props: { params: { locale: string } }) => {
                 1
               </div>
               <div className="mt-2">
-                <h3 className="font-semibold mb-2">{t('step1_title')}</h3>
+                <h3 className="font-semibold mb-2">Configure API</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  {t('step1_description')}
+                  Set up your Axie Studio API endpoint and key
                 </p>
               </div>
             </div>
@@ -116,9 +114,9 @@ const DashboardIndexPage = async (props: { params: { locale: string } }) => {
                 2
               </div>
               <div className="mt-2">
-                <h3 className="font-semibold mb-2">{t('step2_title')}</h3>
+                <h3 className="font-semibold mb-2">Customize Interface</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  {t('step2_description')}
+                  Brand your chat interface with colors, logo, and messages
                 </p>
               </div>
             </div>
@@ -128,9 +126,9 @@ const DashboardIndexPage = async (props: { params: { locale: string } }) => {
                 3
               </div>
               <div className="mt-2">
-                <h3 className="font-semibold mb-2">{t('step3_title')}</h3>
+                <h3 className="font-semibold mb-2">Share & Deploy</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  {t('step3_description')}
+                  Get your unique chat URL and share it with your customers
                 </p>
               </div>
             </div>

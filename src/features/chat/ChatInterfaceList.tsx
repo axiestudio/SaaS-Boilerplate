@@ -191,15 +191,15 @@ export const ChatInterfaceList = () => {
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-lg font-semibold">{t('your_interfaces')}</h3>
+          <h3 className="text-lg font-semibold">Your Chat Interfaces</h3>
           <p className="text-sm text-muted-foreground">
-            {t('interfaces_count', { count: interfaces.length })}
+            {interfaces.length} interface{interfaces.length !== 1 ? 's' : ''} created
           </p>
         </div>
         <Link href="/dashboard/chat-interfaces/new">
           <Button>
             <Plus className="h-4 w-4 mr-2" />
-            {t('create_new')}
+            Create New Chat Interface
           </Button>
         </Link>
       </div>
@@ -215,7 +215,7 @@ export const ChatInterfaceList = () => {
                     variant={interface_.isActive ? 'default' : 'secondary'}
                     className="shrink-0"
                   >
-                    {interface_.isActive ? t('active_status') : t('inactive_status')}
+                    {interface_.isActive ? 'Active' : 'Inactive'}
                   </Badge>
                 </div>
                 
@@ -327,7 +327,7 @@ export const ChatInterfaceList = () => {
                     return interfaceStats?.messageCount || interface_.messageCount || 0;
                   })()}
                 </div>
-                <div className="text-xs text-muted-foreground">{t('total_messages')}</div>
+                <div className="text-xs text-muted-foreground">{t('messages')}</div>
               </div>
               <div className="text-center">
                 <div className={`text-lg font-semibold flex items-center justify-center gap-1 ${
@@ -342,7 +342,7 @@ export const ChatInterfaceList = () => {
                     return interfaceStats?.isLive ? t('live') : (interface_.isActive ? t('online') : t('offline'));
                   })()}
                 </div>
-                <div className="text-xs text-muted-foreground">{t('current_status')}</div>
+                <div className="text-xs text-muted-foreground">{t('status')}</div>
               </div>
               <div className="text-center">
                 <div className="text-lg font-semibold text-blue-600 flex items-center justify-center gap-1">
@@ -352,7 +352,7 @@ export const ChatInterfaceList = () => {
                     return interfaceStats?.sessionCount || 0;
                   })()}
                 </div>
-                <div className="text-xs text-muted-foreground">{t('total_sessions')}</div>
+                <div className="text-xs text-muted-foreground">{t('sessions')}</div>
               </div>
             </div>
           </div>
