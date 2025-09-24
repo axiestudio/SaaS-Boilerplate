@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { Plus, Settings, MessageCircle, Zap, BarChart3, Users } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 
 import { ChatInterfaceList } from '@/features/chat/ChatInterfaceList';
 
-const DashboardIndexPage = () => {
+const DashboardIndexPage = async (props: { params: { locale: string } }) => {
+  const t = await getTranslations('DashboardIndex');
 
   return (
     <>
@@ -15,10 +17,10 @@ const DashboardIndexPage = () => {
           </div>
           <div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-              Chat Interface Dashboard
+              {t('title_bar')}
             </h1>
             <p className="text-muted-foreground mt-1">
-              Manage your chat interfaces and monitor performance
+              {t('title_bar_description')}
             </p>
           </div>
         </div>
@@ -33,9 +35,9 @@ const DashboardIndexPage = () => {
                 <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Plus className="h-5 w-5 text-primary" />
                 </div>
-                <h3 className="font-semibold text-foreground">Create New Chat Interface</h3>
+                <h3 className="font-semibold text-foreground">{t('create_new_interface')}</h3>
               </div>
-              <p className="text-sm text-muted-foreground">Get started with creating your first chat interface</p>
+              <p className="text-sm text-muted-foreground">{t('create_new_description')}</p>
             </div>
           </Link>
 
@@ -45,9 +47,9 @@ const DashboardIndexPage = () => {
                 <div className="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
                   <Settings className="h-5 w-5 text-blue-600" />
                 </div>
-                <h3 className="font-semibold text-foreground">Account Settings</h3>
+                <h3 className="font-semibold text-foreground">{t('account_settings')}</h3>
               </div>
-              <p className="text-sm text-muted-foreground">Manage your account preferences and settings</p>
+              <p className="text-sm text-muted-foreground">{t('account_settings_description')}</p>
             </div>
           </Link>
 
@@ -56,9 +58,9 @@ const DashboardIndexPage = () => {
               <div className="w-10 h-10 bg-green-500/10 rounded-xl flex items-center justify-center">
                 <BarChart3 className="h-5 w-5 text-green-600" />
               </div>
-              <h3 className="font-semibold text-foreground">Analytics</h3>
+              <h3 className="font-semibold text-foreground">{t('analytics')}</h3>
             </div>
-            <p className="text-sm text-muted-foreground">View detailed performance metrics</p>
+            <p className="text-sm text-muted-foreground">{t('analytics_description')}</p>
           </div>
 
           <div className="p-6 bg-gradient-to-br from-purple-500/5 to-purple-500/10 border border-purple-500/20 rounded-2xl">
@@ -66,9 +68,9 @@ const DashboardIndexPage = () => {
               <div className="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center">
                 <Users className="h-5 w-5 text-purple-600" />
               </div>
-              <h3 className="font-semibold text-foreground">User Management</h3>
+              <h3 className="font-semibold text-foreground">{t('user_management')}</h3>
             </div>
-            <p className="text-sm text-muted-foreground">Manage users and permissions</p>
+            <p className="text-sm text-muted-foreground">{t('user_management_description')}</p>
           </div>
         </div>
 
@@ -79,8 +81,8 @@ const DashboardIndexPage = () => {
               <MessageCircle className="h-4 w-4 text-primary" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold">Your Chat Interfaces</h2>
-              <p className="text-sm text-muted-foreground">Manage and customize your chat interfaces</p>
+              <h2 className="text-xl font-semibold">{t('your_interfaces')}</h2>
+              <p className="text-sm text-muted-foreground">{t('your_interfaces_description')}</p>
             </div>
           </div>
           <ChatInterfaceList />
@@ -91,9 +93,9 @@ const DashboardIndexPage = () => {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 mb-3">
               <Zap className="h-5 w-5 text-primary" />
-              <h2 className="text-xl font-semibold">Getting Started</h2>
+              <h2 className="text-xl font-semibold">{t('getting_started')}</h2>
             </div>
-            <p className="text-muted-foreground">Follow these steps to set up your first chat interface</p>
+            <p className="text-muted-foreground">{t('getting_started_description')}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -102,9 +104,9 @@ const DashboardIndexPage = () => {
                 1
               </div>
               <div className="mt-2">
-                <h3 className="font-semibold mb-2">Configure API</h3>
+                <h3 className="font-semibold mb-2">{t('step1_title')}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Set up your Axie Studio API endpoint and key
+                  {t('step1_description')}
                 </p>
               </div>
             </div>
@@ -114,9 +116,9 @@ const DashboardIndexPage = () => {
                 2
               </div>
               <div className="mt-2">
-                <h3 className="font-semibold mb-2">Customize Interface</h3>
+                <h3 className="font-semibold mb-2">{t('step2_title')}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Brand your chat interface with colors, logo, and messages
+                  {t('step2_description')}
                 </p>
               </div>
             </div>
@@ -126,9 +128,9 @@ const DashboardIndexPage = () => {
                 3
               </div>
               <div className="mt-2">
-                <h3 className="font-semibold mb-2">Share & Deploy</h3>
+                <h3 className="font-semibold mb-2">{t('step3_title')}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Get your unique chat URL and share it with your customers
+                  {t('step3_description')}
                 </p>
               </div>
             </div>
