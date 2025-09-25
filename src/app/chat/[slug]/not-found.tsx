@@ -6,22 +6,19 @@ import { MessageCircle, Home, Search, ArrowLeft, Sparkles, AlertTriangle } from 
 
 import { Button } from '@/components/ui/button';
 
+// Static error messages - no translations
+const ERROR_MESSAGES = {
+  title: 'Chat Interface Not Found',
+  description: 'The chat interface you\'re looking for is currently unavailable or doesn\'t exist.',
+  possible_reasons: 'Possible reasons:',
+  reason_private: 'The chat interface is currently set to private',
+  reason_incorrect_url: 'The URL might be incorrect or outdated',
+  reason_disabled: 'The interface may have been temporarily disabled',
+  try_demo: 'Try Our Demo Chat',
+  create_own: 'Create Your Own Chat Interface',
+};
+
 export default function ChatNotFound() {
-  // Fallback translations for public chat not-found page
-  const t = (key: string) => {
-    const fallbackTranslations: Record<string, string> = {
-      'title': 'Chat Interface Not Found',
-      'description': 'The chat interface you\'re looking for is currently unavailable or doesn\'t exist.',
-      'possible_reasons': 'Possible reasons:',
-      'reason_private': 'The chat interface is currently set to private',
-      'reason_incorrect_url': 'The URL might be incorrect or outdated',
-      'reason_disabled': 'The interface may have been temporarily disabled',
-      'try_demo': 'Try Our Demo Chat',
-      'create_own': 'Create Your Own Chat Interface',
-    };
-    return fallbackTranslations[key] || key;
-  };
-  
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
       {/* Background Elements */}
@@ -85,7 +82,7 @@ export default function ChatNotFound() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent"
             >
-              {t('title')}
+              {ERROR_MESSAGES.title}
             </motion.h1>
 
             {/* Description */}
@@ -96,7 +93,7 @@ export default function ChatNotFound() {
               className="space-y-4 mb-10"
             >
               <p className="text-xl text-gray-600 leading-relaxed">
-                {t('description')}
+                {ERROR_MESSAGES.description}
               </p>
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200/50">
                 <div className="flex items-start gap-4">
@@ -104,11 +101,11 @@ export default function ChatNotFound() {
                     <MessageCircle className="h-4 w-4 text-white" />
                   </div>
                   <div className="text-left">
-                    <h3 className="font-semibold text-blue-900 mb-2">{t('possible_reasons')}</h3>
+                    <h3 className="font-semibold text-blue-900 mb-2">{ERROR_MESSAGES.possible_reasons}</h3>
                     <ul className="text-blue-800 text-sm space-y-1">
-                      <li>• {t('reason_private')}</li>
-                      <li>• {t('reason_incorrect_url')}</li>
-                      <li>• {t('reason_disabled')}</li>
+                      <li>• {ERROR_MESSAGES.reason_private}</li>
+                      <li>• {ERROR_MESSAGES.reason_incorrect_url}</li>
+                      <li>• {ERROR_MESSAGES.reason_disabled}</li>
                     </ul>
                   </div>
                 </div>
@@ -132,7 +129,7 @@ export default function ChatNotFound() {
                     className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-xl hover:shadow-2xl transition-all duration-300 group"
                   >
                     <Sparkles className="h-5 w-5 mr-2 group-hover:rotate-12 transition-transform duration-200" />
-                    {t('try_demo')}
+                    {ERROR_MESSAGES.try_demo}
                   </Button>
                 </Link>
               </motion.div>
@@ -180,7 +177,7 @@ export default function ChatNotFound() {
                   href="/sign-up" 
                   className="text-blue-600 hover:text-blue-700 font-medium hover:underline transition-colors duration-200"
                 >
-                  {t('create_own')}
+                  {ERROR_MESSAGES.create_own}
                 </Link>
               </div>
             </motion.div>
