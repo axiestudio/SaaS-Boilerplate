@@ -58,6 +58,9 @@
     "next_renew_date": "Your subscription renews on {date}"
   },
   "FAQ": {
+    "subtitle": "FAQ",
+    "title": "Frequently Asked Questions",
+    "description": "Everything you need to know about our chat interface builder",
     "question": "How do I create my first chat interface?",
     "answer": "Creating your first chat interface is simple! Sign up for an account, navigate to your dashboard, and click 'Create New Chat Interface'. Customize your branding, connect your Axie Studio flow endpoint, and deploy instantly. Your chat interface will be live and ready to engage customers.",
     "question2": "Can I customize the appearance of my chat interface?",
@@ -67,14 +70,22 @@
     "question4": "Is there a limit on messages or conversations?",
     "answer4": "Our Free plan includes generous limits for personal projects. Premium and Enterprise plans offer higher limits and additional features. Check our pricing page for detailed information about message limits and features.",
     "question5": "Can I use my own domain?",
-    "answer5": "Yes! Premium and Enterprise plans support custom domains. You can host your chat interfaces on your own domain for a seamless brand experience."
+    "answer5": "Yes! Premium and Enterprise plans support custom domains. You can host your chat interfaces on your own domain for a seamless brand experience.",
+    "question6": "Is my data secure and compliant?",
+    "answer6": "Yes, we take security seriously. All data is encrypted in transit and at rest, we're SOC 2 compliant, and we follow GDPR and other privacy regulations.",
+    "contact_title": "Still have questions?",
+    "contact_description": "Our team is here to help you get started with your chat interface.",
+    "contact_button": "Contact Support"
   },
   "CTA": {
     "title": "Ready to Transform Your Customer Experience?",
     "description": "Join thousands of businesses using Axie Studio Chat Interfaces to create intelligent, branded customer conversations.",
-    "button_text": "Start Building Free"
+    "button_text": "Start Free Trial",
+    "demo_button": "View Demo",
+    "trust_indicators": "No credit card required • Setup in under 5 minutes • Cancel anytime"
   },
   "Footer": {
+    "description": "Professional chat interface builder for modern businesses. Create, customize, and deploy in minutes.",
     "product": "Product",
     "docs": "Docs",
     "blog": "Blog",
@@ -83,6 +94,7 @@
     "terms_of_service": "Terms Of Service",
     "privacy_policy": "Privacy Policy",
     "contact": "Contact",
+    "copyright": "© {year} {name}. All rights reserved.",
     "designed_by": "Designed by <author></author>."
   },
   "ProtectFallback": {
@@ -111,7 +123,17 @@
     "message_state_title": "Welcome to your chat workspace",
     "message_state_description": "Create and manage custom chat interfaces that connect to your Axie Studio flows.",
     "message_state_button": "Create First Chat Interface",
-    "message_state_alternative": "Ready to engage your customers?"
+    "message_state_alternative": "Ready to engage your customers?",
+    "your_chat_interfaces": "Your Chat Interfaces",
+    "your_chat_interfaces_description": "Manage and customize your chat interfaces",
+    "getting_started": "Getting Started",
+    "getting_started_description": "Follow these steps to set up your first chat interface",
+    "configure_api": "Configure API",
+    "configure_api_description": "Set up your Axie Studio API endpoint and key",
+    "customize_interface": "Customize Interface",
+    "customize_interface_description": "Brand your chat interface with colors, logo, and messages",
+    "share_and_deploy": "Share & Deploy",
+    "share_and_deploy_description": "Get your unique chat URL and share it with your customers"
   },
   "UserProfile": {
     "title_bar": "User Profile",
@@ -124,6 +146,26 @@
   "Account": {
     "title_bar": "Account Management",
     "title_bar_description": "Manage your account settings and preferences"
+  },
+  "Settings": {
+    "title_bar": "Settings",
+    "title_bar_description": "Manage your API settings and preferences",
+    "api_configuration_title": "API Configuration",
+    "api_configuration_description": "Configure your default Axie Studio API settings"
+  },
+  "ApiSettings": {
+    "endpoint_label": "Default API Endpoint",
+    "endpoint_placeholder": "https://flow.axiestudio.se/api/v1/run/",
+    "endpoint_description": "Your default Axie Studio flow API endpoint base URL",
+    "api_key_label": "Default API Key",
+    "api_key_placeholder": "Your default API key",
+    "api_key_description": "Your default Axie Studio API key (can be overridden per chat interface)",
+    "save_button": "Save Settings",
+    "saving": "Saving...",
+    "test_button": "Test Connection",
+    "testing": "Testing...",
+    "save_success": "Settings saved successfully!",
+    "save_error": "Error saving settings. Please try again."
   },
   "Billing": {
     "title_bar": "Billing",
@@ -175,10 +217,7 @@
     "message_description": "Enter a detailed message for your todo.",
     "submit_button": "Submit"
   },
-  "Settings": {
-    "title_bar": "Settings",
-    "title_bar_description": "Manage your application settings"
-  },
+
   "ChatInterface": {
     "title_bar": "Chat Interface",
     "title_bar_description": "Create and manage your chat interfaces",
@@ -196,7 +235,15 @@
     "quick_actions": "Quick Actions",
     "quick_actions_description": "Get started with creating your first chat interface",
     "create_new_interface": "Create New Chat Interface",
+    "create_new_chat_interface": "Create New Chat Interface",
+    "create_new_interface_description": "Build a custom chat interface for your customers",
+    "create_new_chat_interface_description": "Get started with creating your first chat interface",
     "account_settings": "Account Settings",
+    "account_settings_description": "Manage your account preferences and settings",
+    "analytics": "Analytics",
+    "analytics_description": "View detailed performance metrics",
+    "user_management": "User Management",
+    "user_management_description": "Manage users and permissions",
     "your_interfaces": "Your Chat Interfaces",
     "your_interfaces_description": "Manage and customize your chat interfaces"
   },
@@ -266,6 +313,8 @@
     "show_preview": "Show Preview",
     "create_interface": "Create Interface",
     "update_interface": "Update Interface",
+    "creating": "Creating...",
+    "updating": "Updating...",
     "open_public_chat": "Open Public Chat",
     "public_chat_url": "Public Chat URL",
     "copy_url": "Copy URL",
@@ -319,12 +368,12 @@
   "GettingStarted": {
     "title": "Getting Started",
     "description": "Follow these steps to set up your first chat interface",
-    "step1_title": "Configure API",
-    "step1_description": "Set up your Axie Studio API endpoint and key",
-    "step2_title": "Customize Interface",
-    "step2_description": "Brand your chat interface with colors, logo, and messages",
-    "step3_title": "Share & Deploy",
-    "step3_description": "Get your unique chat URL and share it with your customers"
+    "configure_api": "Configure API",
+    "configure_api_description": "Set up your Axie Studio API endpoint and key",
+    "customize_interface": "Customize Interface",
+    "customize_interface_description": "Brand your chat interface with colors, logo, and messages",
+    "share_and_deploy": "Share & Deploy",
+    "share_and_deploy_description": "Get your unique chat URL and share it with your customers"
   },
   "AccessDenied": {
     "title": "Access Denied",
@@ -433,6 +482,31 @@
   "DemoBadge": {
     "powered_by": "Powered by",
     "axie_studio": "Axie Studio"
+  },
+  "PublicChat": {
+    "interface_unavailable": "This chat interface is currently unavailable.",
+    "interface_not_public": "This chat interface is currently not public. Please check back later.",
+    "failed_to_load": "Failed to load chat interface. Please try again later.",
+    "ai_connection_error": "Sorry, I'm having trouble connecting to the AI service right now. Please try again in a moment. (Error: {error})",
+    "processing_error": "I received your message but had trouble processing it. Could you please try rephrasing?",
+    "connection_error": "I'm sorry, but I'm having trouble connecting right now. Please try again in a moment. (Error: {error})",
+    "unknown_error": "Unknown error",
+    "chat_unavailable": "Chat Unavailable",
+    "contact_support": "If you believe this is an error, please contact support."
+  },
+  "ChatNotFound": {
+    "title": "Chat Interface Not Found",
+    "description": "The chat interface you're looking for is currently unavailable or doesn't exist.",
+    "possible_reasons": "Possible reasons:",
+    "reason_private": "The chat interface is currently set to private",
+    "reason_incorrect_url": "The URL might be incorrect or outdated",
+    "reason_disabled": "The interface may have been temporarily disabled",
+    "try_demo": "Try Our Demo Chat",
+    "create_own": "Create Your Own Chat Interface"
+  },
+  "OrganizationLimits": {
+    "member_limit_reached": "Member limit reached ({current}/{max}). To invite new members, please remove existing members first.",
+    "organization_limit_reached": "Organization limit reached ({current}/{max}). To create a new organization, please leave an existing one first."
   },
   "AccountPage": {
     "title": "Account Management",

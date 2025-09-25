@@ -806,8 +806,8 @@ export const ChatInterfaceForm = ({ initialData, isEditing = false }: {
                     className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     <Save className="h-5 w-5 mr-2" />
-                    {isSubmitting 
-                      ? (isEditing ? 'Updating...' : 'Creating...') 
+                    {isSubmitting
+                      ? (isEditing ? t('updating') : t('creating'))
                       : (isEditing ? t('update_interface') : t('create_interface'))
                     }
                   </Button>

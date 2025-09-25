@@ -3,6 +3,7 @@
 import { OrganizationProfile } from '@clerk/nextjs';
 import { useOrganization } from '@clerk/nextjs';
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertTriangle, Users, UserPlus } from 'lucide-react';
 
@@ -16,6 +17,7 @@ interface LimitedOrganizationProfileProps {
 }
 
 export const LimitedOrganizationProfile = (props: LimitedOrganizationProfileProps) => {
+  const t = useTranslations('OrganizationLimits');
   const { organization, memberships, isLoaded } = useOrganization({
     memberships: {
       infinite: true,
@@ -42,8 +44,7 @@ export const LimitedOrganizationProfile = (props: LimitedOrganizationProfileProp
             <div className="flex items-center gap-2">
               <UserPlus className="h-4 w-4" />
               <span>
-                Member limit reached ({memberCount}/{MAX_MEMBERS}). 
-                To invite new members, please remove existing members first.
+                {t('member_limit_reached', { current: memberCount, max: MAX_MEMBERS })}
               </span>
             </div>
           </AlertDescription>

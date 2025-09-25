@@ -52,6 +52,9 @@
     "next_renew_date": "Din prenumeration förnyas den {date}"
   },
   "FAQ": {
+    "subtitle": "FAQ",
+    "title": "Vanliga Frågor",
+    "description": "Allt du behöver veta om vår chattgränssnitt-byggare",
     "question": "Hur skapar jag mitt första chattgränssnitt?",
     "answer": "Att skapa ditt första chattgränssnitt är enkelt! Registrera ett konto, navigera till din instrumentpanel och klicka på 'Skapa nytt chattgränssnitt'. Anpassa din varumärkning, anslut din Axie Studio-flödesändpunkt och distribuera omedelbart.",
     "question2": "Kan jag anpassa utseendet på mitt chattgränssnitt?",
@@ -61,14 +64,22 @@
     "question4": "Finns det en gräns för meddelanden eller konversationer?",
     "answer4": "Vår gratisplan inkluderar generösa gränser för personliga projekt. Premium- och företagsplaner erbjuder högre gränser och ytterligare funktioner.",
     "question5": "Kan jag använda min egen domän?",
-    "answer5": "Ja! Premium- och företagsplaner stöder anpassade domäner. Du kan vara värd för dina chattgränssnitt på din egen domän."
+    "answer5": "Ja! Premium- och företagsplaner stöder anpassade domäner. Du kan vara värd för dina chattgränssnitt på din egen domän.",
+    "question6": "Är mina data säkra och kompatibla?",
+    "answer6": "Ja, vi tar säkerhet på allvar. All data är krypterad under transport och i vila, vi är SOC 2-kompatibla och följer GDPR och andra integritetsregler.",
+    "contact_title": "Har du fortfarande frågor?",
+    "contact_description": "Vårt team är här för att hjälpa dig komma igång med ditt chattgränssnitt.",
+    "contact_button": "Kontakta Support"
   },
   "CTA": {
     "title": "Redo att transformera din kundupplevelse?",
     "description": "Gå med tusentals företag som använder Axie Studio chattgränssnitt för att skapa intelligenta, varumärkta kundkonversationer.",
-    "button_text": "Börja bygga gratis"
+    "button_text": "Starta gratis provperiod",
+    "demo_button": "Se demo",
+    "trust_indicators": "Inget kreditkort krävs • Installation på under 5 minuter • Avbryt när som helst"
   },
   "Footer": {
+    "description": "Professionell chattgränssnitt-byggare för moderna företag. Skapa, anpassa och distribuera på några minuter.",
     "product": "Produkt",
     "docs": "Dokumentation",
     "blog": "Blogg",
@@ -77,6 +88,7 @@
     "terms_of_service": "Användarvillkor",
     "privacy_policy": "Integritetspolicy",
     "contact": "Kontakt",
+    "copyright": "© {year} {name}. Alla rättigheter förbehållna.",
     "designed_by": "Designad av <author></author>."
   },
   "ProtectFallback": {
@@ -105,7 +117,17 @@
     "message_state_title": "Välkommen till din chattarbetsyta",
     "message_state_description": "Skapa och hantera anpassade chattgränssnitt som ansluter till dina Axie Studio-flöden.",
     "message_state_button": "Skapa första chattgränssnittet",
-    "message_state_alternative": "Redo att engagera dina kunder?"
+    "message_state_alternative": "Redo att engagera dina kunder?",
+    "your_chat_interfaces": "Dina Chattgränssnitt",
+    "your_chat_interfaces_description": "Hantera och anpassa dina chattgränssnitt",
+    "getting_started": "Komma igång",
+    "getting_started_description": "Följ dessa steg för att konfigurera ditt första chattgränssnitt",
+    "configure_api": "Konfigurera API",
+    "configure_api_description": "Konfigurera din Axie Studio API-endpoint och nyckel",
+    "customize_interface": "Anpassa Gränssnitt",
+    "customize_interface_description": "Anpassa ditt chattgränssnitt med färger, logotyp och meddelanden",
+    "share_and_deploy": "Dela och Distribuera",
+    "share_and_deploy_description": "Få din unika chat-URL och dela den med dina kunder"
   },
   "UserProfile": {
     "title_bar": "Användarprofil",
@@ -118,6 +140,26 @@
   "Account": {
     "title_bar": "Kontohantering",
     "title_bar_description": "Hantera dina kontoinställningar och preferenser"
+  },
+  "Settings": {
+    "title_bar": "Inställningar",
+    "title_bar_description": "Hantera dina API-inställningar och preferenser",
+    "api_configuration_title": "API-konfiguration",
+    "api_configuration_description": "Konfigurera dina standard Axie Studio API-inställningar"
+  },
+  "ApiSettings": {
+    "endpoint_label": "Standard API-endpoint",
+    "endpoint_placeholder": "https://flow.axiestudio.se/api/v1/run/",
+    "endpoint_description": "Din standard Axie Studio-flödes API-endpoint bas-URL",
+    "api_key_label": "Standard API-nyckel",
+    "api_key_placeholder": "Din standard API-nyckel",
+    "api_key_description": "Din standard Axie Studio API-nyckel (kan åsidosättas per chattgränssnitt)",
+    "save_button": "Spara inställningar",
+    "saving": "Sparar...",
+    "test_button": "Testa anslutning",
+    "testing": "Testar...",
+    "save_success": "Inställningar sparade framgångsrikt!",
+    "save_error": "Fel vid sparande av inställningar. Försök igen."
   },
   "Billing": {
     "title_bar": "Fakturering",
@@ -169,10 +211,7 @@
     "message_description": "Ange ett detaljerat meddelande för din att göra.",
     "submit_button": "Skicka"
   },
-  "Settings": {
-    "title_bar": "Inställningar",
-    "title_bar_description": "Hantera dina applikationsinställningar"
-  },
+
   "ChatInterface": {
     "title_bar": "Chattgränssnitt",
     "title_bar_description": "Skapa och hantera dina chattgränssnitt",
@@ -190,7 +229,15 @@
     "quick_actions": "Snabbåtgärder",
     "quick_actions_description": "Kom igång med att skapa ditt första chattgränssnitt",
     "create_new_interface": "Skapa nytt chattgränssnitt",
+    "create_new_chat_interface": "Skapa nytt chattgränssnitt",
+    "create_new_interface_description": "Bygg ett anpassat chattgränssnitt för dina kunder",
+    "create_new_chat_interface_description": "Kom igång med att skapa ditt första chattgränssnitt",
     "account_settings": "Kontoinställningar",
+    "account_settings_description": "Hantera dina kontoinställningar och preferenser",
+    "analytics": "Analys",
+    "analytics_description": "Visa detaljerade prestandamått",
+    "user_management": "Användarhantering",
+    "user_management_description": "Hantera användare och behörigheter",
     "your_interfaces": "Dina chattgränssnitt",
     "your_interfaces_description": "Hantera och anpassa dina chattgränssnitt"
   },
@@ -257,6 +304,8 @@
     "show_preview": "Visa förhandsgranskning",
     "create_interface": "Skapa gränssnitt",
     "update_interface": "Uppdatera gränssnitt",
+    "creating": "Skapar...",
+    "updating": "Uppdaterar...",
     "open_public_chat": "Öppna offentlig chatt",
     "public_chat_url": "Offentlig chatt-URL",
     "copy_url": "Kopiera URL",
@@ -320,12 +369,12 @@
   "GettingStarted": {
     "title": "Komma igång",
     "description": "Följ dessa steg för att konfigurera ditt första chattgränssnitt",
-    "step1_title": "Konfigurera API",
-    "step1_description": "Konfigurera din Axie Studio API-endpoint och nyckel",
-    "step2_title": "Anpassa gränssnitt",
-    "step2_description": "Anpassa ditt chattgränssnitt med färger, logotyp och meddelanden",
-    "step3_title": "Dela och distribuera",
-    "step3_description": "Få din unika chat-URL och dela den med dina kunder"
+    "configure_api": "Konfigurera API",
+    "configure_api_description": "Konfigurera din Axie Studio API-endpoint och nyckel",
+    "customize_interface": "Anpassa gränssnitt",
+    "customize_interface_description": "Anpassa ditt chattgränssnitt med färger, logotyp och meddelanden",
+    "share_and_deploy": "Dela och distribuera",
+    "share_and_deploy_description": "Få din unika chat-URL och dela den med dina kunder"
   },
   "AccessDenied": {
     "title": "Åtkomst nekad",
@@ -429,6 +478,31 @@
   "DemoBadge": {
     "powered_by": "Drivs av",
     "axie_studio": "Axie Studio"
+  },
+  "PublicChat": {
+    "interface_unavailable": "Detta chattgränssnitt är för närvarande otillgängligt.",
+    "interface_not_public": "Detta chattgränssnitt är för närvarande inte offentligt. Kom tillbaka senare.",
+    "failed_to_load": "Misslyckades att ladda chattgränssnitt. Försök igen senare.",
+    "ai_connection_error": "Ursäkta, jag har problem med att ansluta till AI-tjänsten just nu. Försök igen om ett ögonblick. (Fel: {error})",
+    "processing_error": "Jag fick ditt meddelande men hade problem att bearbeta det. Kan du omformulera det?",
+    "connection_error": "Jag är ledsen, men jag har anslutningsproblem just nu. Försök igen om ett ögonblick. (Fel: {error})",
+    "unknown_error": "Okänt fel",
+    "chat_unavailable": "Chat Otillgänglig",
+    "contact_support": "Om du tror att detta är ett fel, kontakta support."
+  },
+  "ChatNotFound": {
+    "title": "Chattgränssnitt Hittades Inte",
+    "description": "Chattgränssnittet du letar efter är för närvarande otillgängligt eller existerar inte.",
+    "possible_reasons": "Möjliga orsaker:",
+    "reason_private": "Chattgränssnittet är för närvarande inställt som privat",
+    "reason_incorrect_url": "URL:en kan vara felaktig eller föråldrad",
+    "reason_disabled": "Gränssnittet kan ha inaktiverats tillfälligt",
+    "try_demo": "Prova Vår Demo Chat",
+    "create_own": "Skapa Ditt Eget Chattgränssnitt"
+  },
+  "OrganizationLimits": {
+    "member_limit_reached": "Medlemsgräns nådd ({current}/{max}). För att bjuda in nya medlemmar, ta först bort befintliga medlemmar.",
+    "organization_limit_reached": "Organisationsgräns nådd ({current}/{max}). För att skapa en ny organisation, lämna först en befintlig organisation."
   },
   "AccountPage": {
     "title": "Kontohantering",

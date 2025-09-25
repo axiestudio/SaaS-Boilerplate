@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Save, TestTube } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,6 +27,7 @@ const apiSettingsSchema = z.object({
 type ApiSettingsFormData = z.infer<typeof apiSettingsSchema>;
 
 export const ApiSettingsForm = () => {
+  const t = useTranslations('ApiSettings');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
 
@@ -43,10 +45,10 @@ export const ApiSettingsForm = () => {
       // TODO: Save API settings
       console.log('Saving API settings:', data);
       await new Promise(resolve => setTimeout(resolve, 1000));
-      alert('Settings saved successfully!');
+      alert(t('save_success'));
     } catch (error) {
       console.error('Error saving settings:', error);
-      alert('Error saving settings. Please try again.');
+      alert(t('save_error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -76,12 +78,12 @@ export const ApiSettingsForm = () => {
           name="defaultApiEndpoint"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Default API Endpoint</FormLabel>
+              <FormLabel>{t('endpoint_label')}</FormLabel>
               <FormControl>
-                <Input placeholder="https://flow.axiestudio.se/api/v1/run/" {...field} />
+                <Input placeholder={t('endpoint_placeholder')} {...field} />
               </FormControl>
               <FormDescription>
-                Your default Axie Studio flow API endpoint base URL
+                {t('endpoint_description')}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -93,12 +95,12 @@ export const ApiSettingsForm = () => {
           name="defaultApiKey"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Default API Key</FormLabel>
+              <FormLabel>{t('api_key_label')}</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Your default API key" {...field} />
+                <Input type="password" placeholder={t('api_key_placeholder')} {...field} />
               </FormControl>
               <FormDescription>
-                Your default Axie Studio API key (can be overridden per chat interface)
+                {t('api_key_description')}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -108,17 +110,17 @@ export const ApiSettingsForm = () => {
         <div className="flex gap-4">
           <Button type="submit" disabled={isSubmitting}>
             <Save className="h-4 w-4 mr-2" />
-            {isSubmitting ? 'Saving...' : 'Save Settings'}
+            {isSubmitting ? t('saving') : t('save_button')}
           </Button>
-          
-          <Button 
-            type="button" 
-            variant="outline" 
+
+          <Button
+            type="button"
+            variant="outline"
             onClick={testConnection}
             disabled={isTesting}
           >
             <TestTube className="h-4 w-4 mr-2" />
-            {isTesting ? 'Testing...' : 'Test Connection'}
+            {isTesting ? t('testing') : t('test_button')}
           </Button>
         </div>
       </form>

@@ -3,10 +3,12 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { MessageCircle, Home, Search, ArrowLeft, Sparkles, AlertTriangle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 
 export default function ChatNotFound() {
+  const t = useTranslations('ChatNotFound');
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
       {/* Background Elements */}
@@ -70,7 +72,7 @@ export default function ChatNotFound() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent"
             >
-              Chat Interface Not Found
+              {t('title')}
             </motion.h1>
 
             {/* Description */}
@@ -81,7 +83,7 @@ export default function ChatNotFound() {
               className="space-y-4 mb-10"
             >
               <p className="text-xl text-gray-600 leading-relaxed">
-                The chat interface you're looking for is currently unavailable or doesn't exist.
+                {t('description')}
               </p>
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200/50">
                 <div className="flex items-start gap-4">
@@ -89,11 +91,11 @@ export default function ChatNotFound() {
                     <MessageCircle className="h-4 w-4 text-white" />
                   </div>
                   <div className="text-left">
-                    <h3 className="font-semibold text-blue-900 mb-2">Possible reasons:</h3>
+                    <h3 className="font-semibold text-blue-900 mb-2">{t('possible_reasons')}</h3>
                     <ul className="text-blue-800 text-sm space-y-1">
-                      <li>• The chat interface is currently set to private</li>
-                      <li>• The URL might be incorrect or outdated</li>
-                      <li>• The interface may have been temporarily disabled</li>
+                      <li>• {t('reason_private')}</li>
+                      <li>• {t('reason_incorrect_url')}</li>
+                      <li>• {t('reason_disabled')}</li>
                     </ul>
                   </div>
                 </div>
@@ -117,7 +119,7 @@ export default function ChatNotFound() {
                     className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-xl hover:shadow-2xl transition-all duration-300 group"
                   >
                     <Sparkles className="h-5 w-5 mr-2 group-hover:rotate-12 transition-transform duration-200" />
-                    Try Our Demo Chat
+                    {t('try_demo')}
                   </Button>
                 </Link>
               </motion.div>
@@ -165,7 +167,7 @@ export default function ChatNotFound() {
                   href="/sign-up" 
                   className="text-blue-600 hover:text-blue-700 font-medium hover:underline transition-colors duration-200"
                 >
-                  Create Your Own Chat Interface
+                  {t('create_own')}
                 </Link>
               </div>
             </motion.div>

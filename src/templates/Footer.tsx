@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -11,6 +12,7 @@ import { AppConfig } from '@/utils/AppConfig';
 import { Logo } from './Logo';
 
 export const Footer = () => {
+  const t = useTranslations('Footer');
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
@@ -55,8 +57,7 @@ export const Footer = () => {
             {AppConfig.name}
           </h3>
           <p className="text-muted-foreground max-w-md mx-auto">
-            Professional chat interface builder for modern businesses.
-            Create, customize, and deploy in minutes.
+            {t('description')}
           </p>
         </motion.div>
 
@@ -67,19 +68,19 @@ export const Footer = () => {
               href="/terms"
               className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
             >
-              Terms of Service
+              {t('terms_of_service')}
             </Link>
             <Link
               href="/privacy"
               className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
             >
-              Privacy Policy
+              {t('privacy_policy')}
             </Link>
             <Link
               href="/contact"
               className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
             >
-              Contact
+              {t('contact')}
             </Link>
           </div>
         </motion.div>
@@ -90,7 +91,7 @@ export const Footer = () => {
           className="pt-8 border-t border-border/30"
         >
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} {AppConfig.name}. All rights reserved.
+            {t('copyright', { year: new Date().getFullYear(), name: AppConfig.name })}
           </p>
         </motion.div>
       </motion.div>

@@ -1,14 +1,15 @@
 'use client';
 
-
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ArrowRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { buttonVariants } from '@/components/ui/buttonVariants';
 import { Section } from '@/features/landing/Section';
 
 export const CTA = () => {
+  const t = useTranslations('CTA');
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
@@ -83,7 +84,7 @@ export const CTA = () => {
               })}
               href="/sign-up"
             >
-              Start Free Trial
+              {t('button_text')}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
             </motion.a>
 
@@ -97,7 +98,7 @@ export const CTA = () => {
               })}
               href="/chat/demo"
             >
-              View Demo
+              {t('demo_button')}
             </motion.a>
           </motion.div>
 
@@ -109,7 +110,7 @@ export const CTA = () => {
             className="mt-8"
           >
             <p className="text-sm text-muted-foreground">
-              No credit card required • Setup in under 5 minutes • Cancel anytime
+              {t('trust_indicators')}
             </p>
           </motion.div>
         </div>

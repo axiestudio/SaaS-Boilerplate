@@ -58,6 +58,9 @@
     "next_renew_date": "Votre abonnement sera renouvelé le {date}"
   },
   "FAQ": {
+    "subtitle": "FAQ",
+    "title": "Questions Fréquemment Posées",
+    "description": "Tout ce que vous devez savoir sur notre constructeur d'interface de chat",
     "question": "Comment créer ma première interface de chat ?",
     "answer": "Créer votre première interface de chat est simple ! Inscrivez-vous, accédez à votre tableau de bord, et cliquez sur 'Créer une nouvelle interface de chat'. Personnalisez votre image de marque, connectez votre endpoint de flux Axie Studio, et déployez instantanément.",
     "question2": "Puis-je personnaliser l'apparence de mon interface de chat ?",
@@ -67,14 +70,22 @@
     "question4": "Y a-t-il une limite sur les messages ou conversations ?",
     "answer4": "Notre plan Gratuit inclut des limites généreuses pour les projets personnels. Les plans Premium et Entreprise offrent des limites plus élevées et des fonctionnalités supplémentaires.",
     "question5": "Puis-je utiliser mon propre domaine ?",
-    "answer5": "Oui ! Les plans Premium et Entreprise supportent les domaines personnalisés. Vous pouvez héberger vos interfaces de chat sur votre propre domaine."
+    "answer5": "Oui ! Les plans Premium et Entreprise supportent les domaines personnalisés. Vous pouvez héberger vos interfaces de chat sur votre propre domaine.",
+    "question6": "Mes données sont-elles sécurisées et conformes ?",
+    "answer6": "Oui, nous prenons la sécurité au sérieux. Toutes les données sont chiffrées en transit et au repos, nous sommes conformes SOC 2 et nous suivons le RGPD et autres réglementations de confidentialité.",
+    "contact_title": "Vous avez encore des questions ?",
+    "contact_description": "Notre équipe est là pour vous aider à démarrer avec votre interface de chat.",
+    "contact_button": "Contacter le Support"
   },
   "CTA": {
     "title": "Prêt à transformer votre expérience client ?",
     "description": "Rejoignez des milliers d'entreprises utilisant les interfaces de chat Axie Studio pour créer des conversations clients intelligentes et personnalisées.",
-    "button_text": "Commencer gratuitement"
+    "button_text": "Essai gratuit",
+    "demo_button": "Voir la démo",
+    "trust_indicators": "Aucune carte de crédit requise • Configuration en moins de 5 minutes • Annulez à tout moment"
   },
   "Footer": {
+    "description": "Constructeur d'interface de chat professionnel pour les entreprises modernes. Créez, personnalisez et déployez en quelques minutes.",
     "product": "Produit",
     "docs": "Docs",
     "blog": "Blog",
@@ -83,6 +94,7 @@
     "terms_of_service": "Conditions d'utilisation",
     "privacy_policy": "Politique de confidentialité",
     "contact": "Contact",
+    "copyright": "© {year} {name}. Tous droits réservés.",
     "designed_by": "Designé by <author></author>."
   },
   "ProtectFallback": {
@@ -111,7 +123,17 @@
     "message_state_title": "Bienvenue dans votre espace de travail de chat",
     "message_state_description": "Créez et gérez des interfaces de chat personnalisées qui se connectent à vos flux Axie Studio.",
     "message_state_button": "Créer la première interface de chat",
-    "message_state_alternative": "Prêt à engager vos clients ?"
+    "message_state_alternative": "Prêt à engager vos clients ?",
+    "your_chat_interfaces": "Vos Interfaces de Chat",
+    "your_chat_interfaces_description": "Gérez et personnalisez vos interfaces de chat",
+    "getting_started": "Commencer",
+    "getting_started_description": "Suivez ces étapes pour configurer votre première interface de chat",
+    "configure_api": "Configurer l'API",
+    "configure_api_description": "Configurez votre endpoint API Axie Studio et votre clé",
+    "customize_interface": "Personnaliser l'Interface",
+    "customize_interface_description": "Personnalisez votre interface de chat avec des couleurs, un logo et des messages",
+    "share_and_deploy": "Partager et Déployer",
+    "share_and_deploy_description": "Obtenez votre URL de chat unique et partagez-la avec vos clients"
   },
   "UserProfile": {
     "title_bar": "Profil utilisateur",
@@ -171,10 +193,7 @@
     "message_description": "Entrez un message détaillé pour votre todo.",
     "submit_button": "Envoyer"
   },
-  "Settings": {
-    "title_bar": "Paramètres",
-    "title_bar_description": "Gérez les paramètres de votre application"
-  },
+
   "ChatInterface": {
     "title_bar": "Interface de chat",
     "title_bar_description": "Créez et gérez vos interfaces de chat",
@@ -192,11 +211,39 @@
     "title_bar": "Gestion du compte",
     "title_bar_description": "Gérez les paramètres et préférences de votre compte"
   },
+  "Settings": {
+    "title_bar": "Paramètres",
+    "title_bar_description": "Gérez vos paramètres API et préférences",
+    "api_configuration_title": "Configuration API",
+    "api_configuration_description": "Configurez vos paramètres API Axie Studio par défaut"
+  },
+  "ApiSettings": {
+    "endpoint_label": "Endpoint API par défaut",
+    "endpoint_placeholder": "https://flow.axiestudio.se/api/v1/run/",
+    "endpoint_description": "Votre URL de base d'endpoint API de flux Axie Studio par défaut",
+    "api_key_label": "Clé API par défaut",
+    "api_key_placeholder": "Votre clé API par défaut",
+    "api_key_description": "Votre clé API Axie Studio par défaut (peut être remplacée par interface de chat)",
+    "save_button": "Enregistrer les paramètres",
+    "saving": "Enregistrement...",
+    "test_button": "Tester la connexion",
+    "testing": "Test en cours...",
+    "save_success": "Paramètres enregistrés avec succès !",
+    "save_error": "Erreur lors de l'enregistrement des paramètres. Veuillez réessayer."
+  },
   "DashboardActions": {
     "quick_actions": "Actions rapides",
     "quick_actions_description": "Commencez par créer votre première interface de chat",
     "create_new_interface": "Créer une nouvelle interface de chat",
+    "create_new_chat_interface": "Créer une nouvelle interface de chat",
+    "create_new_interface_description": "Créez une interface de chat personnalisée pour vos clients",
+    "create_new_chat_interface_description": "Commencez par créer votre première interface de chat",
     "account_settings": "Paramètres du compte",
+    "account_settings_description": "Gérez vos préférences et paramètres de compte",
+    "analytics": "Analytiques",
+    "analytics_description": "Consultez les métriques de performance détaillées",
+    "user_management": "Gestion des utilisateurs",
+    "user_management_description": "Gérez les utilisateurs et les permissions",
     "your_interfaces": "Vos interfaces de chat",
     "your_interfaces_description": "Gérez et personnalisez vos interfaces de chat"
   },
@@ -263,6 +310,8 @@
     "show_preview": "Afficher l'aperçu",
     "create_interface": "Créer l'interface",
     "update_interface": "Mettre à jour l'interface",
+    "creating": "Création...",
+    "updating": "Mise à jour...",
     "open_public_chat": "Ouvrir le chat public",
     "public_chat_url": "URL de chat public",
     "copy_url": "Copier l'URL",
@@ -326,12 +375,12 @@
   "GettingStarted": {
     "title": "Commencer",
     "description": "Suivez ces étapes pour configurer votre première interface de chat",
-    "step1_title": "Configurer l'API",
-    "step1_description": "Configurez votre endpoint API Axie Studio et votre clé",
-    "step2_title": "Personnaliser l'interface",
-    "step2_description": "Personnalisez votre interface de chat avec des couleurs, logo et messages",
-    "step3_title": "Partager et déployer",
-    "step3_description": "Obtenez votre URL de chat unique et partagez-la avec vos clients"
+    "configure_api": "Configurer l'API",
+    "configure_api_description": "Configurez votre endpoint API Axie Studio et votre clé",
+    "customize_interface": "Personnaliser l'interface",
+    "customize_interface_description": "Personnalisez votre interface de chat avec des couleurs, logo et messages",
+    "share_and_deploy": "Partager et déployer",
+    "share_and_deploy_description": "Obtenez votre URL de chat unique et partagez-la avec vos clients"
   },
   "AccessDenied": {
     "title": "Accès refusé",
@@ -440,6 +489,31 @@
   "DemoBadge": {
     "powered_by": "Alimenté par",
     "axie_studio": "Axie Studio"
+  },
+  "PublicChat": {
+    "interface_unavailable": "Cette interface de chat est actuellement indisponible.",
+    "interface_not_public": "Cette interface de chat n'est actuellement pas publique. Veuillez revenir plus tard.",
+    "failed_to_load": "Échec du chargement de l'interface de chat. Veuillez réessayer plus tard.",
+    "ai_connection_error": "Désolé, j'ai des difficultés à me connecter au service IA en ce moment. Veuillez réessayer dans un moment. (Erreur: {error})",
+    "processing_error": "J'ai reçu votre message mais j'ai eu des difficultés à le traiter. Pourriez-vous reformuler s'il vous plaît ?",
+    "connection_error": "Je suis désolé, mais j'ai des difficultés de connexion en ce moment. Veuillez réessayer dans un moment. (Erreur: {error})",
+    "unknown_error": "Erreur inconnue",
+    "chat_unavailable": "Chat Indisponible",
+    "contact_support": "Si vous pensez qu'il s'agit d'une erreur, veuillez contacter le support."
+  },
+  "ChatNotFound": {
+    "title": "Interface de Chat Introuvable",
+    "description": "L'interface de chat que vous recherchez est actuellement indisponible ou n'existe pas.",
+    "possible_reasons": "Raisons possibles :",
+    "reason_private": "L'interface de chat est actuellement définie comme privée",
+    "reason_incorrect_url": "L'URL pourrait être incorrecte ou obsolète",
+    "reason_disabled": "L'interface pourrait avoir été temporairement désactivée",
+    "try_demo": "Essayer Notre Chat Démo",
+    "create_own": "Créer Votre Propre Interface de Chat"
+  },
+  "OrganizationLimits": {
+    "member_limit_reached": "Limite de membres atteinte ({current}/{max}). Pour inviter de nouveaux membres, veuillez d'abord supprimer des membres existants.",
+    "organization_limit_reached": "Limite d'organisations atteinte ({current}/{max}). Pour créer une nouvelle organisation, veuillez d'abord quitter une organisation existante."
   },
   "AccountPage": {
     "title": "Gestion du compte",

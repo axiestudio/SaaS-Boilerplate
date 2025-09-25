@@ -10,14 +10,14 @@ const SettingsPage = () => {
   return (
     <>
       <TitleBar
-        title="Settings"
-        description="Manage your API settings and preferences"
+        title={t('title_bar')}
+        description={t('title_bar_description')}
       />
 
       <div className="max-w-2xl space-y-6">
         <DashboardSection
-          title="API Configuration"
-          description="Configure your default Axie Studio API settings"
+          title={t('api_configuration_title')}
+          description={t('api_configuration_description')}
         >
           <ApiSettingsForm />
         </DashboardSection>

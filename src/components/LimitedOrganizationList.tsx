@@ -3,6 +3,7 @@
 import { OrganizationList } from '@clerk/nextjs';
 import { useOrganizationList } from '@clerk/nextjs';
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertTriangle, Building2 } from 'lucide-react';
 
@@ -17,6 +18,7 @@ interface LimitedOrganizationListProps {
 }
 
 export const LimitedOrganizationList = (props: LimitedOrganizationListProps) => {
+  const t = useTranslations('OrganizationLimits');
   const { organizationList, isLoaded } = useOrganizationList();
   const [showLimitWarning, setShowLimitWarning] = useState(false);
   const [orgCount, setOrgCount] = useState(0);
@@ -39,8 +41,7 @@ export const LimitedOrganizationList = (props: LimitedOrganizationListProps) => 
             <div className="flex items-center gap-2">
               <Building2 className="h-4 w-4" />
               <span>
-                Organization limit reached ({orgCount}/{MAX_ORGANIZATIONS}). 
-                To create a new organization, please leave an existing one first.
+                {t('organization_limit_reached', { current: orgCount, max: MAX_ORGANIZATIONS })}
               </span>
             </div>
           </AlertDescription>
