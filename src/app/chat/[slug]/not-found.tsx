@@ -3,12 +3,25 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { MessageCircle, Home, Search, ArrowLeft, Sparkles, AlertTriangle } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 
 export default function ChatNotFound() {
-  const t = useTranslations('ChatNotFound');
+  // Fallback translations for public chat not-found page
+  const t = (key: string) => {
+    const fallbackTranslations: Record<string, string> = {
+      'title': 'Chat Interface Not Found',
+      'description': 'The chat interface you\'re looking for is currently unavailable or doesn\'t exist.',
+      'possible_reasons': 'Possible reasons:',
+      'reason_private': 'The chat interface is currently set to private',
+      'reason_incorrect_url': 'The URL might be incorrect or outdated',
+      'reason_disabled': 'The interface may have been temporarily disabled',
+      'try_demo': 'Try Our Demo Chat',
+      'create_own': 'Create Your Own Chat Interface',
+    };
+    return fallbackTranslations[key] || key;
+  };
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
       {/* Background Elements */}
