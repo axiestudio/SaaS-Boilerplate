@@ -191,15 +191,15 @@ export const ChatInterfaceList = () => {
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-lg font-semibold">Your Chat Interfaces</h3>
+          <h3 className="text-lg font-semibold">{t('title')}</h3>
           <p className="text-sm text-muted-foreground">
-            {interfaces.length} interface{interfaces.length !== 1 ? 's' : ''} created
+            {t('interfaces_count', { count: interfaces.length })}
           </p>
         </div>
         <Link href="/dashboard/chat-interfaces/new">
           <Button>
             <Plus className="h-4 w-4 mr-2" />
-            Create New Chat Interface
+            {t('create_new')}
           </Button>
         </Link>
       </div>

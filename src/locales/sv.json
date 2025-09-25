@@ -390,7 +390,9 @@
     "contact_support": "Kontakta support"
   },
   "ChatInterfaceList": {
+    "title": "Dina Chattgränssnitt",
     "your_interfaces": "Dina chattgränssnitt",
+    "interfaces_count": "{count} gränssnitt{count, plural, one {} other {}} skapat{count, plural, one {t} other {}}",
     "create_new": "Skapa nytt chattgränssnitt",
     "no_interfaces": "Inga chattgränssnitt hittades",
     "create_first": "Skapa ditt första chattgränssnitt för att komma igång",

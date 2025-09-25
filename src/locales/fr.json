@@ -396,7 +396,9 @@
     "contact_support": "Contacter le support"
   },
   "ChatInterfaceList": {
+    "title": "Vos Interfaces de Chat",
     "your_interfaces": "Vos interfaces de chat",
+    "interfaces_count": "{count} interface{count, plural, one {} other {s}} créée{count, plural, one {} other {s}}",
     "create_new": "Créer une nouvelle interface de chat",
     "no_interfaces": "Aucune interface de chat trouvée",
     "create_first": "Créez votre première interface de chat pour commencer",
