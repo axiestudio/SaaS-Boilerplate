@@ -2,7 +2,6 @@
 
 import { Send, Minimize2, Maximize2, User, Bot, MessageCircle } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { useTranslations } from 'next-intl';
 
 type Message = {
   id: string;
@@ -36,6 +35,19 @@ type ChatConfig = {
   apiEndpoint: string;
   apiKey: string;
   isActive: boolean;
+};
+
+// Static error messages - no translations needed
+const ERROR_MESSAGES = {
+  interface_unavailable: 'This chat interface is currently unavailable.',
+  interface_not_public: 'This chat interface is currently not public. Please check back later.',
+  failed_to_load: 'Failed to load chat interface. Please try again later.',
+  ai_connection_error: (error: string) => `Sorry, I'm having trouble connecting to the AI service right now. Please try again in a moment. (Error: ${error})`,
+  processing_error: "I received your message but had trouble processing it. Could you please try rephrasing?",
+  connection_error: (error: string) => `I'm sorry, but I'm having trouble connecting right now. Please try again in a moment. (Error: ${error})`,
+  unknown_error: 'Unknown error',
+  chat_unavailable: 'Chat Unavailable',
+  contact_support: 'If you believe this is an error, please contact support.',
 };
 
 // AI Response Processing Function
@@ -73,9 +85,9 @@ const processAIResponse = (responseText: string) => {
     // Clean up common HTML issues
     processedText = responseText
       .replace(/&nbsp;/g, ' ')
-      .replace(/&amp;/g, '&')
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>');
+      .replace(/&/g, '&')
+      .replace(/</g, '<')
+      .replace(/>/g, '>');
   } else {
     // For plain text, convert URLs to clickable links
     processedText = responseText.replace(
@@ -450,28 +462,6 @@ const MessageContent = ({ message }: { message: Message }) => {
 };
 
 export const PublicChatInterface = ({ slug }: { slug: string }) => {
-  // Handle missing locale context gracefully for public chat
-  let t: any;
-  try {
-    t = useTranslations('PublicChat');
-  } catch (error) {
-    // Fallback translations when i18n context is not available
-    t = (key: string, params?: any) => {
-      const fallbackTranslations: Record<string, string> = {
-        'interface_unavailable': 'This chat interface is currently unavailable.',
-        'interface_not_public': 'This chat interface is currently not public. Please check back later.',
-        'failed_to_load': 'Failed to load chat interface. Please try again later.',
-        'ai_connection_error': `Sorry, I'm having trouble connecting to the AI service right now. Please try again in a moment. (Error: ${params?.error || 'Unknown'})`,
-        'processing_error': "I received your message but had trouble processing it. Could you please try rephrasing?",
-        'connection_error': `I'm sorry, but I'm having trouble connecting right now. Please try again in a moment. (Error: ${params?.error || 'Unknown'})`,
-        'unknown_error': 'Unknown error',
-        'chat_unavailable': 'Chat Unavailable',
-        'contact_support': 'If you believe this is an error, please contact support.',
-      };
-      return fallbackTranslations[key] || key;
-    };
-  }
-  
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -542,14 +532,14 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
         
         if (!response.ok) {
           const errorData = await response.json();
-          setError(errorData.message || t('interface_unavailable'));
+          setError(errorData.message || ERROR_MESSAGES.interface_unavailable);
           return;
         }
 
         const configData = await response.json();
         
         if (!configData.isPublic) {
-          setError(t('interface_not_public'));
+          setError(ERROR_MESSAGES.interface_not_public);
           return;
         }
 
@@ -557,7 +547,7 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
         setError(null);
       } catch (error) {
         console.error('Error fetching config:', error);
-        setError(t('failed_to_load'));
+        setError(ERROR_MESSAGES.failed_to_load);
       }
     };
 
@@ -669,7 +659,7 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
 
         const botMessage: Message = {
           id: (Date.now() + 1).toString(),
-          text: t('ai_connection_error', { error: apiResult.error }),
+          text: ERROR_MESSAGES.ai_connection_error(apiResult.error || 'Unknown'),
           isUser: false,
           timestamp: new Date(),
         };
@@ -682,7 +672,7 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
       console.log('✅ API Response received:', apiResult.message);
 
       // 🚀 OPTIMIZED: Process response immediately for faster UX
-      const aiResponseText = apiResult.message || t('processing_error');
+      const aiResponseText = apiResult.message || ERROR_MESSAGES.processing_error;
 
       console.log('📝 Processed AI response:', aiResponseText);
 
@@ -733,7 +723,7 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
 
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: t('connection_error', { error: error instanceof Error ? error.message : t('unknown_error') }),
+        text: ERROR_MESSAGES.connection_error(error instanceof Error ? error.message : ERROR_MESSAGES.unknown_error),
         isUser: false,
         timestamp: new Date(),
       };
@@ -759,10 +749,10 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
           </div>
-          <h1 className="text-xl font-semibold text-gray-900 mb-2">{t('chat_unavailable')}</h1>
+          <h1 className="text-xl font-semibold text-gray-900 mb-2">{ERROR_MESSAGES.chat_unavailable}</h1>
           <p className="text-gray-600 mb-4">{error}</p>
           <p className="text-sm text-gray-500">
-            {t('contact_support')}
+            {ERROR_MESSAGES.contact_support}
           </p>
         </div>
       </div>
