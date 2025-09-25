@@ -450,7 +450,28 @@ const MessageContent = ({ message }: { message: Message }) => {
 };
 
 export const PublicChatInterface = ({ slug }: { slug: string }) => {
-  const t = useTranslations('PublicChat');
+  // Handle missing locale context gracefully for public chat
+  let t: any;
+  try {
+    t = useTranslations('PublicChat');
+  } catch (error) {
+    // Fallback translations when i18n context is not available
+    t = (key: string, params?: any) => {
+      const fallbackTranslations: Record<string, string> = {
+        'interface_unavailable': 'This chat interface is currently unavailable.',
+        'interface_not_public': 'This chat interface is currently not public. Please check back later.',
+        'failed_to_load': 'Failed to load chat interface. Please try again later.',
+        'ai_connection_error': `Sorry, I'm having trouble connecting to the AI service right now. Please try again in a moment. (Error: ${params?.error || 'Unknown'})`,
+        'processing_error': "I received your message but had trouble processing it. Could you please try rephrasing?",
+        'connection_error': `I'm sorry, but I'm having trouble connecting right now. Please try again in a moment. (Error: ${params?.error || 'Unknown'})`,
+        'unknown_error': 'Unknown error',
+        'chat_unavailable': 'Chat Unavailable',
+        'contact_support': 'If you believe this is an error, please contact support.',
+      };
+      return fallbackTranslations[key] || key;
+    };
+  }
+  
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
