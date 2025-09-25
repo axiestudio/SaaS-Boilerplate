@@ -1,6 +1,6 @@
 'use client';
 
-import { Send, Minimize2, Maximize2, User, Bot, MessageCircle } from 'lucide-react';
+import { Send, Minimize2, Maximize2, User, Bot, MessageCircle, Sparkles, Clock, Shield } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 
 type Message = {
@@ -40,7 +40,7 @@ type ChatConfig = {
 // Static error messages - no translations needed
 const ERROR_MESSAGES = {
   interface_unavailable: 'This chat interface is currently unavailable.',
-  interface_not_public: 'This chat interface is currently not public. Please check back later.',
+  interface_not_public: 'This chat interface is currently not public. Please check back later or contact the owner.',
   failed_to_load: 'Failed to load chat interface. Please try again later.',
   ai_connection_error: (error: string) => `Sorry, I'm having trouble connecting to the AI service right now. Please try again in a moment. (Error: ${error})`,
   processing_error: "I received your message but had trouble processing it. Could you please try rephrasing?",
@@ -109,128 +109,6 @@ const processAIResponse = (responseText: string) => {
   };
 };
 
-// Modern Button Component
-const ModernButton = ({
-  children,
-  onClick,
-  disabled = false,
-  variant = 'primary',
-  style = {},
-  className = ''
-}: {
-  children: React.ReactNode;
-  onClick?: () => void;
-  disabled?: boolean;
-  variant?: 'primary' | 'ghost';
-  style?: React.CSSProperties;
-  className?: string;
-}) => {
-  const baseStyle: React.CSSProperties = {
-    border: 'none',
-    borderRadius: '12px',
-    padding: '12px 24px',
-    fontSize: '14px',
-    fontWeight: '600',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    transition: 'all 0.2s ease',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    opacity: disabled ? 0.5 : 1,
-    ...style
-  };
-
-  const variantStyles = {
-    primary: {
-      background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
-      color: 'white',
-      boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
-    },
-    ghost: {
-      background: 'rgba(255, 255, 255, 0.1)',
-      color: 'white',
-      backdropFilter: 'blur(10px)'
-    }
-  };
-
-  return (
-    <button
-      style={{ ...baseStyle, ...variantStyles[variant] }}
-      onClick={onClick}
-      disabled={disabled}
-      className={className}
-      onMouseEnter={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.transform = 'translateY(-2px)';
-          e.currentTarget.style.boxShadow = variant === 'primary'
-            ? '0 8px 20px rgba(59, 130, 246, 0.4)'
-            : '0 4px 12px rgba(255, 255, 255, 0.2)';
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.transform = 'translateY(0)';
-          e.currentTarget.style.boxShadow = variant === 'primary'
-            ? '0 4px 12px rgba(59, 130, 246, 0.3)'
-            : 'none';
-        }
-      }}
-    >
-      {children}
-    </button>
-  );
-};
-
-// Modern Input Component
-const ModernInput = ({
-  value,
-  onChange,
-  onKeyDown,
-  placeholder,
-  disabled = false,
-  style = {}
-}: {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  placeholder: string;
-  disabled?: boolean;
-  style?: React.CSSProperties;
-}) => {
-  const inputStyle: React.CSSProperties = {
-    width: '100%',
-    padding: '16px 20px',
-    fontSize: '16px',
-    border: '2px solid #e2e8f0',
-    borderRadius: '16px',
-    outline: 'none',
-    transition: 'all 0.2s ease',
-    backgroundColor: 'white',
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
-    ...style
-  };
-
-  return (
-    <input
-      type="text"
-      value={value}
-      onChange={onChange}
-      onKeyDown={onKeyDown}
-      placeholder={placeholder}
-      disabled={disabled}
-      style={inputStyle}
-      onFocus={(e) => {
-        e.target.style.borderColor = '#3b82f6';
-        e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
-      }}
-      onBlur={(e) => {
-        e.target.style.borderColor = '#e2e8f0';
-        e.target.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.05)';
-      }}
-    />
-  );
-};
-
 // Enhanced Message Content Renderer
 const MessageContent = ({ message }: { message: Message }) => {
   const renderContent = () => {
@@ -241,8 +119,8 @@ const MessageContent = ({ message }: { message: Message }) => {
           <div
             dangerouslySetInnerHTML={{ __html: message.text }}
             style={{
-              fontSize: '16px',
-              lineHeight: '1.6',
+              fontSize: '15px',
+              lineHeight: '1.5',
               margin: 0,
               fontWeight: '500',
               whiteSpace: 'pre-wrap'
@@ -255,21 +133,28 @@ const MessageContent = ({ message }: { message: Message }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  display: 'inline-block',
-                  padding: '8px 16px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px 16px',
                   backgroundColor: '#3b82f6',
                   color: 'white',
                   textDecoration: 'none',
-                  borderRadius: '6px',
+                  borderRadius: '12px',
                   fontSize: '14px',
                   fontWeight: '600',
-                  transition: 'background-color 0.2s'
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 2px 8px rgba(59, 130, 246, 0.3)'
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.backgroundColor = '#2563eb';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.4)';
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.backgroundColor = '#3b82f6';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(59, 130, 246, 0.3)';
                 }}
               >
                 📅 Book Appointment
@@ -284,11 +169,12 @@ const MessageContent = ({ message }: { message: Message }) => {
       case 'code':
         return (
           <div style={{
-            background: '#1e293b',
-            borderRadius: '8px',
+            background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+            borderRadius: '12px',
             padding: '16px',
             margin: '8px 0',
-            overflow: 'auto'
+            overflow: 'auto',
+            border: '1px solid rgba(255, 255, 255, 0.1)'
           }}>
             {message.metadata?.title && (
               <div style={{
@@ -306,7 +192,7 @@ const MessageContent = ({ message }: { message: Message }) => {
                   <span style={{
                     background: '#334155',
                     padding: '2px 8px',
-                    borderRadius: '4px',
+                    borderRadius: '6px',
                     fontSize: '10px'
                   }}>
                     {message.metadata.language}
@@ -331,7 +217,7 @@ const MessageContent = ({ message }: { message: Message }) => {
         return (
           <div style={{
             border: '2px solid #e2e8f0',
-            borderRadius: '8px',
+            borderRadius: '12px',
             padding: '16px',
             margin: '8px 0',
             background: '#f8fafc'
@@ -380,7 +266,7 @@ const MessageContent = ({ message }: { message: Message }) => {
           return text
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/`(.*?)`/g, '<code style="background: #f1f5f9; padding: 2px 4px; border-radius: 4px; font-family: monospace;">$1</code>')
+            .replace(/`(.*?)`/g, '<code style="background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">$1</code>')
             .replace(/\n/g, '<br>');
         };
 
@@ -388,8 +274,8 @@ const MessageContent = ({ message }: { message: Message }) => {
           <div
             dangerouslySetInnerHTML={{ __html: renderMarkdown(message.text) }}
             style={{
-              fontSize: '16px',
-              lineHeight: '1.6',
+              fontSize: '15px',
+              lineHeight: '1.5',
               margin: 0,
               fontWeight: '500',
               whiteSpace: 'pre-wrap'
@@ -405,8 +291,8 @@ const MessageContent = ({ message }: { message: Message }) => {
               <div
                 dangerouslySetInnerHTML={{ __html: message.text }}
                 style={{
-                  fontSize: '16px',
-                  lineHeight: '1.6',
+                  fontSize: '15px',
+                  lineHeight: '1.5',
                   margin: 0,
                   fontWeight: '500',
                   whiteSpace: 'pre-wrap'
@@ -419,21 +305,28 @@ const MessageContent = ({ message }: { message: Message }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      display: 'inline-block',
-                      padding: '8px 16px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '10px 16px',
                       backgroundColor: '#3b82f6',
                       color: 'white',
                       textDecoration: 'none',
-                      borderRadius: '6px',
+                      borderRadius: '12px',
                       fontSize: '14px',
                       fontWeight: '600',
-                      transition: 'background-color 0.2s'
+                      transition: 'all 0.2s ease',
+                      boxShadow: '0 2px 8px rgba(59, 130, 246, 0.3)'
                     }}
                     onMouseOver={(e) => {
                       e.currentTarget.style.backgroundColor = '#2563eb';
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.4)';
                     }}
                     onMouseOut={(e) => {
                       e.currentTarget.style.backgroundColor = '#3b82f6';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(59, 130, 246, 0.3)';
                     }}
                   >
                     📅 Book Appointment
@@ -446,8 +339,8 @@ const MessageContent = ({ message }: { message: Message }) => {
 
         return (
           <p style={{
-            fontSize: '16px',
-            lineHeight: '1.6',
+            fontSize: '15px',
+            lineHeight: '1.5',
             margin: 0,
             fontWeight: '500',
             whiteSpace: 'pre-wrap'
@@ -469,6 +362,7 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
   const [sessionId] = useState(() => Math.random().toString(36).substring(2, 15));
   const [isMinimized, setIsMinimized] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isOnline, setIsOnline] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Dynamic Favicon Function
@@ -572,6 +466,20 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
       updateFavicon(config.logoUrl);
     }
   }, [config?.welcomeMessage]);
+
+  // Online status detection
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const sendMessage = async () => {
     if (!inputValue.trim() || !config || isLoading) return;
@@ -742,15 +650,15 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
-          <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
-            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 text-center">
+          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-red-500 to-orange-500 rounded-3xl flex items-center justify-center shadow-lg">
+            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
           </div>
-          <h1 className="text-xl font-semibold text-gray-900 mb-2">{ERROR_MESSAGES.chat_unavailable}</h1>
-          <p className="text-gray-600 mb-4">{error}</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">{ERROR_MESSAGES.chat_unavailable}</h1>
+          <p className="text-gray-600 mb-6 leading-relaxed">{error}</p>
           <p className="text-sm text-gray-500">
             {ERROR_MESSAGES.contact_support}
           </p>
@@ -761,10 +669,15 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
 
   if (!config) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
-          <p className="text-gray-600">Loading chat interface...</p>
+          <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-3xl flex items-center justify-center shadow-lg animate-pulse">
+            <MessageCircle className="h-8 w-8 text-white" />
+          </div>
+          <div className="space-y-3">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <p className="text-gray-600 font-medium">Loading chat interface...</p>
+          </div>
         </div>
       </div>
     );
@@ -772,488 +685,864 @@ export const PublicChatInterface = ({ slug }: { slug: string }) => {
 
   return (
     <>
-      {/* Mobile-First Responsive Styles */}
-      <style jsx>{`
-        /* Prevent horizontal scrolling on mobile */
-        body {
+      {/* Enhanced Global Styles */}
+      <style jsx global>{`
+        /* Prevent horizontal scrolling and optimize for mobile */
+        html, body {
           overflow-x: hidden;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+
+        /* Enhanced animations */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideInFromRight {
+          from {
+            opacity: 0;
+            transform: translateX(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInFromLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes typingPulse {
+          0%, 60%, 100% {
+            transform: scale(0.8);
+            opacity: 0.5;
+          }
+          30% {
+            transform: scale(1.2);
+            opacity: 1;
+          }
+        }
+
+        @keyframes shimmer {
+          0% {
+            background-position: -200% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
+        }
+
+        .animate-fade-in-up {
+          animation: fadeInUp 0.5s ease-out;
+        }
+
+        .animate-slide-in-right {
+          animation: slideInFromRight 0.4s ease-out;
+        }
+
+        .animate-slide-in-left {
+          animation: slideInFromLeft 0.4s ease-out;
+        }
+
+        .animate-typing-pulse {
+          animation: typingPulse 1.4s infinite ease-in-out;
+        }
+
+        .shimmer {
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+          background-size: 200% 100%;
+          animation: shimmer 2s infinite;
         }
 
         /* Mobile optimizations */
         @media (max-width: 768px) {
-          .mobile-message-bubble {
-            max-width: 90% !important;
-            padding: 12px 14px !important;
+          .mobile-optimized {
             font-size: 14px !important;
-            line-height: 1.4 !important;
-          }
-          .mobile-avatar {
-            width: 32px !important;
-            height: 32px !important;
+            padding: 12px 16px !important;
           }
           .mobile-header {
-            padding: 6px 10px !important;
+            padding: 12px 16px !important;
           }
           .mobile-input {
             font-size: 16px !important; /* Prevents zoom on iOS */
-            min-height: 48px !important; /* Match button height */
+            min-height: 52px !important;
           }
           .mobile-send-button {
-            min-height: 48px !important;
-            min-width: 48px !important;
-            border-radius: 12px !important;
-          }
-          .mobile-brand-title {
-            font-size: 14px !important;
-          }
-          .mobile-status-text {
-            font-size: 10px !important;
+            min-height: 52px !important;
+            min-width: 52px !important;
           }
         }
 
-        /* Small mobile devices */
-        @media (max-width: 480px) {
-          .mobile-message-bubble {
-            max-width: 95% !important;
-            padding: 10px 12px !important;
-            font-size: 13px !important;
-          }
-          .mobile-container {
-            margin: 0 4px !important;
-          }
-          .mobile-gap {
-            gap: 8px !important;
-          }
+        /* Enhanced scrollbar */
+        ::-webkit-scrollbar {
+          width: 6px;
         }
-
-        /* Landscape mobile */
-        @media (max-width: 768px) and (orientation: landscape) {
-          .mobile-header {
-            padding: 4px 8px !important;
-          }
-          .mobile-brand-title {
-            font-size: 13px !important;
-          }
+        ::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.05);
+          border-radius: 3px;
         }
-
-        /* Enhanced typing animation */
-        @keyframes typingBounce {
-          0%, 60%, 100% {
-            transform: translateY(0);
-            opacity: 0.4;
-          }
-          30% {
-            transform: translateY(-8px);
-            opacity: 1;
-          }
+        ::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 3px;
+          transition: background 0.2s ease;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.3);
         }
       `}</style>
 
       <div style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%)',
         display: 'flex',
         flexDirection: 'column',
         fontFamily: config.fontFamily || 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        color: config.textColor || '#1F2937'
+        color: config.textColor || '#1F2937',
+        position: 'relative'
       }}>
-      {/* Compact Header - CONVERSATION FOCUSED */}
-      <header style={{
-        background: `linear-gradient(135deg, ${config.primaryColor} 0%, ${config.secondaryColor || config.primaryColor} 100%)`,
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)', // Much smaller shadow
-        backdropFilter: 'blur(20px)',
-        borderBottom: `1px solid ${config.secondaryColor || config.primaryColor}20` // Thinner border
-      }}>
-        <div
-          className="mobile-header"
-          style={{
-            maxWidth: '900px', // Match the chat container width
-            margin: '0 auto',
-            padding: '8px 12px', // Smaller padding for mobile
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}>
-          <div className="mobile-gap" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            {config.logoUrl ? (
-              <div style={{ position: 'relative' }}>
-                <img
-                  src={config.logoUrl}
-                  alt={`${config.brandName} logo`}
-                  style={{
-                    width: '40px', // Smaller for mobile
-                    height: '40px', // Smaller for mobile
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    border: '2px solid rgba(255, 255, 255, 0.3)', // Thinner border
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)' // Smaller shadow
-                  }}
-                />
-
-              </div>
-            ) : (
-              <div style={{ position: 'relative' }}>
-                <div style={{
-                  width: '32px', // Even smaller for mobile
-                  height: '32px', // Even smaller for mobile
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                  color: 'white',
-                  fontSize: '14px', // Smaller font for mobile
-                  fontWeight: 'bold',
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)', // Smaller shadow
-                  border: '2px solid rgba(255, 255, 255, 0.3)' // Thinner border
-                }}>
-                  <MessageCircle size={16} /> {/* Even smaller icon for mobile */}
-                </div>
-
-              </div>
-            )}
-            <div>
-              <h1
-                className="mobile-brand-title"
-                style={{
-                  fontSize: '16px', // Even smaller for mobile
-                  fontWeight: '700', // Slightly lighter weight
-                  color: 'white',
-                  margin: '0 0 1px 0', // Smaller margin
-                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)' // Smaller shadow
-                }}>
-                {config.brandName}
-              </h1>
-
-            </div>
-          </div>
-
-          <ModernButton
-            variant="ghost"
-            onClick={() => setIsMinimized(!isMinimized)}
+        {/* Enhanced Header with Premium Design */}
+        <header style={{
+          background: `linear-gradient(135deg, ${config.primaryColor} 0%, ${config.secondaryColor || config.primaryColor} 100%)`,
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: `1px solid ${config.secondaryColor || config.primaryColor}20`,
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          {/* Animated background elements */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%)',
+            pointerEvents: 'none'
+          }} />
+          
+          <div
+            className="mobile-header"
             style={{
-              padding: '8px', // Smaller padding
-              borderRadius: '50%',
-              minWidth: 'auto',
-              width: '32px', // Smaller button
-              height: '32px' // Smaller button
-            }}
-          >
-            {isMinimized ? <Maximize2 size={16} /> : <Minimize2 size={16} />} {/* Smaller icons */}
-          </ModernButton>
-        </div>
-      </header>
-
-      {!isMinimized && (
-        <>
-          {/* Ultra Modern Messages Container - Focused on Chat */}
-          <main style={{
-            flex: 1,
-            overflow: 'hidden',
-            background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
-            display: 'flex',
-            justifyContent: 'center'
-          }}>
-            <div
-              className="mobile-container"
-              style={{
-                height: '100%',
-                width: '100%',
-                maxWidth: '900px', // Narrower for better focus
-                display: 'flex',
-                flexDirection: 'column',
-                margin: '0 8px' // Smaller side margins for mobile
-              }}>
-              <div style={{
-                flex: 1,
-                overflowY: 'auto',
-                padding: '16px 12px', // Smaller padding for mobile
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '16px' // Smaller gap for mobile
-              }}>
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '12px', // Smaller gap for mobile
-                      flexDirection: message.isUser ? 'row-reverse' : 'row',
-                      animation: 'fadeIn 0.3s ease-out'
-                    }}
-                  >
-                    {/* Ultra Modern Avatar - Mobile Optimized */}
-                    <div style={{
-                      width: '36px', // Smaller for mobile
-                      height: '36px', // Smaller for mobile
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)', // Smaller shadow
-                      border: '3px solid rgba(255, 255, 255, 0.3)',
-                      background: message.isUser
-                        ? 'linear-gradient(135deg, #64748b 0%, #475569 100%)'
-                        : `linear-gradient(135deg, ${config.primaryColor} 0%, ${config.secondaryColor || config.primaryColor} 100%)`,
-                      color: 'white',
-                      flexShrink: 0
-                    }}>
-                      {message.isUser ? <User size={20} /> : <Bot size={20} />}
-                    </div>
-
-                    {/* Ultra Modern Message Bubble */}
-                    <div style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: message.isUser ? 'flex-end' : 'flex-start',
-                      maxWidth: '85%', // Wider on mobile
-                      width: '100%' // Full width available
-                    }}>
-                      <div
-                        className="mobile-message-bubble"
-                        style={{
-                          padding: '14px 16px', // Smaller padding for mobile
-                          borderRadius: '18px', // Slightly smaller radius
-                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)', // Smaller shadow
-                          transition: 'all 0.2s ease',
-                          cursor: 'default',
-                          background: message.isUser
-                            ? (config.userMessageColor || `linear-gradient(135deg, ${config.primaryColor} 0%, ${config.secondaryColor || config.primaryColor} 100%)`)
-                            : (config.botMessageColor || 'white'),
-                          color: message.isUser ? 'white' : (config.textColor || '#1e293b'),
-                          border: message.isUser ? 'none' : '1px solid #e2e8f0', // Thinner border
-                          borderBottomLeftRadius: message.isUser ? '18px' : '6px',
-                          borderBottomRightRadius: message.isUser ? '6px' : '18px'
-                        }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.15)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.1)';
-                      }}
-                    >
-                        <MessageContent
-                          message={message}
-                        />
-                      </div>
-                      <span style={{
-                        fontSize: '11px', // Smaller for mobile
-                        color: '#64748b',
-                        marginTop: '6px', // Smaller margin
-                        padding: '0 4px', // Smaller padding
-                        fontWeight: '600'
-                      }}>
-                        {message.timestamp.toLocaleTimeString([], {
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-
-                {/* Ultra Modern Typing Indicator */}
-                {isLoading && (
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: '16px',
-                    animation: 'fadeIn 0.3s ease-out'
-                  }}>
-                    <div style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: `linear-gradient(135deg, ${config.primaryColor} 0%, ${config.secondaryColor || config.primaryColor} 100%)`,
-                      color: 'white',
-                      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
-                      border: '3px solid rgba(255, 255, 255, 0.3)',
-                      flexShrink: 0
-                    }}>
-                      <Bot size={20} />
-                    </div>
-                    <div style={{
-                      background: config.botMessageColor || 'white',
-                      border: '2px solid #e2e8f0',
-                      padding: '20px 24px',
-                      borderRadius: '24px',
-                      borderBottomLeftRadius: '8px',
-                      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
-                      color: config.textColor || '#1e293b'
-                    }}>
-                      <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-                        {/* Enhanced typing animation with more dots and smoother motion */}
-                        <div style={{
-                          width: '6px',
-                          height: '6px',
-                          backgroundColor: config.primaryColor || '#3B82F6',
-                          borderRadius: '50%',
-                          animation: 'typingBounce 1.2s infinite ease-in-out'
-                        }} />
-                        <div style={{
-                          width: '6px',
-                          height: '6px',
-                          backgroundColor: config.primaryColor || '#3B82F6',
-                          borderRadius: '50%',
-                          animation: 'typingBounce 1.2s infinite ease-in-out',
-                          animationDelay: '0.2s'
-                        }} />
-                        <div style={{
-                          width: '6px',
-                          height: '6px',
-                          backgroundColor: config.primaryColor || '#3B82F6',
-                          borderRadius: '50%',
-                          animation: 'typingBounce 1.2s infinite ease-in-out',
-                          animationDelay: '0.4s'
-                        }} />
-                        <div style={{
-                          width: '6px',
-                          height: '6px',
-                          backgroundColor: config.primaryColor || '#3B82F6',
-                          borderRadius: '50%',
-                          animation: 'typingBounce 1.2s infinite ease-in-out',
-                          animationDelay: '0.6s'
-                        }} />
-                      </div>
-                    </div>
-                  </div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
-            </div>
-          </main>
-
-          {/* Ultra Modern Input Area - Focused */}
-          <footer style={{
-            background: 'white',
-            borderTop: '2px solid #e2e8f0',
-            boxShadow: '0 -8px 32px rgba(0, 0, 0, 0.1)',
-            backdropFilter: 'blur(20px)',
-            display: 'flex',
-            justifyContent: 'center'
-          }}>
-            <div style={{
-              width: '100%',
-              maxWidth: '900px', // Match the main container width
-              margin: '0 8px', // Smaller margins for mobile
-              padding: '8px 12px' // Even smaller padding for mobile
+              maxWidth: '1200px',
+              margin: '0 auto',
+              padding: '16px 20px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              position: 'relative',
+              zIndex: 1
             }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center', // Center alignment for better button positioning
-                gap: '12px' // Better gap for proper spacing
-              }}>
-                <div style={{ flex: 1 }}>
-                  <div style={{ position: 'relative' }}>
-                    <ModernInput
-                      value={inputValue}
-                      onChange={(e) => setInputValue(e.target.value)}
-                      placeholder={config.placeholderText}
-                      onKeyDown={handleKeyDown}
-                      disabled={isLoading}
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              {/* Enhanced Logo/Avatar */}
+              {config.logoUrl ? (
+                <div style={{ position: 'relative' }}>
+                  <div style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '50%',
+                    padding: '3px',
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1))',
+                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)'
+                  }}>
+                    <img
+                      src={config.logoUrl}
+                      alt={`${config.brandName} logo`}
                       style={{
-                        paddingRight: '60px', // More space for character counter
-                        fontSize: '16px', // 16px prevents zoom on iOS
-                        minHeight: '48px', // Slightly taller for better proportion
-                        borderRadius: '12px' // Match button border radius
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        border: '2px solid rgba(255, 255, 255, 0.2)'
                       }}
                     />
-                    <div style={{
-                      position: 'absolute',
-                      right: '16px', // Smaller right position
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      fontSize: '10px', // Smaller font for mobile
-                      color: '#64748b',
-                      fontWeight: '600'
-                    }}>
-                      {inputValue.length}/500
-                    </div>
                   </div>
+                  {/* Online indicator */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '2px',
+                    right: '2px',
+                    width: '16px',
+                    height: '16px',
+                    backgroundColor: isOnline ? '#10b981' : '#ef4444',
+                    borderRadius: '50%',
+                    border: '3px solid white',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                    animation: isOnline ? 'pulse 2s infinite' : 'none'
+                  }} />
                 </div>
-                <ModernButton
-                  onClick={sendMessage}
-                  disabled={isLoading || !inputValue.trim()}
-                  style={{
-                    minHeight: '48px', // Match input height exactly
-                    minWidth: '48px', // Square button for better proportion
-                    borderRadius: '12px', // Match input border radius
-                    background: `linear-gradient(135deg, ${config.primaryColor} 0%, ${config.secondaryColor || config.primaryColor} 100%)`,
+              ) : (
+                <div style={{ position: 'relative' }}>
+                  <div style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    flexShrink: 0 // Prevent button from shrinking
-                  }}
-                >
-                  {isLoading ? (
-                    <div style={{
-                      width: '18px', // Slightly larger spinner for better visibility
-                      height: '18px', // Slightly larger spinner for better visibility
-                      border: '2px solid rgba(255, 255, 255, 0.3)',
-                      borderTop: '2px solid white',
-                      borderRadius: '50%',
-                      animation: 'spin 1s linear infinite'
-                    }} />
-                  ) : (
-                    <Send size={18} />
-                  )}
-                </ModernButton>
-              </div>
-
-
-              {/* Compact Footer Attribution - LOWER & SMALLER */}
-              <div style={{
-                textAlign: 'center',
-                marginTop: '8px' // Much smaller margin - LOWER!
-              }}>
-                <a
-                  href="https://axiestudio.se"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px', // Smaller gap
-                    fontSize: '11px', // Much smaller text
-                    color: '#94a3b8', // Lighter color
-                    textDecoration: 'none',
-                    fontWeight: '500', // Lighter weight
-                    transition: 'all 0.2s ease',
-                    padding: '4px 8px', // Much smaller padding
-                    borderRadius: '8px' // Smaller border radius
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = '#1e293b';
-                    e.currentTarget.style.backgroundColor = '#f1f5f9';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = '#64748b';
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                  }}
-                >
-                  <MessageCircle size={12} /> {/* Smaller icon */}
-                  Powered by{' '}
-                  <span style={{
-                    background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    fontWeight: '800'
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1))',
+                    color: 'white',
+                    fontSize: '18px',
+                    fontWeight: 'bold',
+                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
+                    border: '2px solid rgba(255, 255, 255, 0.2)'
                   }}>
-                    Axie Studio
-                  </span>
-                </a>
+                    <MessageCircle size={24} />
+                  </div>
+                  {/* Online indicator */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '2px',
+                    right: '2px',
+                    width: '16px',
+                    height: '16px',
+                    backgroundColor: isOnline ? '#10b981' : '#ef4444',
+                    borderRadius: '50%',
+                    border: '3px solid white',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                    animation: isOnline ? 'pulse 2s infinite' : 'none'
+                  }} />
+                </div>
+              )}
+              
+              {/* Enhanced Brand Info */}
+              <div>
+                <h1 style={{
+                  fontSize: '20px',
+                  fontWeight: '700',
+                  color: 'white',
+                  margin: '0 0 4px 0',
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  letterSpacing: '-0.025em'
+                }}>
+                  {config.brandName}
+                </h1>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: '13px',
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  fontWeight: '500'
+                }}>
+                  <div style={{
+                    width: '8px',
+                    height: '8px',
+                    backgroundColor: isOnline ? '#10b981' : '#ef4444',
+                    borderRadius: '50%',
+                    boxShadow: isOnline ? '0 0 8px rgba(16, 185, 129, 0.6)' : '0 0 8px rgba(239, 68, 68, 0.6)',
+                    animation: isOnline ? 'pulse 2s infinite' : 'none'
+                  }} />
+                  <span>{isOnline ? 'Online • Ready to help' : 'Reconnecting...'}</span>
+                  {isLoading && (
+                    <>
+                      <span>•</span>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <div style={{
+                          width: '4px',
+                          height: '4px',
+                          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                          borderRadius: '50%',
+                          animation: 'typingPulse 1.4s infinite ease-in-out'
+                        }} />
+                        <div style={{
+                          width: '4px',
+                          height: '4px',
+                          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                          borderRadius: '50%',
+                          animation: 'typingPulse 1.4s infinite ease-in-out',
+                          animationDelay: '0.2s'
+                        }} />
+                        <div style={{
+                          width: '4px',
+                          height: '4px',
+                          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                          borderRadius: '50%',
+                          animation: 'typingPulse 1.4s infinite ease-in-out',
+                          animationDelay: '0.4s'
+                        }} />
+                        <span style={{ marginLeft: '4px' }}>Typing</span>
+                      </span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-          </footer>
-        </>
-      )}
-    </div>
+
+            {/* Enhanced Minimize Button */}
+            <button
+              onClick={() => setIsMinimized(!isMinimized)}
+              style={{
+                padding: '12px',
+                borderRadius: '50%',
+                border: 'none',
+                background: 'rgba(255, 255, 255, 0.15)',
+                color: 'white',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)';
+                e.currentTarget.style.transform = 'scale(1.1)';
+                e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.15)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+              }}
+            >
+              {isMinimized ? <Maximize2 size={20} /> : <Minimize2 size={20} />}
+            </button>
+          </div>
+        </header>
+
+        {!isMinimized && (
+          <>
+            {/* Enhanced Messages Container */}
+            <main style={{
+              flex: 1,
+              overflow: 'hidden',
+              background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
+              display: 'flex',
+              justifyContent: 'center',
+              position: 'relative'
+            }}>
+              {/* Subtle background pattern */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(0,0,0,0.02) 1px, transparent 0)',
+                backgroundSize: '24px 24px',
+                pointerEvents: 'none'
+              }} />
+
+              <div
+                className="mobile-container"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  maxWidth: '1000px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  margin: '0 16px',
+                  position: 'relative',
+                  zIndex: 1
+                }}>
+                
+                <div style={{
+                  flex: 1,
+                  overflowY: 'auto',
+                  padding: '24px 16px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '20px'
+                }}>
+                  {messages.map((message, index) => (
+                    <div
+                      key={message.id}
+                      className={message.isUser ? 'animate-slide-in-right' : 'animate-slide-in-left'}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '16px',
+                        flexDirection: message.isUser ? 'row-reverse' : 'row',
+                        opacity: 0,
+                        animation: `${message.isUser ? 'slideInFromRight' : 'slideInFromLeft'} 0.4s ease-out ${index * 0.1}s forwards`
+                      }}
+                    >
+                      {/* Enhanced Avatar Design */}
+                      <div style={{
+                        width: '44px',
+                        height: '44px',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: message.isUser
+                          ? 'linear-gradient(135deg, #64748b 0%, #475569 100%)'
+                          : `linear-gradient(135deg, ${config.primaryColor} 0%, ${config.secondaryColor || config.primaryColor} 100%)`,
+                        color: 'white',
+                        flexShrink: 0,
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        border: '3px solid rgba(255, 255, 255, 0.2)',
+                        position: 'relative',
+                        overflow: 'hidden'
+                      }}>
+                        {/* Subtle shine effect */}
+                        <div style={{
+                          position: 'absolute',
+                          top: '-50%',
+                          left: '-50%',
+                          width: '200%',
+                          height: '200%',
+                          background: 'linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent)',
+                          transform: 'rotate(45deg)',
+                          animation: 'shimmer 3s infinite'
+                        }} />
+                        {message.isUser ? <User size={20} /> : <Bot size={20} />}
+                      </div>
+
+                      {/* Enhanced Message Bubble */}
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: message.isUser ? 'flex-end' : 'flex-start',
+                        maxWidth: '75%',
+                        width: '100%'
+                      }}>
+                        <div
+                          className="mobile-optimized"
+                          style={{
+                            padding: '16px 20px',
+                            borderRadius: '24px',
+                            boxShadow: message.isUser 
+                              ? '0 4px 16px rgba(0, 0, 0, 0.1)' 
+                              : '0 4px 16px rgba(0, 0, 0, 0.08)',
+                            transition: 'all 0.3s ease',
+                            cursor: 'default',
+                            background: message.isUser
+                              ? (config.userMessageColor || `linear-gradient(135deg, ${config.primaryColor} 0%, ${config.secondaryColor || config.primaryColor} 100%)`)
+                              : (config.botMessageColor || 'white'),
+                            color: message.isUser ? 'white' : (config.textColor || '#1e293b'),
+                            border: message.isUser ? 'none' : '1px solid rgba(0, 0, 0, 0.06)',
+                            borderBottomLeftRadius: message.isUser ? '24px' : '8px',
+                            borderBottomRightRadius: message.isUser ? '8px' : '24px',
+                            position: 'relative',
+                            overflow: 'hidden'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                            e.currentTarget.style.boxShadow = message.isUser 
+                              ? '0 8px 24px rgba(0, 0, 0, 0.15)' 
+                              : '0 8px 24px rgba(0, 0, 0, 0.12)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.boxShadow = message.isUser 
+                              ? '0 4px 16px rgba(0, 0, 0, 0.1)' 
+                              : '0 4px 16px rgba(0, 0, 0, 0.08)';
+                          }}
+                        >
+                          {/* Message shine effect */}
+                          {!message.isUser && (
+                            <div style={{
+                              position: 'absolute',
+                              top: 0,
+                              left: '-100%',
+                              width: '100%',
+                              height: '100%',
+                              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
+                              animation: 'shimmer 3s infinite'
+                            }} />
+                          )}
+                          
+                          <MessageContent message={message} />
+                        </div>
+                        
+                        {/* Enhanced Timestamp */}
+                        <span style={{
+                          fontSize: '11px',
+                          color: '#64748b',
+                          marginTop: '8px',
+                          padding: '0 8px',
+                          fontWeight: '500',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px'
+                        }}>
+                          <Clock size={10} />
+                          {message.timestamp.toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Enhanced Typing Indicator */}
+                  {isLoading && (
+                    <div className="animate-fade-in-up" style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '16px',
+                      opacity: 0,
+                      animation: 'fadeInUp 0.4s ease-out forwards'
+                    }}>
+                      <div style={{
+                        width: '44px',
+                        height: '44px',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: `linear-gradient(135deg, ${config.primaryColor} 0%, ${config.secondaryColor || config.primaryColor} 100%)`,
+                        color: 'white',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        border: '3px solid rgba(255, 255, 255, 0.2)',
+                        flexShrink: 0,
+                        position: 'relative',
+                        overflow: 'hidden'
+                      }}>
+                        <div style={{
+                          position: 'absolute',
+                          top: '-50%',
+                          left: '-50%',
+                          width: '200%',
+                          height: '200%',
+                          background: 'linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent)',
+                          transform: 'rotate(45deg)',
+                          animation: 'shimmer 2s infinite'
+                        }} />
+                        <Bot size={20} />
+                      </div>
+                      
+                      <div style={{
+                        background: config.botMessageColor || 'white',
+                        border: '1px solid rgba(0, 0, 0, 0.06)',
+                        padding: '20px 24px',
+                        borderRadius: '24px',
+                        borderBottomLeftRadius: '8px',
+                        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+                        color: config.textColor || '#1e293b',
+                        position: 'relative',
+                        overflow: 'hidden'
+                      }}>
+                        {/* Typing animation background */}
+                        <div style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: '-100%',
+                          width: '100%',
+                          height: '100%',
+                          background: 'linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.05), transparent)',
+                          animation: 'shimmer 2s infinite'
+                        }} />
+                        
+                        <div style={{ 
+                          display: 'flex', 
+                          gap: '6px', 
+                          alignItems: 'center',
+                          position: 'relative',
+                          zIndex: 1
+                        }}>
+                          {/* Enhanced typing dots */}
+                          {[0, 1, 2].map((i) => (
+                            <div
+                              key={i}
+                              style={{
+                                width: '8px',
+                                height: '8px',
+                                backgroundColor: config.primaryColor || '#3B82F6',
+                                borderRadius: '50%',
+                                animation: 'typingPulse 1.4s infinite ease-in-out',
+                                animationDelay: `${i * 0.2}s`,
+                                boxShadow: `0 2px 4px ${config.primaryColor || '#3B82F6'}40`
+                              }}
+                            />
+                          ))}
+                          <span style={{
+                            marginLeft: '8px',
+                            fontSize: '13px',
+                            fontWeight: '500',
+                            color: config.textColor || '#64748b'
+                          }}>
+                            AI is thinking...
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
+              </div>
+            </main>
+
+            {/* Enhanced Input Area */}
+            <footer style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+              boxShadow: '0 -8px 32px rgba(0, 0, 0, 0.08)',
+              backdropFilter: 'blur(20px)',
+              display: 'flex',
+              justifyContent: 'center',
+              position: 'relative'
+            }}>
+              {/* Subtle top border gradient */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '1px',
+                background: `linear-gradient(90deg, transparent, ${config.primaryColor}40, transparent)`
+              }} />
+
+              <div style={{
+                width: '100%',
+                maxWidth: '1000px',
+                margin: '0 16px',
+                padding: '20px 0'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  gap: '16px'
+                }}>
+                  <div style={{ flex: 1, position: 'relative' }}>
+                    {/* Enhanced Input Field */}
+                    <div style={{ position: 'relative' }}>
+                      <input
+                        type="text"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        placeholder={config.placeholderText}
+                        disabled={isLoading || !isOnline}
+                        className="mobile-input"
+                        style={{
+                          width: '100%',
+                          padding: '16px 60px 16px 20px',
+                          fontSize: '16px',
+                          border: '2px solid #e2e8f0',
+                          borderRadius: '16px',
+                          outline: 'none',
+                          transition: 'all 0.3s ease',
+                          backgroundColor: 'white',
+                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                          fontFamily: config.fontFamily,
+                          color: config.textColor || '#1e293b',
+                          minHeight: '52px',
+                          resize: 'none'
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = config.primaryColor || '#3b82f6';
+                          e.target.style.boxShadow = `0 0 0 3px ${config.primaryColor || '#3b82f6'}20, 0 4px 12px rgba(0, 0, 0, 0.08)`;
+                          e.target.style.transform = 'translateY(-1px)';
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = '#e2e8f0';
+                          e.target.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
+                          e.target.style.transform = 'translateY(0)';
+                        }}
+                      />
+                      
+                      {/* Character Counter */}
+                      <div style={{
+                        position: 'absolute',
+                        right: '16px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        fontSize: '11px',
+                        color: '#94a3b8',
+                        fontWeight: '600',
+                        background: 'rgba(255, 255, 255, 0.9)',
+                        padding: '2px 6px',
+                        borderRadius: '6px',
+                        backdropFilter: 'blur(4px)'
+                      }}>
+                        {inputValue.length}/500
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Enhanced Send Button */}
+                  <button
+                    onClick={sendMessage}
+                    disabled={isLoading || !inputValue.trim() || !isOnline}
+                    className="mobile-send-button"
+                    style={{
+                      minHeight: '52px',
+                      minWidth: '52px',
+                      borderRadius: '16px',
+                      border: 'none',
+                      background: isLoading || !inputValue.trim() || !isOnline
+                        ? 'linear-gradient(135deg, #94a3b8 0%, #64748b 100%)'
+                        : `linear-gradient(135deg, ${config.primaryColor} 0%, ${config.secondaryColor || config.primaryColor} 100%)`,
+                      color: 'white',
+                      cursor: isLoading || !inputValue.trim() || !isOnline ? 'not-allowed' : 'pointer',
+                      transition: 'all 0.3s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      boxShadow: isLoading || !inputValue.trim() || !isOnline
+                        ? '0 2px 8px rgba(0, 0, 0, 0.1)'
+                        : `0 4px 16px ${config.primaryColor || '#3b82f6'}40`,
+                      position: 'relative',
+                      overflow: 'hidden'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isLoading && inputValue.trim() && isOnline) {
+                        e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
+                        e.currentTarget.style.boxShadow = `0 8px 24px ${config.primaryColor || '#3b82f6'}50`;
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isLoading && inputValue.trim() && isOnline) {
+                        e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                        e.currentTarget.style.boxShadow = `0 4px 16px ${config.primaryColor || '#3b82f6'}40`;
+                      }
+                    }}
+                  >
+                    {/* Button shine effect */}
+                    {!isLoading && inputValue.trim() && isOnline && (
+                      <div style={{
+                        position: 'absolute',
+                        top: '-50%',
+                        left: '-50%',
+                        width: '200%',
+                        height: '200%',
+                        background: 'linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent)',
+                        transform: 'rotate(45deg)',
+                        animation: 'shimmer 3s infinite'
+                      }} />
+                    )}
+                    
+                    {isLoading ? (
+                      <div style={{
+                        width: '20px',
+                        height: '20px',
+                        border: '2px solid rgba(255, 255, 255, 0.3)',
+                        borderTop: '2px solid white',
+                        borderRadius: '50%',
+                        animation: 'spin 1s linear infinite'
+                      }} />
+                    ) : (
+                      <Send size={20} style={{ position: 'relative', zIndex: 1 }} />
+                    )}
+                  </button>
+                </div>
+
+                {/* Enhanced Status Bar */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: '16px',
+                  padding: '0 4px'
+                }}>
+                  {/* Connection Status */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    fontSize: '12px',
+                    color: '#64748b',
+                    fontWeight: '500'
+                  }}>
+                    <div style={{
+                      width: '8px',
+                      height: '8px',
+                      backgroundColor: isOnline ? '#10b981' : '#ef4444',
+                      borderRadius: '50%',
+                      boxShadow: isOnline ? '0 0 8px rgba(16, 185, 129, 0.4)' : '0 0 8px rgba(239, 68, 68, 0.4)',
+                      animation: isOnline ? 'pulse 2s infinite' : 'none'
+                    }} />
+                    <span>{isOnline ? 'Connected' : 'Reconnecting...'}</span>
+                    {isLoading && (
+                      <>
+                        <span>•</span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+                          <Sparkles size={12} style={{ animation: 'spin 2s linear infinite' }} />
+                          AI responding...
+                        </span>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Enhanced Security Badge */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    fontSize: '11px',
+                    color: '#64748b',
+                    fontWeight: '500'
+                  }}>
+                    <Shield size={10} />
+                    <span>Secure</span>
+                  </div>
+                </div>
+
+                {/* Enhanced Footer Attribution */}
+                <div style={{
+                  textAlign: 'center',
+                  marginTop: '12px'
+                }}>
+                  <a
+                    href="https://axiestudio.se"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      fontSize: '11px',
+                      color: '#94a3b8',
+                      textDecoration: 'none',
+                      fontWeight: '500',
+                      transition: 'all 0.2s ease',
+                      padding: '6px 12px',
+                      borderRadius: '12px',
+                      background: 'rgba(255, 255, 255, 0.5)',
+                      backdropFilter: 'blur(4px)',
+                      border: '1px solid rgba(0, 0, 0, 0.04)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = '#1e293b';
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = '#94a3b8';
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.5)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    <MessageCircle size={12} />
+                    Powered by{' '}
+                    <span style={{
+                      background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      fontWeight: '700'
+                    }}>
+                      Axie Studio
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </footer>
+          </>
+        )}
+      </div>
     </>
   );
 };
